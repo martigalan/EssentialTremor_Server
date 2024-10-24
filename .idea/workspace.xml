@@ -5,20 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Data/ACC.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Data/EMG.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/iFaces/InterfaceConnectionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/iFaces/SignalManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/iFaces/StateManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/iFaces/TreatmentManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jdbc/JDBCSignalManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/Doctor.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/DoctorNotes.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Doctor.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
