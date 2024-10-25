@@ -2,15 +2,20 @@ package pojos;
 
 import jdbc.ConnectionManager;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 public class Doctor {
 
+    private User user;
     private String name;
     private String surname;
     private List<Patient> patients;
-
+    private List<MedicalRecord> medicalRecords;
+    private List<DoctorsNote> doctorsNotes;
     private ConnectionManager access;
+
 
     public Doctor(String name, String surname, List<Patient> patients) {
         this.name = name;
@@ -24,6 +29,22 @@ public class Doctor {
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\''+
                 '}';
+    }
+
+    public List<MedicalRecord> getMedicalRecords() {
+        return medicalRecords;
+    }
+
+    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
+        this.medicalRecords = medicalRecords;
+    }
+
+    public List<DoctorsNote> getDoctorsNote() {
+        return doctorsNotes;
+    }
+
+    public void setDoctorsNote(List<DoctorsNote> doctorsNotes) {
+        this.doctorsNotes = doctorsNotes;
     }
 
     public void setName(String name) {
@@ -68,97 +89,50 @@ public class Doctor {
     }
 
     private Patient choosePatient() {
+        Scanner sc = new Scanner(System.in);
         List<Patient> listOfPatients = getPatients();
         for (int i = 0; i < listOfPatients.size(); i++) {
             System.out.println((i + 1) + ": " + listOfPatients.get(i).getName() + " " + listOfPatients.get(i).getSurname());
         }
         System.out.println("--- Please choose the patient by number: ");
 
-        int number = UserInput.getIntWithValidation(1, listOfPatients.size()); //TODO change UserInput
+        int number = sc.nextInt();
+        sc.close();
         return listOfPatients.get(number - 1);
     }
 
-    private void updatePatient(Patient patient) {
-        System.out.println("Patient information: " + patient);
-        switchState(patient);
-        switchTreatment(patient);
-        System.out.println("Patient information: " + patient);
+    private MedicalRecord receiveMedicalRecord(){
+        //TODO with sockets, ONLY receive the record and build a new one from the single parameters
+        //MedicalRecord medicalRecord = new MedicalRecord();
+        //this.getMedicalRecords().add(medicalRecord);
+        return null;
     }
-
-    private void switchState(Patient patient) {
-        Boolean valid = false;
-        System.out.println("Current state: " + patient.getState());
-        System.out.println("Do you wish to change the state?: (y/n)");
-
-        while (!valid) {
-            String option = UserInput.getString(""); //TODO change UserInput
-
-            if (option.equals("y")) {
-                valid = true;
-                System.out.println("1: " + State.GOOD);
-                System.out.println("2: " + State.BAD);
-                System.out.println("3: " + State.STABLE);
-                System.out.println("4: " + State.CLOSED);
-                System.out.println("Choose an option for state: ");
-
-                int stateOption = UserInput.getIntWithValidation(1, 4); //TODO change UserInput
-
-                switch (stateOption) {
-                    case 1: patient.setState(State.GOOD); break;
-                    case 2: patient.setState(State.BAD); break;
-                    case 3: patient.setState(State.STABLE); break;
-                    case 4: patient.setState(State.CLOSED); break;
-                }
-
-            } else if (option.equals("n")) {
-                valid = true;
-                System.out.println("---NO CHANGES WERE MADE");
-            } else {
-                System.out.println("---NOT A VALID INPUT, PLEASE TRY AGAIN...");
-            }
-        }
+    private void showInfoMedicalRecord(MedicalRecord medicalRecord){
+        //TODO show info, graphs and everything
+        System.out.println(medicalRecord);
+        medicalRecord.showAcc();
+        medicalRecord.showEMG();
     }
-
-    private void switchTreatment(Patient patient) {
-        Boolean valid = false;
-        System.out.println("Current treatment: " + patient.getTreatment());
-        System.out.println("Do you wish to change the treatment?: (y/n)");
-
-        while (!valid) {
-            String option = UserInput.getString(""); //TODO change UserInput
-
-            if (option.equals("y")) {
-                valid = true;
-                System.out.println("1: " + Treatment.PRIMIDONE);
-                System.out.println("2: " + Treatment.PROPRANOLOL);
-                System.out.println("3: " + Treatment.SURGERY);
-                System.out.println("Choose an option for treatment: ");
-
-                int treatmentOption = UserInput.getIntWithValidation(1, 3); //TODO change UserInput
-
-                switch (treatmentOption) {
-                    case 1: patient.setTreatment(Treatment.PRIMIDONE); break;
-                    case 2: patient.setTreatment(Treatment.PROPRANOLOL); break;
-                    case 3: patient.setTreatment(Treatment.SURGERY); break;
-                }
-
-            } else if (option.equals("n")) {
-                valid = true;
-                System.out.println("---NO CHANGES WERE MADE");
-            } else {
-                System.out.println("---NOT A VALID INPUT, PLEASE TRY AGAIN...");
-            }
-        }
+    private DoctorsNote createDoctorsNote(MedicalRecord medicalRecord){
+        //create a note for the medical record
+        Scanner sc = new Scanner(System.in);
+        System.out.println("\n Write any comments about the medical record (No enters): ");
+        String comments = sc.nextLine();
+        DoctorsNote doctorsNote = new DoctorsNote(comments);
+        sc.close();
+        medicalRecord.getDoctorsNotes().add(doctorsNote);
+        this.getDoctorsNote().add(doctorsNote);
+        return doctorsNote;
     }
-
 
     private void addPatient(){
+        Scanner sc = new Scanner(System.in);
         System.out.println("- Name: ");
-        String name = UserInput.getString(""); //TODO change UserInput
+        String name = sc.nextLine();
         System.out.println("- Surname: ");
-        String surname = UserInput.getString(""); //TODO change UserInput
+        String surname = sc.nextLine();
         System.out.println("- Genetic background: (y/n)");
-        String genBackCheck = UserInput.getString(""); //TODO change UserInput
+        String genBackCheck = sc.nextLine();
         Boolean genBack = null;
         //check
         Boolean valid = false;
@@ -173,39 +147,10 @@ public class Doctor {
                 System.out.println("---NOT A VALID INPUT, PLEASE TRY AGAIN...");
             }
         }
-        System.out.println("- Age: ");
-        int age = UserInput.getInt(""); //TODO change UserInput
-        Patient patient = new Patient(name,surname,genBack,age);
-        patient.setDoctor(this);
+        Patient patient = new Patient(name,surname,genBack);
+        patient.getDoctors().add(this);
         this.getPatients().add(patient);
-        inputState(patient);
-        inputTreatment(patient);
-    }
-
-    private void inputState(Patient patient) {
-        System.out.println("1: " + State.GOOD);
-        System.out.println("2: " + State.BAD);
-        System.out.println("3: " + State.STABLE);
-        System.out.println("4: " + State.CLOSED);
-        int stateOption = UserInput.getIntWithValidation(1, 4); //TODO change UserInput
-        switch (stateOption) {
-            case 1: patient.setState(State.GOOD); break;
-            case 2: patient.setState(State.BAD); break;
-            case 3: patient.setState(State.STABLE); break;
-            case 4: patient.setState(State.CLOSED); break;
-        }
-    }
-
-    private void inputTreatment(Patient patient) {
-        System.out.println("1: " + Treatment.PRIMIDONE);
-        System.out.println("2: " + Treatment.PROPRANOLOL);
-        System.out.println("3: " + Treatment.SURGERY);
-        int treatmentOption = UserInput.getIntWithValidation(1, 3); //TODO change UserInput
-        switch (treatmentOption) {
-            case 1: patient.setTreatment(Treatment.PRIMIDONE); break;
-            case 2: patient.setTreatment(Treatment.PROPRANOLOL); break;
-            case 3: patient.setTreatment(Treatment.SURGERY); break;
-        }
+        sc.close();
     }
 
     /*public static void main(String[] args) { //TODO delete when finished

@@ -3,18 +3,42 @@ package pojos;
 import Data.ACC;
 import Data.EMG;
 
+import java.util.List;
+
 public class MedicalRecord {
 
     private String patientName;
     private String patientSurname;
+    private int age;
+    private double weight;
+    private int height;
+    private List<String> symptoms;
     private ACC acceleration;
     private EMG emg;
+    private Boolean genetic_background;
+    private List<DoctorsNote> doctorsNotes;
+    private List<Doctor> doctors;
+    //TODO should it have a list of Doctors?
 
-    public MedicalRecord(String patientName, String patientSurname, ACC acceleration, EMG emg) {
-        this.patientName = patientName;
-        this.patientSurname = patientSurname;
-        this.acceleration = acceleration;
-        this.emg = emg;
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
+    }
+    public List<DoctorsNote> getDoctorsNotes() {
+        return doctorsNotes;
+    }
+    public void setDoctorsNotes(List<DoctorsNote> doctorsNotes) {
+        this.doctorsNotes = doctorsNotes;
+    }
+
+    public Boolean getGenetic_background() {
+        return genetic_background;
+    }
+
+    public void setGenetic_background(Boolean genetic_background) {
+        this.genetic_background = genetic_background;
     }
 
     public String getPatientName() {
@@ -25,6 +49,22 @@ public class MedicalRecord {
         this.patientName = patientName;
     }
 
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public void setSymptoms(List<String> symptoms) {
+        this.symptoms = symptoms;
+    }
+
     public String getPatientSurname() {
         return patientSurname;
     }
@@ -33,34 +73,63 @@ public class MedicalRecord {
         this.patientSurname = patientSurname;
     }
 
-    public ACC getAcceleration() {
-        return acceleration;
-    }
-
     public void setAcceleration(ACC acceleration) {
         this.acceleration = acceleration;
-    }
-
-    public EMG getEmg() {
-        return emg;
     }
 
     public void setEmg(EMG emg) {
         this.emg = emg;
     }
 
-    public void graphicSignals () { //TODO
+    public int getAge() {
+        return age;
+    }
 
+    public double getWeight() {
+        return weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public List<String> getSymptoms() {
+        return symptoms;
+    }
+
+    public ACC getAcceleration() {
+        return acceleration;
+    }
+
+    public EMG getEmg() {
+        return emg;
+    }
+
+    public MedicalRecord(int age, double weight, int height, List<String> symptoms) {
+        this.age = age;
+        this.weight = weight;
+        this.height = height;
+        this.symptoms = symptoms;
     }
 
     @Override
     public String toString() {
-        return "medicalRecord{" +
+        return "MedicalRecord{" +
                 "patientName='" + patientName + '\'' +
-                ", patientSurname='" + patientSurname + '\'' +
-                ", acceleration=" + acceleration +
-                ", emg=" + emg +
+                ", surname= '"+ patientSurname + '\''+
+                ", age=" + age +
+                ", weight=" + weight +
+                ", height=" + height +
+                ", symptoms=" + symptoms +
+                ", genetic_background=" + genetic_background +
                 '}';
     }
-}
 
+    void showAcc() {
+        //TODO
+    }
+
+    void showEMG(){
+        //TODO
+    }
+}
