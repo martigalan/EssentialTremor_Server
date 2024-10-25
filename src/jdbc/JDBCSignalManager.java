@@ -2,7 +2,7 @@ package jdbc;
 
 import Data.ACC;
 import Data.EMG;
-import ifaces.SignalManager;
+import iFaces.SignalManager;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -15,9 +15,8 @@ public class JDBCSignalManager implements SignalManager {
         this.cM = cM;
     }
 
-
     public void saveEMGSignal(EMG emg) {
-        String query = "INSERT INTO emg_signals (signal_data, filename, path, timestamp) VALUES (?, ?, ?, ?)";
+        /*String query = "INSERT INTO emg_signals (signal_data, filename, path, timestamp) VALUES (?, ?, ?, ?)";
         try (Connection conn = cM.getConnection();
              PreparedStatement prep = conn.prepareStatement(query)) {
             prep.setString(1, emg.listToString(emg.getSignalData()));
@@ -27,12 +26,12 @@ public class JDBCSignalManager implements SignalManager {
             prep.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     @Override
     public void saveACCSignal(ACC acc) {
-        String query = "INSERT INTO acc_signals (signal_data, filename, path, timestamp) VALUES (?, ?, ?, ?)";
+        /*String query = "INSERT INTO acc_signals (signal_data, filename, path, timestamp) VALUES (?, ?, ?, ?)";
         try (Connection conn = cM.getConnection();
              PreparedStatement prep = conn.prepareStatement(query)) {
             prep.setString(1, acc.listToString(acc.getSignalData()));
@@ -42,7 +41,7 @@ public class JDBCSignalManager implements SignalManager {
             prep.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
-        }
+        }*/
     }
 
     public EMG getEMGSignal(int id) {

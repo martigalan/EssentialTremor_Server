@@ -1,12 +1,11 @@
 package jdbc;
 
-import Pojos.State;
-import ifaces.TreatmentManager;
+import iFaces.TreatmentManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import Pojos.Treatment;
+import pojos.Treatment;
 
 public class JDBCTreatmentManager implements TreatmentManager {
     private ConnectionManager cM;

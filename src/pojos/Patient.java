@@ -58,6 +58,14 @@ public class Patient {
         this.user = user;
     }
 
+    public Boolean getGenetic_background() {
+        return genetic_background;
+    }
+
+    public void setGenetic_background(Boolean genetic_background) {
+        this.genetic_background = genetic_background;
+    }
+
     public List<MedicalRecord> getMedicalRecords() {
         return medicalRecords;
     }

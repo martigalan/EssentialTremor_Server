@@ -1,7 +1,7 @@
 package jdbc;
 
-import Pojos.State;
-import ifaces.StateManager;
+import pojos.State;
+import iFaces.StateManager;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -20,7 +20,7 @@ public class JDBCStateManager implements StateManager {
     public void addState() {
         for (State state : State.values()) {
             try {
-                String sql = "INSERT INTO state (name, description) SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM state WHERE name = ? LIMIT 1)";
+                String sql = "INSERT INTO State (name, description) SELECT ?, ? WHERE NOT EXISTS (SELECT 1 FROM state WHERE name = ? LIMIT 1)";
 
                 PreparedStatement prep = cM.getConnection().prepareStatement(sql);
                 prep.setString(1, state.name());

@@ -1,6 +1,6 @@
 package jdbc;
 
-import ifaces.InterfaceConnectionManager;
+import iFaces.InterfaceConnectionManager;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
@@ -51,7 +51,7 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    surname TEXT NOT NULL" +
                     ");";
             stmt.executeUpdate(table);
-            String table1= "CREATE TABLE state (" +
+            String table1= "CREATE TABLE State (" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "    name TEXT NOT NULL," +
                     "    description TEXT NOT NULL" +
