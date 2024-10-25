@@ -101,6 +101,13 @@ public class Patient {
         return new MedicalRecord(age, weight, height, symptoms);
     }
 
+    private void sendMedicalRecord(MedicalRecord medicalRecord){
+        //TODO send info
+    }
+    private DoctorsNote receiveDoctorsNote(){
+        //TODO receive info
+        return null;
+    }
     private void seeDoctorsNotes() {
         //TODO here the patient chooses what record they want to see
     }

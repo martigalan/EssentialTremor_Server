@@ -4,16 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/State.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/Treatment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pojos/User.java" afterDir="false" />
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="additions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Doctor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorNotes.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +72,18 @@
       <option name="presentableId" value="Default" />
       <updated>1729762476214</updated>
     </task>
+    <task id="LOCAL-00001" summary="additions">
+      <created>1729845851868</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1729845851868</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="additions" />
+    <option name="LAST_COMMIT_MESSAGE" value="additions" />
   </component>
 </project>
