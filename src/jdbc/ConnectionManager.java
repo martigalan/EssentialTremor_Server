@@ -66,7 +66,7 @@ public class ConnectionManager implements InterfaceConnectionManager {
             String table3 = "CREATE TABLE User (" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "    username TEXT NOT NULL," +
-                    "    password TEXT NOT NULL" +
+                    "    password BLOB NOT NULL" +
                     ");";
             stmt.executeUpdate(table3);
             String table4 = "CREATE TABLE MedicalRecord (" +

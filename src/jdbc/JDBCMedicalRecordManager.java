@@ -24,7 +24,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setDouble(2, medicalRecord.getWeight());
             prep.setDouble(3, medicalRecord.getHeight());
             //prep.setString(4, medicalRecord.getSymptoms()); TODO meter lista de Strings
-            //prep.setArray(5, medicalRecord.getAcceleration());
+            //prep.setArray(5, medicalRecord.getAcceleration()); TODO pensar como meter esto
             //prep.setArray(6, medicalRecord.getEmg());
             prep.executeUpdate();
             prep.close();
