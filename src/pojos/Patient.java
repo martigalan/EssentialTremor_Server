@@ -87,9 +87,12 @@ public class Patient {
         record.setPatientName(this.name);
         record.setPatientSurname(this.surname);
         record.setGenetic_background(this.genetic_background);
-        //TODO acc and emg
+        //Data data = obtainData();
+        //record.setAcceleration(data.getAcc());
+        //record.setEmg(data.getEmg());
         this.getMedicalRecords().add(record);
     }
+
 
     private MedicalRecord askData() {
         Scanner sc = new Scanner(System.in);

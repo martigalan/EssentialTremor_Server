@@ -18,7 +18,6 @@ public class MedicalRecord {
     private Boolean genetic_background;
     private List<DoctorsNote> doctorsNotes;
     private List<Doctor> doctors;
-    //TODO should it have a list of Doctors?
 
     public List<Doctor> getDoctors() {
         return doctors;
@@ -122,14 +121,16 @@ public class MedicalRecord {
                 ", height=" + height +
                 ", symptoms=" + symptoms +
                 ", genetic_background=" + genetic_background +
+                ", acc=" + acceleration +
+                ", emg=" + emg +
                 '}';
     }
 
     void showAcc() {
-        //TODO
+        this.acceleration.plotSignal();
     }
 
     void showEMG(){
-        //TODO
+        this.emg.plotSignal();
     }
 }
