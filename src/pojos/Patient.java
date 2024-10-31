@@ -122,4 +122,5 @@ public class Patient {
     private void seeDoctorsNotes() {
         //TODO here the patient chooses what record they want to see
     }
+
 }

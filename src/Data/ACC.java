@@ -25,6 +25,12 @@ public class ACC {
             this.timestamp = timestamp;
         }
 
+
+    public ACC(List<Integer> signalData, List<Integer> timestamp) {
+        this.signalData = signalData;
+        this.timestamp = timestamp;
+    }
+
     public ACC() {
         this.signalData = new ArrayList<>();
         this.filename = null;

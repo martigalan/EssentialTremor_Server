@@ -111,6 +111,20 @@ public class MedicalRecord {
         this.symptoms = symptoms;
     }
 
+    public MedicalRecord(String patientName, String patientSurname, int age, double weight, int height, List<String> symptoms, ACC acceleration, EMG emg, Boolean genetic_background) {
+        this.patientName = patientName;
+        this.patientSurname = patientSurname;
+        this.age = age;
+        this.weight = weight;
+        this.height = height;
+        this.symptoms = symptoms;
+        this.acceleration = acceleration;
+        this.emg = emg;
+        this.genetic_background = genetic_background;
+        this.doctorsNotes = doctorsNotes;
+        this.doctors = doctors;
+    }
+
     @Override
     public String toString() {
         return "MedicalRecord{" +

@@ -35,6 +35,11 @@ public class EMG {
         this.timestamp = new ArrayList<>();
     }
 
+    public EMG(List<Integer> emg, List<Integer> time) {
+            this.signalData = emg;
+            this.timestamp = time;
+    }
+
     public List<Integer> getSignalData() {
             return signalData;
         }

@@ -1,10 +1,21 @@
 package pojos;
 
+import Data.ACC;
+import Data.EMG;
 import jdbc.ConnectionManager;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class Doctor {
 
@@ -101,17 +112,83 @@ public class Doctor {
         return listOfPatients.get(number - 1);
     }
 
-    private MedicalRecord receiveMedicalRecord(){
-        //TODO with sockets, ONLY receive the record and build a new one from the single parameters
-        //MedicalRecord medicalRecord = new MedicalRecord(...);
-        //this.getMedicalRecords().add(medicalRecord);
-        //medicalRecord().getDoctors().add(this);
-        //DoctorsNote doctorsNote = createDoctorsNote(medicalRecord);
-        //medicalRecord.getDoctorsNotes().add(doctorsNote);
-        return null;
+    private MedicalRecord receiveMedicalRecord() throws IOException {
+        MedicalRecord medicalRecord = null;
+        try (ServerSocket serverSocket = new ServerSocket(9000)) {  // Puerto 9000 para coincidir con el cliente
+            System.out.println("Server started, waiting for client...");
+
+            try (Socket socket = serverSocket.accept();
+                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+                System.out.println("Client connected. Receiving data...");
+
+                // Read each line
+                String patientName = bufferedReader.readLine();
+                String patientSurname = bufferedReader.readLine();
+                int age = Integer.parseInt(bufferedReader.readLine());
+                double weight = Double.parseDouble(bufferedReader.readLine());
+                int height = Integer.parseInt(bufferedReader.readLine());
+                // Symptoms
+                String symptoms = bufferedReader.readLine();
+                List<String> listSymptoms = splitToStringList(symptoms);
+                // time, acc and emg
+                String time = bufferedReader.readLine();
+                List<Integer> listTime = splitToIntegerList(time);
+                String acc = bufferedReader.readLine();
+                List<Integer> listAcc = splitToIntegerList(acc);
+                String emg = bufferedReader.readLine();
+                List<Integer> listEmg = splitToIntegerList(emg);
+                // genBack
+                boolean geneticBackground = Boolean.parseBoolean(bufferedReader.readLine());
+
+                releaseResources(bufferedReader, socket, serverSocket);
+
+                ACC acc1 = new ACC(listAcc, listTime);
+                EMG emg1 = new EMG(listEmg, listTime);
+                medicalRecord = new MedicalRecord(patientName, patientSurname,age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
+                this.getMedicalRecords().add(medicalRecord);
+                medicalRecord.getDoctors().add(this);
+                //TODO this is in the main
+                //DoctorsNote doctorsNote = createDoctorsNote(medicalRecord);
+                //medicalRecord.getDoctorsNotes().add(doctorsNote);
+                return medicalRecord;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return medicalRecord;
+    }
+
+    public static List<String> splitToStringList(String str) {
+        return Arrays.asList(str.split(","));
+    }
+    public static List<Integer> splitToIntegerList(String str) {
+        return Arrays.stream(str.split(","))
+                .map(Integer::parseInt) // Convierte cada elemento a Integer
+                .collect(Collectors.toList());
+    }
+
+    private static void releaseResources(BufferedReader bufferedReader,
+                                         Socket socket, ServerSocket socketServidor) {
+        try {
+            bufferedReader.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            socketServidor.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     private void showInfoMedicalRecord(MedicalRecord medicalRecord){
-        //TODO show info, graphs and everything
         System.out.println(medicalRecord);
         medicalRecord.showAcc();
         medicalRecord.showEMG();
@@ -205,5 +282,7 @@ public class Doctor {
         this.getPatients().add(patient);
         sc.close();
     }
+
+
 
 }
