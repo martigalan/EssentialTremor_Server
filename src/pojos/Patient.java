@@ -167,7 +167,7 @@ public class Patient {
 
     private DoctorsNote receiveDoctorsNote()throws IOException {
         DoctorsNote doctorsNote = null;
-        try (ServerSocket serverSocket = new ServerSocket(9000)) {  // Puerto 9000 para coincidir con el cliente
+        try (ServerSocket serverSocket = new ServerSocket(9009)) {  // Puerto 9009 para coincidir con el cliente
             System.out.println("Server started, waiting for client...");
 
             try (Socket socket = serverSocket.accept();
@@ -197,6 +197,10 @@ public class Patient {
         }
         return doctorsNote;
     }
+    private MedicalRecord chooseMR(){ //TODO choose
+        MedicalRecord mr = this.getMedicalRecords().get(0);
+        return mr;
+    }
 
     private static void releaseReceivingResources(BufferedReader bufferedReader,
                                                   Socket socket, ServerSocket socketServidor) {
@@ -225,12 +229,12 @@ public class Patient {
 
     public static void main(String[] args) throws IOException {
         Patient p = new Patient("a", "a", Boolean.TRUE);
-        //p.openRecord();
+        p.openRecord();
         /*for (int i=0; i<p.getMedicalRecords().size();i++){
             System.out.println(p.getMedicalRecords().get(i));
         }*/
-        //MedicalRecord mr = p.chooseMR();
-        //p.sendMedicalRecord(mr);
+        MedicalRecord mr = p.chooseMR();
+        p.sendMedicalRecord(mr);
         p.receiveDoctorsNote();
     }
 

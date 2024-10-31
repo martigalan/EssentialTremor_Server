@@ -10,10 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -33,6 +30,8 @@ public class Doctor {
         this.name = name;
         this.surname = surname;
         this.patients = patients;
+        this.doctorsNotes = new ArrayList<>();
+        this.medicalRecords = new ArrayList<>();
     }
 
     @Override
@@ -165,7 +164,8 @@ public class Doctor {
     }
     public static List<Integer> splitToIntegerList(String str) {
         return Arrays.stream(str.split(","))
-                .map(Integer::parseInt) // Convierte cada elemento a Integer
+                .filter(s -> s.matches("-?\\d+"))  // Solo permite números enteros (positivos o negativos)
+                .map(Integer::parseInt)
                 .collect(Collectors.toList());
     }
 
@@ -256,7 +256,7 @@ public class Doctor {
 
     private void sendDoctorsNote(DoctorsNote doctorsNote) throws IOException {
         //TODO, send info to server
-        Socket socket = new Socket("localhost", 9000);
+        Socket socket = new Socket("localhost", 9009);
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("Connection established... sending text");
         printWriter.println(getName());
@@ -307,7 +307,10 @@ public class Doctor {
         List<Patient> list = null;
         Doctor d = new Doctor("a","a",list);
 
-        d.receiveMedicalRecord();
+        MedicalRecord mr = d.receiveMedicalRecord();
+
+        DoctorsNote dn = d.createDoctorsNote(mr);
+        d.sendDoctorsNote(dn);
     }
 
 }
