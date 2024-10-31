@@ -1,9 +1,17 @@
 package pojos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Patient {
@@ -112,15 +120,118 @@ public class Patient {
         return new MedicalRecord(age, weight, height, symptoms);
     }
 
-    private void sendMedicalRecord(MedicalRecord medicalRecord){
+    private void sendMedicalRecord(MedicalRecord medicalRecord) throws IOException {
         //TODO send info
+        Socket socket = new Socket("localhost", 9000);
+        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
+        System.out.println("Connection established... sending text");
+        printWriter.println(medicalRecord.getPatientName());
+        printWriter.println(medicalRecord.getPatientSurname());
+        printWriter.println(medicalRecord.getAge());//int
+        printWriter.println(medicalRecord.getWeight());//double
+        printWriter.println(medicalRecord.getHeight());//int
+        //symptoms
+        String symptoms = joinWithCommas(medicalRecord.getSymptoms());
+        System.out.println(symptoms);
+        //timestamp
+        String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
+        printWriter.println(time);
+        //acc
+        String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
+        printWriter.println(acc);
+        //emg
+        String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
+        printWriter.println(emg);
+        printWriter.println(medicalRecord.getGenetic_background());//boolean
+        releaseSendingResources(printWriter, socket);
     }
-    private DoctorsNote receiveDoctorsNote(){
-        //TODO receive info
-        return null;
+
+    public static String joinWithCommas(List<String> list) {
+        return String.join(",", list);
     }
+    public static String joinIntegersWithCommas(List<Integer> list) {
+        return list.stream()
+                .map(String::valueOf) // Convierte cada Integer a String
+                .collect(Collectors.joining(","));
+    }
+
+    private static void releaseSendingResources(PrintWriter printWriter, Socket socket) {
+        printWriter.close();
+
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Patient.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private DoctorsNote receiveDoctorsNote()throws IOException {
+        DoctorsNote doctorsNote = null;
+        try (ServerSocket serverSocket = new ServerSocket(9000)) {  // Puerto 9000 para coincidir con el cliente
+            System.out.println("Server started, waiting for client...");
+
+            try (Socket socket = serverSocket.accept();
+                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
+
+                System.out.println("Client connected. Receiving data...");
+
+                // Read each line
+                String doctorName = bufferedReader.readLine();
+                System.out.println(doctorName);
+                String doctorSurname = bufferedReader.readLine();
+                System.out.println(doctorSurname);
+                String notes = bufferedReader.readLine();
+                System.out.println(notes);
+
+                releaseReceivingResources(bufferedReader, socket, serverSocket);
+
+                doctorsNote = new DoctorsNote(doctorName, doctorSurname, notes);
+                //TODO meter esto en lista doctor
+                //TODO this is in the main
+                //DoctorsNote doctorsNote = createDoctorsNote(medicalRecord);
+                //medicalRecord.getDoctorsNotes().add(doctorsNote);
+                return doctorsNote;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return doctorsNote;
+    }
+
+    private static void releaseReceivingResources(BufferedReader bufferedReader,
+                                                  Socket socket, ServerSocket socketServidor) {
+        try {
+            bufferedReader.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        try {
+            socketServidor.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void seeDoctorsNotes() {
         //TODO here the patient chooses what record they want to see
+    }
+
+    public static void main(String[] args) throws IOException {
+        Patient p = new Patient("a", "a", Boolean.TRUE);
+        //p.openRecord();
+        /*for (int i=0; i<p.getMedicalRecords().size();i++){
+            System.out.println(p.getMedicalRecords().get(i));
+        }*/
+        //MedicalRecord mr = p.chooseMR();
+        //p.sendMedicalRecord(mr);
+        p.receiveDoctorsNote();
     }
 
 }
