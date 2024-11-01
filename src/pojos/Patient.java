@@ -151,7 +151,7 @@ public class Patient {
     }
     public static String joinIntegersWithCommas(List<Integer> list) {
         return list.stream()
-                .map(String::valueOf) // Convierte cada Integer a String
+                .map(String::valueOf) // Convert Integer to String
                 .collect(Collectors.joining(","));
     }
 
