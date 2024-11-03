@@ -146,10 +146,10 @@ public class MedicalRecord {
     }
 
     void showAcc() {
-        this.acceleration.plotSignal();
+        //this.acceleration.plotSignal();
     }
 
     void showEMG(){
-        this.emg.plotSignal();
+        //this.emg.plotSignal();
     }
 }

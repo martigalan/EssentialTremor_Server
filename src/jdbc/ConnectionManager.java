@@ -78,7 +78,7 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    symptoms TEXT," +
                     "    acc VARCHAR(256)," +
                     "    emg VARCHAR(256)," +
-                    "    FOREIGN KEY (patient_id) REFERENCES Patient(id) ON DELETE CASCADE," +
+                    "    FOREIGN KEY (patient_id) REFERENCES Patient(id) ON DELETE CASCADE" +
                     ");";
             stmt.executeUpdate(table4);
             String table5 = "CREATE TABLE Patient (" +
