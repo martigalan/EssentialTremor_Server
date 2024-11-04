@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="sockets for DoctorsNote">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="made server and client similar">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Doctor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +119,8 @@
       <workItem from="1730205733912" duration="10000" />
       <workItem from="1730289855712" duration="1143000" />
       <workItem from="1730366572518" duration="5377000" />
-      <workItem from="1730457424794" duration="657000" />
+      <workItem from="1730457424794" duration="868000" />
+      <workItem from="1730652817076" duration="69000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -151,7 +150,14 @@
       <option name="project" value="LOCAL" />
       <updated>1730381616228</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="made server and client similar">
+      <created>1730458287190</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1730458287190</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -162,6 +168,7 @@
     <MESSAGE value="new methods and library" />
     <MESSAGE value="sockets" />
     <MESSAGE value="sockets for DoctorsNote" />
-    <option name="LAST_COMMIT_MESSAGE" value="sockets for DoctorsNote" />
+    <MESSAGE value="made server and client similar" />
+    <option name="LAST_COMMIT_MESSAGE" value="made server and client similar" />
   </component>
 </project>
