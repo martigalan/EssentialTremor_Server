@@ -14,13 +14,16 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class Patient {
+public class Patient implements Runnable{
     private String name;
     private String surname;
     private Boolean genetic_background;
     private User user;
     private List<MedicalRecord> medicalRecords;
     private List<Doctor> doctors;
+
+    public Patient() {
+    }
 
     public Patient(String name, String surname, Boolean genBack) {
         this.name = name;
@@ -120,9 +123,13 @@ public class Patient {
         return new MedicalRecord(age, weight, height, symptoms);
     }
 
-    private void sendMedicalRecord(MedicalRecord medicalRecord) throws IOException {
-        //TODO send info
-        Socket socket = new Socket("localhost", 9000);
+    private MedicalRecord chooseMR(){
+        MedicalRecord mr = this.getMedicalRecords().get(0);
+        return mr;
+    }
+
+    private void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
+        //TODO send info, CHECK
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("Connection established... sending text");
         printWriter.println(medicalRecord.getPatientName());
@@ -143,7 +150,7 @@ public class Patient {
         String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
         printWriter.println(emg);
         printWriter.println(medicalRecord.getGenetic_background());//boolean
-        releaseSendingResources(printWriter, socket);
+        //releaseSendingResources(printWriter, socket);
     }
 
     public static String joinWithCommas(List<String> list) {
@@ -155,17 +162,10 @@ public class Patient {
                 .collect(Collectors.joining(","));
     }
 
-    private static void releaseSendingResources(PrintWriter printWriter, Socket socket) {
-        printWriter.close();
 
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Patient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
 
     private DoctorsNote receiveDoctorsNote()throws IOException {
+        //TODO check this one
         DoctorsNote doctorsNote = null;
         try (ServerSocket serverSocket = new ServerSocket(9009)) {  // Puerto 9009 para coincidir con el cliente
             System.out.println("Server started, waiting for client...");
@@ -197,13 +197,8 @@ public class Patient {
         }
         return doctorsNote;
     }
-    private MedicalRecord chooseMR(){ //TODO choose
-        MedicalRecord mr = this.getMedicalRecords().get(0);
-        return mr;
-    }
 
-    private static void releaseReceivingResources(BufferedReader bufferedReader,
-                                                  Socket socket, ServerSocket socketServidor) {
+    private static void releaseReceivingResources(BufferedReader bufferedReader, Socket socket, ServerSocket socketServidor) {
         try {
             bufferedReader.close();
         } catch (IOException ex) {
@@ -227,15 +222,19 @@ public class Patient {
         //TODO here the patient chooses what record they want to see
     }
 
-    public static void main(String[] args) throws IOException {
+    /*public static void main(String[] args) throws IOException {
         Patient p = new Patient("a", "a", Boolean.TRUE);
         p.openRecord();
-        /*for (int i=0; i<p.getMedicalRecords().size();i++){
+        for (int i=0; i<p.getMedicalRecords().size();i++){
             System.out.println(p.getMedicalRecords().get(i));
-        }*/
+        }
         MedicalRecord mr = p.chooseMR();
-        p.sendMedicalRecord(mr);
+        //p.sendMedicalRecord(mr);
         p.receiveDoctorsNote();
-    }
+    }*/
 
+    @Override
+    public void run() {
+
+    }
 }
