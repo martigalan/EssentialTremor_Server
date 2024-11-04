@@ -9,8 +9,7 @@ public class User implements Serializable {
     public String username;
     public byte[] password;
 
-    public User(int id) {
-        super();
+    public User() {
     }
 
     public User(int id, String username, byte[] password) {
