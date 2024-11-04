@@ -48,7 +48,9 @@ public class ConnectionManager implements InterfaceConnectionManager {
             String table = "CREATE TABLE Doctor (" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "    name TEXT NOT NULL," +
-                    "    surname TEXT NOT NULL" +
+                    "    surname TEXT NOT NULL," +
+                    "    user_id INTEGER," +
+                    "    FOREIGN KEY (user_id) REFERENCES User(id)" +
                     ");";
             stmt.executeUpdate(table);
             String table1= "CREATE TABLE State (" +
@@ -85,7 +87,9 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "    name TEXT NOT NULL," +
                     "    surname TEXT NOT NULL," +
-                    "    genetic_background BOOLEAN" +
+                    "    genetic_background BOOLEAN," +
+                    "    user_id INTEGER," +
+                    "    FOREIGN KEY (user_id) REFERENCES User(id)" +
                     ");";
             stmt.executeUpdate(table5);
             String table6 = "CREATE TABLE DoctorNotes (" +

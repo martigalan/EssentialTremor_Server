@@ -27,7 +27,7 @@ public class JDBCTreatmentManager implements TreatmentManager {
                 prep.executeUpdate();
                 prep.close();
             } catch (SQLException ex) {
-                Logger.getLogger(JDBCStateManager.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(JDBCTreatmentManager.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
     }

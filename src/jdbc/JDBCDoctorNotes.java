@@ -16,15 +16,17 @@ public class JDBCDoctorNotes implements DoctorNotes {
     }
 
     @Override
-    public void addDoctorNotes(DoctorsNote doctorsNote) {
+    public void addDoctorNote(DoctorsNote doctorsNote) {
         try {
             String sql = "INSERT INTO DoctorNotes (description, medical_record_id, doctor_id) SELECT ?, ?, ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setString(1, doctorsNote.getNotes());
+            prep.setInt(2, doctorsNote.getMedicalRecordId());
+            prep.setInt(3, doctorsNote.getDoctorId());
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
-            Logger.getLogger(JDBCStateManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDBCDoctorNotes.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

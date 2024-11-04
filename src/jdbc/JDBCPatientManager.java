@@ -25,7 +25,7 @@ public class JDBCPatientManager implements PatientManager {
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
-            Logger.getLogger(JDBCStateManager.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDBCPatientManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

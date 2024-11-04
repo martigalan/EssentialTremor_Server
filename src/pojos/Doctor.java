@@ -18,6 +18,7 @@ import java.util.stream.Collectors;
 public class Doctor {
 
     private User user;
+    private int id;
     private String name;
     private String surname;
     private List<Patient> patients;
@@ -25,6 +26,9 @@ public class Doctor {
     private List<DoctorsNote> doctorsNotes;
     private ConnectionManager access;
 
+    public Doctor() {
+
+    }
 
     public Doctor(String name, String surname, List<Patient> patients) {
         this.name = name;
@@ -72,6 +76,14 @@ public class Doctor {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
