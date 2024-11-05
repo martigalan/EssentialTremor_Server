@@ -1,4 +1,5 @@
 package iFaces;
+
 import pojos.MedicalRecord;
 
 public interface MedicalRecordManager {

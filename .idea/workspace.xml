@@ -5,19 +5,30 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="main for db">
-      <change afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iFaces/DoctorNotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/DoctorNotes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/ACC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/ACC.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Data.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Data/EMG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/EMG.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/DoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/DoctorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/DoctorNotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/DoctorNotesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/InterfaceConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/InterfaceConnectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/MedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/MedicalRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/PatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/PatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/SignalManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/SignalManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/UserManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotes.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotes.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCSignalManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCSignalManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Doctor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +38,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Interface" />
         <option value="Class" />
       </list>
@@ -43,7 +55,7 @@
 }</component>
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/blanca-pueche/EssentialTremor_Server.git&quot;,
+    &quot;url&quot;: &quot;https://github.com/martigalan/EssentialTremor_Server.git&quot;,
     &quot;accountId&quot;: &quot;2662babf-d373-4f34-88fb-131a7fd7428f&quot;
   }
 }</component>
@@ -68,7 +80,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/blanc/Downloads/jfreechart-1.0.19/jfreechart-1.0.19/lib/jfreechart-1.0.19.jar",
+    "last_opened_file_path": "C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/jfreechart-1.0.19.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",

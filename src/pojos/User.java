@@ -6,16 +6,18 @@ public class User implements Serializable {
 
     private static final long serialVersionUID = 2L;
     private int id;
-    public String username;
-    public byte[] password;
+    private String username;
+    private byte[] password;
+    private String role;
 
     public User() {
     }
 
-    public User(int id, String username, byte[] password) {
+    public User(int id, String username, byte[] password, String role) {
         this.id=id;
         this.username=username;
         this.password=password;
+        this.role = role;
     }
 
     public String getUsername() {
@@ -42,8 +44,16 @@ public class User implements Serializable {
         this.id = id;
     }
 
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
-        return "User{" + "username=" + username + ", password=" + password + ", userId=" + id + '}';
+        return "User{" + "username=" + username + ", password=" + password + ", userId=" + id + ", role=" + role + '}';
     }
 }

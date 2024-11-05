@@ -12,7 +12,7 @@ public class JDBCDoctorManager implements DoctorManager {
 
     private ConnectionManager cM;
 
-    public JDBCDoctorManager (ConnectionManager cManager){
+    public JDBCDoctorManager(ConnectionManager cManager){
         this.cM = cManager;
     }
 
@@ -36,12 +36,15 @@ public class JDBCDoctorManager implements DoctorManager {
             String query = "SELECT * FROM Doctor WHERE user_id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
             prep.setInt(1, userId);
+
             try (ResultSet rs = prep.executeQuery()) {
                 if (rs.next()) {
                     doctor = new Doctor();
                     doctor.setId(rs.getInt("id"));
                     doctor.setName(rs.getString("name"));
                     doctor.setSurname(rs.getString("surname"));
+                } else {
+                    System.out.println("No doctor found for user ID: " + userId);
                 }
             }
         } catch (SQLException e) {
@@ -50,5 +53,6 @@ public class JDBCDoctorManager implements DoctorManager {
         }
         return doctor;
     }
+
 
 }

@@ -1,4 +1,5 @@
 package iFaces;
+
 import pojos.Doctor;
 
 public interface DoctorManager {

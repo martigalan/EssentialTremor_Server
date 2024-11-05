@@ -1,7 +1,6 @@
-package Data;
+package data;
 
 public class Data {
-
     private ACC acc;
     private EMG emg;
 

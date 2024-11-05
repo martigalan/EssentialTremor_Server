@@ -1,13 +1,14 @@
 package pojos;
 
-import Data.ACC;
-import Data.EMG;
+import data.ACC;
+import data.EMG;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MedicalRecord {
 
+    private int id;
     private String patientName;
     private String patientSurname;
     private int age;
@@ -19,6 +20,11 @@ public class MedicalRecord {
     private Boolean genetic_background;
     private List<DoctorsNote> doctorsNotes;
     private List<Doctor> doctors;
+    private int patientId;
+    private int doctorId;
+
+    public MedicalRecord() {
+    }
 
     public List<Doctor> getDoctors() {
         return doctors;
@@ -103,6 +109,30 @@ public class MedicalRecord {
 
     public EMG getEmg() {
         return emg;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
     }
 
     public MedicalRecord(int age, double weight, int height, List<String> symptoms) {
