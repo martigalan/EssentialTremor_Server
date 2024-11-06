@@ -176,7 +176,6 @@ public class MainServer {
     }
 
     private static void registerDoctor() {
-        Scanner sc = new Scanner(System.in);
         System.out.println("Registering Doctor:");
         System.out.print("Name: ");
         String name = sc.nextLine();
