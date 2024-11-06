@@ -156,6 +156,7 @@ public class MainServer {
             userManager.addUser(u);
             //TODO coger id de bbdd
             int userId = u.getId();
+            System.out.println(userId);
 
             if (role.equals("doctor")) {
                 registerDoctor(userId);
