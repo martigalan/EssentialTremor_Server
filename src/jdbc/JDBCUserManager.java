@@ -22,10 +22,11 @@ public class JDBCUserManager implements UserManager {
     @Override
     public void addUser(User user) {
         try {
-            String sql = "INSERT INTO User (username, password) VALUES (?, ?)";
+            String sql = "INSERT INTO User (username, password, role) VALUES (?, ?, ?)";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setString(1, user.getUsername());
             prep.setBytes(2, user.getPassword());
+            prep.setString(3, user.getRole());
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
@@ -79,7 +80,8 @@ public class JDBCUserManager implements UserManager {
             if (rs.next()) {
                 String username = rs.getString("username");
                 byte[] password = rs.getBytes("password");
-                User user = new User(id, username, password);
+                String role = rs.getString("role");
+                User user = new User(id, username, password, role);
                 return user;
             }
             rs.close();

@@ -22,7 +22,7 @@ public class MainServer {
     public static ConnectionManager connectionManager;
     public static JDBCUserManager userManager;
     public static JDBCDoctorManager doctorManager;
-    public static JDBCDoctorNotes doctorNotesManager;
+    public static JDBCDoctorNotesManager doctorNotesManager;
     public static JDBCMedicalRecordManager medicalRecordManager;
     public static JDBCPatientManager patientManager;
     public static JDBCStateManager stateManager;
@@ -45,7 +45,7 @@ public class MainServer {
             connectionManager = new ConnectionManager();
             userManager = new JDBCUserManager(connectionManager);
             doctorManager = new JDBCDoctorManager(connectionManager);
-            doctorNotesManager = new JDBCDoctorNotes(connectionManager);
+            doctorNotesManager = new JDBCDoctorNotesManager(connectionManager);
             medicalRecordManager = new JDBCMedicalRecordManager(connectionManager);
             patientManager = new JDBCPatientManager(connectionManager);
             stateManager = new JDBCStateManager(connectionManager);
@@ -63,9 +63,6 @@ public class MainServer {
                     new Thread(new Patient()).start();
                     printWriter = new PrintWriter(MainServer.clientSocket.getOutputStream(), true);
                     bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
-
-                    String patientData = bufferedReader.readLine();
-                    processPatientData(patientData);
 
                     // Tables for state and treatment are created MAINTAIN?
                     stateManager.addState();
@@ -144,26 +141,68 @@ public class MainServer {
         Scanner sc = new Scanner(System.in);
         try {
             User u = new User();
-
             System.out.println("Let's proceed with the registration:");
 
-            String username, password;
-
-            System.out.print("Username:");
+            String username, password, role;
+            System.out.print("Username: ");
             username = sc.nextLine();
             u.setUsername(username);
 
-            System.out.print("Password:");
+            System.out.print("Password: ");
             password = sc.nextLine();
             MessageDigest md = MessageDigest.getInstance("MD5");
             md.update(password.getBytes());
             byte[] hash = md.digest();
             u.setPassword(hash);
 
-            userManager.addUser(u); //the user is added
+            System.out.print("Role (doctor/patient): ");
+            role = sc.nextLine().toLowerCase();
+            if (!role.equals("doctor") && !role.equals("patient")) {
+                throw new IllegalArgumentException("Invalid role. Please choose either 'doctor' or 'patient'.");
+            }
+            u.setRole(role);
 
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("Error");
+            userManager.addUser(u);
+            int userId = u.getId();
+
+            if (role.equals("doctor")) {
+                registerDoctor();
+            } else {
+                registerPatient();
+            }
+        } catch (NoSuchAlgorithmException | IllegalArgumentException | IOException ex) {
+            System.out.println("Error: " + ex.getMessage());
+        }
+    }
+
+    private static void registerDoctor() {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Registering Doctor:");
+        System.out.print("Name: ");
+        String name = sc.nextLine();
+        System.out.print("Surname: ");
+        String surname = sc.nextLine();
+
+        Doctor doctor = new Doctor();
+        doctor.setName(name);
+        doctor.setSurname(surname);
+        //TODO meter userId que no se
+        doctorManager.addDoctor(doctor);
+        System.out.println("Doctor registered successfully.");
+    }
+
+    private static void registerPatient() throws IOException {
+        System.out.println("Waiting for information of patient...");
+        bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
+        String patientData = bufferedReader.readLine();
+        Patient patient = processPatientData(patientData);
+
+        if (patient != null) {
+            //TODO meter userId que no se
+            patientManager.addPatient(patient);
+            System.out.println("Patient registered successfully.");
+        } else {
+            System.out.println("Failed to register patient due to invalid data.");
         }
     }
 
@@ -174,9 +213,14 @@ public class MainServer {
         System.out.print("Password: ");
         String password = sc.nextLine();
         if (userManager.verifyUsername(username) && userManager.verifyPassword(username, password)) {
-            printWriter.println("LOGIN_SUCCESS");  //respuesta al cliente
+            printWriter.println("LOGIN_SUCCESS");
             User u = userManager.getUser(userManager.getId(username));
-            menuUser(u);
+            if (u.getRole().equals("doctor")) {
+                menuUser(u);
+            } else {
+                // TODO Manejo del menú de paciente en el cliente
+                printWriter.println("WELCOME_PATIENT");
+            }
         } else {
             printWriter.println("LOGIN_FAILED");
         }
@@ -185,8 +229,14 @@ public class MainServer {
     public static void menuUser(User u) throws IOException, SQLException {
         int option;
         MedicalRecord mr = null;
-        Doctor doctor = null;
-        doctor = doctorManager.getDoctorByUserId(u.getId()); //TODO meter doctor
+        int userId = u.getId();
+        System.out.println("Checking doctor for user ID: " + userId);
+        Doctor doctor = doctorManager.getDoctorByUserId(userId); //TODO getId bien que no lo coge
+        if (doctor == null) {
+            System.out.println("Doctor not found for user ID: " + userId);
+        } else {
+            System.out.println("Doctor found: " + doctor.getName() + " " + doctor.getSurname());
+        }
 
         while (true) {
             printMenuDoctor();
@@ -224,7 +274,7 @@ public class MainServer {
     }
 
     public static void printMenuDoctor() {
-        System.out.println("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
         System.out.println("@@                                                                  @@");
         System.out.println("@@                 Welcome.                                         @@");
         System.out.println("@@                 1. Receive medical record                        @@");
@@ -262,10 +312,9 @@ public class MainServer {
         }
     }
 
-    public static void processPatientData(String patientData) {
+    public static Patient processPatientData(String patientData) {
         // Los datos del cliente llegan en formato: "nombre|apellido|genetic_background"
         String[] data = patientData.split("\\|");
-
         if (data.length == 3) {
             String name = data[0];
             String surname = data[1];
@@ -275,11 +324,11 @@ public class MainServer {
             patient.setName(name);
             patient.setSurname(surname);
             patient.setGenetic_background(geneticBackground);
-            //TODO añadir user_id al patient
-            patientManager.addPatient(patient);
             System.out.println("Patient added successfully: " + patient.getName() + " " + patient.getSurname());
+            return patient;
         } else {
             System.out.println("Error: incorrect patient data format.");
+            return null;
         }
     }
 

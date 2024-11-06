@@ -1,6 +1,7 @@
 package iFaces;
+
 import pojos.DoctorsNote;
 
-public interface DoctorNotes {
+public interface DoctorNotesManager {
     public void addDoctorNote(DoctorsNote doctorsNote);
 }

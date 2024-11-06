@@ -1,4 +1,4 @@
-package Data;
+package data;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -16,17 +16,17 @@ public class EMG {
 
 //TODO see how we store this
 
-        private List<Integer> signalData;  //almacenar datos de la señal EMG
-        private String filename;    //nombre archivo donde se almacenan los datos (guardarlo en txt)
-        private String path;        //ruta del archivo
-        private List<Integer> timestamp;   //fecha y hora
+    private List<Integer> signalData;  //almacenar datos de la señal EMG
+    private String filename;    //nombre archivo donde se almacenan los datos (guardarlo en txt)
+    private String path;        //ruta del archivo
+    private List<Integer> timestamp;   //fecha y hora
 
-        public EMG(List<Integer> signalData, String filename, String path, List<Integer> timestamp) {
-            this.signalData = signalData;
-            this.filename = filename;
-            this.path = path;
-            this.timestamp = timestamp;
-        }
+    public EMG(List<Integer> signalData, String filename, String path, List<Integer> timestamp) {
+        this.signalData = signalData;
+        this.filename = filename;
+        this.path = path;
+        this.timestamp = timestamp;
+    }
 
     public EMG() {
         this.signalData = new ArrayList<>();
@@ -36,41 +36,41 @@ public class EMG {
     }
 
     public EMG(List<Integer> emg, List<Integer> time) {
-            this.signalData = emg;
-            this.timestamp = time;
+        this.signalData = emg;
+        this.timestamp = time;
     }
 
     public List<Integer> getSignalData() {
-            return signalData;
-        }
+        return signalData;
+    }
 
     public void setSignalData(List<Integer> signalData) {
-            this.signalData = signalData;
-        }
+        this.signalData = signalData;
+    }
 
     public String getFilename() {
-            return filename;
-        }
+        return filename;
+    }
 
     public void setFilename(String filename) {
-            this.filename = filename;
-        }
+        this.filename = filename;
+    }
 
     public String getPath() {
-            return path;
-        }
+        return path;
+    }
 
     public void setPath(String path) {
-            this.path = path;
-        }
+        this.path = path;
+    }
 
     public List<Integer> getTimestamp() {
-            return timestamp;
-        }
+        return timestamp;
+    }
 
     public void setTimestamp(List<Integer> timestamp) {
-            this.timestamp = timestamp;
-        }
+        this.timestamp = timestamp;
+    }
 
     @Override
     public String toString() {

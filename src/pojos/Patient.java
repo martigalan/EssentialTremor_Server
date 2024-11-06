@@ -15,10 +15,11 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Patient implements Runnable{
+    private int id;
+    private int userId;
     private String name;
     private String surname;
     private Boolean genetic_background;
-    private User user;
     private List<MedicalRecord> medicalRecords;
     private List<Doctor> doctors;
 
@@ -61,14 +62,6 @@ public class Patient implements Runnable{
         this.surname = surname;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public Boolean getGenetic_background() {
         return genetic_background;
     }
@@ -85,12 +78,28 @@ public class Patient implements Runnable{
         this.medicalRecords = medicalRecords;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
     @Override
     public String toString() {
         return "- Name: " + name + '\'' +
                 "- Surname: " + surname + '\'';
-                //"- State: " + state +
-                //"- Treatment: " + treatment;
+        //"- State: " + state +
+        //"- Treatment: " + treatment;
     }
 
     private void openRecord(){

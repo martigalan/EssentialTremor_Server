@@ -1,4 +1,4 @@
-package Data;
+package data;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ACC {
-        private List<Integer> signalData;
-        private String filename;
-        private String path;
-        private List<Integer> timestamp;
+    private List<Integer> signalData;
+    private String filename;
+    private String path;
+    private List<Integer> timestamp;
 
-        public ACC(List<Integer> signalData, String filename, String path, List<Integer> timestamp) {
-            this.signalData = signalData;
-            this.filename = filename;
-            this.path = path;
-            this.timestamp = timestamp;
-        }
+    public ACC(List<Integer> signalData, String filename, String path, List<Integer> timestamp) {
+        this.signalData = signalData;
+        this.filename = filename;
+        this.path = path;
+        this.timestamp = timestamp;
+    }
 
 
     public ACC(List<Integer> signalData, List<Integer> timestamp) {
@@ -39,39 +39,39 @@ public class ACC {
     }
 
     public List<Integer> getSignalData() {
-            return signalData;
-        }
+        return signalData;
+    }
     public void setSignalData(List<Integer> signalData) {
-            this.signalData = signalData;
-        }
+        this.signalData = signalData;
+    }
 
     public String getFilename() {
-            return filename;
-        }
+        return filename;
+    }
 
     public void setFilename(String filename) {
-            this.filename = filename;
-        }
+        this.filename = filename;
+    }
 
     public String getPath() {
-            return path;
-        }
+        return path;
+    }
 
     public void setPath(String path) {
-            this.path = path;
-        }
+        this.path = path;
+    }
 
     public List<Integer> getTimestamp() {
-            return timestamp;
-        }
+        return timestamp;
+    }
 
     public void setTimestamp(List<Integer> timestamp) {
-            this.timestamp = timestamp;
-        }
+        this.timestamp = timestamp;
+    }
 
-        @Override
+    @Override
     public String toString() {
-       return "ACC [filename=" + filename + ", path=" + path + ", timestamp=" + timestamp + ", signalData=" + signalData+"]";
+        return "ACC [filename=" + filename + ", path=" + path + ", timestamp=" + timestamp + ", signalData=" + signalData+"]";
     }
 
     public static String listToString(List<Integer> list) {

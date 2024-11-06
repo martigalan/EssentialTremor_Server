@@ -1,4 +1,5 @@
 package iFaces;
+
 import java.sql.Connection;
 
 public interface InterfaceConnectionManager {

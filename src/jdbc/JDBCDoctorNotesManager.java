@@ -1,17 +1,17 @@
 package jdbc;
 
-import iFaces.DoctorNotes;
+import iFaces.DoctorNotesManager;
 import pojos.DoctorsNote;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class JDBCDoctorNotes implements DoctorNotes {
+public class JDBCDoctorNotesManager implements DoctorNotesManager {
 
     private ConnectionManager cM;
 
-    public JDBCDoctorNotes (ConnectionManager cManager){
+    public JDBCDoctorNotesManager(ConnectionManager cManager){
         this.cM = cManager;
     }
 
@@ -26,7 +26,7 @@ public class JDBCDoctorNotes implements DoctorNotes {
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
-            Logger.getLogger(JDBCDoctorNotes.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(JDBCDoctorNotesManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

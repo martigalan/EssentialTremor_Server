@@ -1,24 +1,20 @@
 package pojos;
 
-import Data.ACC;
-import Data.EMG;
+import data.ACC;
+import data.EMG;
 import jdbc.ConnectionManager;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Doctor {
 
-    private User user;
     private int id;
+    private int userId;
     private String name;
     private String surname;
     private List<Patient> patients;
@@ -113,6 +109,14 @@ public class Doctor {
 
     public List<Patient> getPatients() {
         return patients;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     public ConnectionManager getAccess() {

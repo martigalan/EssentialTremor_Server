@@ -1,12 +1,8 @@
 package jdbc;
 
-import Data.ACC;
-import Data.EMG;
+import data.ACC;
+import data.EMG;
 import iFaces.SignalManager;
-
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
 
 public class JDBCSignalManager implements SignalManager {
     private ConnectionManager cM;

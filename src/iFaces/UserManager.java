@@ -1,5 +1,4 @@
 package iFaces;
-
 import pojos.User;
 
 public interface UserManager {
