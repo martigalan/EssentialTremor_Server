@@ -72,15 +72,7 @@ public class MainServer {
                     try {
                         control = true;
                         while (control) {
-                            System.out.println("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                            System.out.println("@@                                                                  @@");
-                            System.out.println("@@                 Welcome.                                         @@");
-                            System.out.println("@@                 1. Register                                      @@");
-                            System.out.println("@@                 2. Login                                         @@");
-                            System.out.println("@@                 0. Exit                                          @@");
-                            System.out.println("@@                                                                  @@");
-                            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-                            System.out.print("\nSelect an option: ");
+                            printLoginMenu();
 
                             try {
                                 option = sc.nextInt();
@@ -138,7 +130,6 @@ public class MainServer {
 
 
     public static void register() throws SQLException {
-        Scanner sc = new Scanner(System.in);
         try {
             User u = new User();
             System.out.println("Let's proceed with the registration:");
@@ -163,10 +154,11 @@ public class MainServer {
             u.setRole(role);
 
             userManager.addUser(u);
+            //TODO coger id de bbdd
             int userId = u.getId();
 
             if (role.equals("doctor")) {
-                registerDoctor();
+                registerDoctor(userId);
             } else {
                 registerPatient();
             }
@@ -175,18 +167,16 @@ public class MainServer {
         }
     }
 
-    private static void registerDoctor() {
+    private static void registerDoctor(int userId) {
         System.out.println("Registering Doctor:");
         System.out.print("Name: ");
         String name = sc.nextLine();
         System.out.print("Surname: ");
         String surname = sc.nextLine();
 
-        Doctor doctor = new Doctor();
-        doctor.setName(name);
-        doctor.setSurname(surname);
+        Doctor doctor = new Doctor(name, surname);
         //TODO meter userId que no se
-        doctorManager.addDoctor(doctor);
+        doctorManager.addDoctor(doctor, userId);
         System.out.println("Doctor registered successfully.");
     }
 
@@ -278,6 +268,18 @@ public class MainServer {
         System.out.println("@@                 Welcome.                                         @@");
         System.out.println("@@                 1. Receive medical record                        @@");
         System.out.println("@@                 2. Show medical record                           @@");
+        System.out.println("@@                 0. Exit                                          @@");
+        System.out.println("@@                                                                  @@");
+        System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.print("\nSelect an option: ");
+    }
+
+    public static void printLoginMenu(){
+        System.out.println("\n@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+        System.out.println("@@                                                                  @@");
+        System.out.println("@@                 Welcome.                                         @@");
+        System.out.println("@@                 1. Register                                      @@");
+        System.out.println("@@                 2. Login                                         @@");
         System.out.println("@@                 0. Exit                                          @@");
         System.out.println("@@                                                                  @@");
         System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");

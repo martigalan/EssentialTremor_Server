@@ -4,8 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="register, login, changes db">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="main for db">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/DoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/DoctorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -195,15 +197,7 @@
       <option name="project" value="LOCAL" />
       <updated>1730745680179</updated>
     </task>
-    <task id="LOCAL-00007" summary="register, login, changes db">
-      <option name="closed" value="true" />
-      <created>1730808328661</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1730808328661</updated>
-    </task>
-    <option name="localTasksCounter" value="8" />
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -215,7 +209,6 @@
     <MESSAGE value="sockets" />
     <MESSAGE value="sockets for DoctorsNote" />
     <MESSAGE value="main for db" />
-    <MESSAGE value="register, login, changes db" />
-    <option name="LAST_COMMIT_MESSAGE" value="register, login, changes db" />
+    <option name="LAST_COMMIT_MESSAGE" value="main for db" />
   </component>
 </project>
