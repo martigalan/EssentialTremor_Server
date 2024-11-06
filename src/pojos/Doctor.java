@@ -13,19 +13,47 @@ import java.util.stream.Collectors;
 
 public class Doctor {
 
-    private int id;
+    /**
+     * User to store username and password for the application
+     */
     private int userId;
+    /**
+     * Doctors name
+     */
     private String name;
+    /**
+     * Doctors surname
+     */
     private String surname;
+    /**
+     * List of patients the doctor has
+     */
     private List<Patient> patients;
+    /**
+     * List of medical records the doctor receives
+     */
     private List<MedicalRecord> medicalRecords;
+    /**
+     * List of doctors notes the doctor redacts
+     */
     private List<DoctorsNote> doctorsNotes;
+    /**
+     * Acces to the data base
+     */
     private ConnectionManager access;
 
+    /**
+     * Empty constructor
+     */
     public Doctor() {
 
     }
-
+    /**
+     * Constructor
+     * @param name doctors name
+     * @param surname doctors surname
+     * @param patients list of patient associated with the doctor
+     */
     public Doctor(String name, String surname, List<Patient> patients) {
         this.name = name;
         this.surname = surname;
@@ -34,6 +62,11 @@ public class Doctor {
         this.medicalRecords = new ArrayList<>();
     }
 
+    /**
+     * Constructor
+     * @param name doctors name
+     * @param surname doctors surname
+     */
     public Doctor(String name, String surname) {
         this.name = name;
         this.surname = surname;
@@ -42,6 +75,10 @@ public class Doctor {
         this.doctorsNotes = new ArrayList<>();
     }
 
+    /**
+     * Patients String representation
+     * @return String representation
+     */
     @Override
     public String toString() {
         return "Doctor{" +
@@ -72,14 +109,6 @@ public class Doctor {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override
@@ -123,6 +152,10 @@ public class Doctor {
         return access;
     }
 
+    /**
+     * Chooses a patient from the doctors patients list
+     * @return Patient chosen by the doctor
+     */
     private Patient choosePatient() {
         Scanner sc = new Scanner(System.in);
         List<Patient> listOfPatients = getPatients();
@@ -136,6 +169,13 @@ public class Doctor {
         return listOfPatients.get(number - 1);
     }
 
+    /**
+     * Receive medicl record sent by the patient
+     * @param socket connection with the client
+     * @param bufferedReader used to send data
+     * @return Medical Record sent by the patient
+     * @throws IOException in case connection fails
+     */
     public MedicalRecord receiveMedicalRecord(Socket socket, BufferedReader bufferedReader) throws IOException {
         MedicalRecord medicalRecord = null;
         System.out.println("Client connected. Receiving data...");
@@ -168,10 +208,20 @@ public class Doctor {
     }
 
 
+    /**
+     * Splits values of a String into a List of String
+     * @param str String with values separated with commas
+     * @return List of String values
+     */
     public static List<String> splitToStringList(String str) {
         return Arrays.asList(str.split(","));
     }
 
+    /**
+     * Splits values of a String into a List of Integers
+     * @param str String with Integer values separated with commas
+     * @return List of Integer values
+     */
     public static List<Integer> splitToIntegerList(String str) {
         return Arrays.stream(str.split(","))
                 .filter(s -> s.matches("-?\\d+"))  // Solo permite números enteros (positivos o negativos)
@@ -179,12 +229,21 @@ public class Doctor {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * Displays the medical record sent by the patient
+     * @param medicalRecord Medical Record sent by the patient
+     */
     public void showInfoMedicalRecord(MedicalRecord medicalRecord) {
         System.out.println(medicalRecord);
         medicalRecord.showAcc();
         medicalRecord.showEMG();
     }
 
+    /**
+     * Creates a Doctors Note based on a Medical Record sent by the patient
+     * @param medicalRecord Medical Record sent by the patient
+     * @return Doctors Note with annotations about the Medical Record
+     */
     public DoctorsNote createDoctorsNote(MedicalRecord medicalRecord) {
         //create a note for the medical record
         Scanner sc = new Scanner(System.in);
@@ -197,6 +256,9 @@ public class Doctor {
         return doctorsNote;
     }
 
+    /**
+     * Shows a Doctors Note from the doctors list
+     */
     public void showDoctorNotes() {
         Scanner sc = new Scanner(System.in);
         List<DoctorsNote> notes = this.getDoctorsNote();
@@ -214,6 +276,9 @@ public class Doctor {
         sc.close();
     }
 
+    /**
+     * Edits Doctors Note
+     */
     public void editDoctorNote() {
         Scanner sc = new Scanner(System.in);
         List<DoctorsNote> notes = this.getDoctorsNote();
@@ -249,6 +314,13 @@ public class Doctor {
         sc.close();
     }
 
+    /**
+     * Send Doctors Note to patient
+     * @param doctorsNote Doctors Note based on the received record
+     * @param socket connection with the client
+     * @param printWriter used to send data
+     * @throws IOException
+     */
     public void sendDoctorsNote(DoctorsNote doctorsNote, Socket socket,PrintWriter printWriter) throws IOException {
         System.out.println("Sending text");
         printWriter.println(getName());
@@ -283,15 +355,4 @@ public class Doctor {
         this.getPatients().add(patient);
         sc.close();
     }
-
-    /*public static void main(String[] args) throws IOException {
-        List<Patient> list = null;
-        Doctor d = new Doctor("a", "a", list);
-
-        MedicalRecord mr = d.receiveMedicalRecord();
-
-        DoctorsNote dn = d.createDoctorsNote(mr);
-        d.sendDoctorsNote(dn);
-    }*/
-
 }

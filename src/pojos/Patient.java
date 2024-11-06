@@ -15,17 +15,49 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 public class Patient implements Runnable{
-    private int id;
-    private int userId;
+    /**
+     * Patient name
+     */
     private String name;
+    /**
+     * Patients surname
+     */
     private String surname;
+    /**
+     * Boolean to identify if the patient has a genetic predisposition of essential tremor
+     * TRUE if there is, FALSE if not
+     */
     private Boolean genetic_background;
+    /**
+     * A list of all the medical records the patient has
+     */
     private List<MedicalRecord> medicalRecords;
+    /**
+     * A list of the doctors that the patient has
+     */
     private List<Doctor> doctors;
+    private int id;
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    /**
+     * Empty constructor
+     */
     public Patient() {
     }
 
+    /**
+     * Constructor
+     * @param name patients name
+     * @param surname patients surname
+     * @param genBack patient genetic background of essential tremor
+     */
     public Patient(String name, String surname, Boolean genBack) {
         this.name = name;
         this.surname = surname;
@@ -78,22 +110,11 @@ public class Patient implements Runnable{
         this.medicalRecords = medicalRecords;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
+    /**
+     * Patients String representation
+     * @return String representation
+     */
     @Override
     public String toString() {
         return "- Name: " + name + '\'' +
@@ -102,6 +123,9 @@ public class Patient implements Runnable{
         //"- Treatment: " + treatment;
     }
 
+    /**
+     * Creates a medical record calling other auxiliar functions
+     */
     private void openRecord(){
         MedicalRecord record = askData();
         record.setPatientName(this.name);
@@ -113,7 +137,10 @@ public class Patient implements Runnable{
         this.getMedicalRecords().add(record);
     }
 
-
+    /**
+     * Asks the user to input additional data for the medical record: age, weight, height and symptoms.
+     * @return a partially-complete Medical Record
+     */
     private MedicalRecord askData() {
         Scanner sc = new Scanner(System.in);
         System.out.println("- Age: ");
@@ -132,11 +159,22 @@ public class Patient implements Runnable{
         return new MedicalRecord(age, weight, height, symptoms);
     }
 
-    private MedicalRecord chooseMR(){
-        MedicalRecord mr = this.getMedicalRecords().get(0);
+    /**
+     * Chooses the medical record to send
+     * @return the last Medical Record of the patients list
+     */
+    public MedicalRecord chooseMR(){ //TODO choose
+        int size = this.getMedicalRecords().size();
+        MedicalRecord mr = this.getMedicalRecords().get(size-1);
         return mr;
     }
 
+    /**
+     * Send the Medical Record to the server for the doctor to see
+     * @param medicalRecord complete Medical Record
+     * @param socket Socket with the connection to the server
+     * @throws IOException in case the connection fails
+     */
     private void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
         //TODO send info, CHECK
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
@@ -162,17 +200,31 @@ public class Patient implements Runnable{
         //releaseSendingResources(printWriter, socket);
     }
 
+    /**
+     * Creates a String from a List
+     * @param list list of Strings
+     * @return String with items of the list separated with commas
+     */
     public static String joinWithCommas(List<String> list) {
         return String.join(",", list);
     }
+
+    /**
+     * Creates a String with the integer values of a List
+     * @param list list of Integers
+     * @return String with the integer values separated with commas
+     */
     public static String joinIntegersWithCommas(List<Integer> list) {
         return list.stream()
                 .map(String::valueOf) // Convert Integer to String
                 .collect(Collectors.joining(","));
     }
 
-
-
+    /**
+     * Gets the doctors note about the medical record that was previously sent
+     * @return DoctorsNote containing the evaluation
+     * @throws IOException in case connection fails
+     */
     private DoctorsNote receiveDoctorsNote()throws IOException {
         //TODO check this one
         DoctorsNote doctorsNote = null;
@@ -207,6 +259,12 @@ public class Patient implements Runnable{
         return doctorsNote;
     }
 
+    /**
+     * Realeases the resources that were used
+     * @param bufferedReader used to read
+     * @param socket connection with the server
+     * @param socketServidor server socket
+     */
     private static void releaseReceivingResources(BufferedReader bufferedReader, Socket socket, ServerSocket socketServidor) {
         try {
             bufferedReader.close();
@@ -227,20 +285,12 @@ public class Patient implements Runnable{
         }
     }
 
+    /**
+     * Displays the DoctorsNote sent by the doctor
+     */
     private void seeDoctorsNotes() {
         //TODO here the patient chooses what record they want to see
     }
-
-    /*public static void main(String[] args) throws IOException {
-        Patient p = new Patient("a", "a", Boolean.TRUE);
-        p.openRecord();
-        for (int i=0; i<p.getMedicalRecords().size();i++){
-            System.out.println(p.getMedicalRecords().get(i));
-        }
-        MedicalRecord mr = p.chooseMR();
-        //p.sendMedicalRecord(mr);
-        p.receiveDoctorsNote();
-    }*/
 
     @Override
     public void run() {
