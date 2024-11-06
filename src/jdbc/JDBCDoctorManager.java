@@ -19,7 +19,7 @@ public class JDBCDoctorManager implements DoctorManager {
     @Override
     public void addDoctor(Doctor doctor, int userId) {
         try {
-            String sql = "INSERT INTO Doctor (name, surname, userId) SELECT ?, ?, ?";
+            String sql = "INSERT INTO Doctor (name, surname, user_id) SELECT ?, ?, ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setString(1, doctor.getName());
             prep.setString(2, doctor.getSurname());

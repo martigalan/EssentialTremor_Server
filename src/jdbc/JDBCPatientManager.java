@@ -17,13 +17,14 @@ public class JDBCPatientManager implements PatientManager {
     }
 
     @Override
-    public void addPatient(Patient patient) {
+    public void addPatient(Patient patient, int userId) {
         try {
-            String sql = "INSERT INTO Patient (name, surname, genetic_background) SELECT ?, ?, ?";
+            String sql = "INSERT INTO Patient (name, surname, genetic_background, user_id) SELECT ?, ?, ?, ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setString(1, patient.getName());
             prep.setString(2, patient.getSurname());
             prep.setBoolean(3, patient.getGenetic_background());
+            prep.setInt(4, userId);
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
