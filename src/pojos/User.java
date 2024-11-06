@@ -4,7 +4,9 @@ import java.io.Serializable;
 
 public class User implements Serializable {
 
-    //TODO check
+    /**
+     * Identifier of each user, necessary to create User's object
+     */
     private int id;
     /**
      * Identifier to serialize User
@@ -19,7 +21,7 @@ public class User implements Serializable {
      */
     private byte[] password;
     /**
-     * Users role; patient or doctor
+     * Users role: patient or doctor
      */
     private String role;
 
@@ -29,12 +31,14 @@ public class User implements Serializable {
     public User() {
     }
 
-    //TODO mirar problema ID
     public User(int id, String username, byte[] password, String role) {
         this.id=id;
         this.username=username;
         this.password=password;
         this.role = role;
+    }
+
+    public User(String username, byte[] passwordBytes, String role) {
     }
 
     public String getUsername() {

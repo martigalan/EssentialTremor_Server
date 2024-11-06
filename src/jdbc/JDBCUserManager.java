@@ -67,6 +67,7 @@ public class JDBCUserManager implements UserManager {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (NoSuchAlgorithmException ex) {
+            System.out.println("MD5 algorithm not found: " + ex.getMessage());
         }
         return false;
     }
