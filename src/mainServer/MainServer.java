@@ -128,9 +128,9 @@ public class MainServer {
         }
     }
 
-
     public static void register() throws SQLException {
         try {
+            Scanner sc = new Scanner(System.in);
             User u = new User();
             System.out.println("Let's proceed with the registration:");
 
@@ -154,14 +154,12 @@ public class MainServer {
             u.setRole(role);
 
             userManager.addUser(u);
-            //TODO coger id de bbdd
-            int userId = u.getId();
-            System.out.println(userId);
+            int userId = userManager.getId(username);
 
             if (role.equals("doctor")) {
                 registerDoctor(userId);
             } else {
-                registerPatient();
+                registerPatient(userId);
             }
         } catch (NoSuchAlgorithmException | IllegalArgumentException | IOException ex) {
             System.out.println("Error: " + ex.getMessage());
@@ -169,6 +167,7 @@ public class MainServer {
     }
 
     private static void registerDoctor(int userId) {
+        Scanner sc = new Scanner(System.in);
         System.out.println("Registering Doctor:");
         System.out.print("Name: ");
         String name = sc.nextLine();
@@ -176,20 +175,19 @@ public class MainServer {
         String surname = sc.nextLine();
 
         Doctor doctor = new Doctor(name, surname);
-        //TODO meter userId que no se
         doctorManager.addDoctor(doctor, userId);
         System.out.println("Doctor registered successfully.");
+        sc.close();
     }
 
-    private static void registerPatient() throws IOException {
+    private static void registerPatient(int userId) throws IOException {
         System.out.println("Waiting for information of patient...");
         bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
         String patientData = bufferedReader.readLine();
         Patient patient = processPatientData(patientData);
 
         if (patient != null) {
-            //TODO meter userId que no se
-            patientManager.addPatient(patient);
+            patientManager.addPatient(patient, userId);
             System.out.println("Patient registered successfully.");
         } else {
             System.out.println("Failed to register patient due to invalid data.");
