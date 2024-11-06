@@ -41,7 +41,7 @@ public class JDBCDoctorManager implements DoctorManager {
             try (ResultSet rs = prep.executeQuery()) {
                 if (rs.next()) {
                     doctor = new Doctor();
-                    doctor.setId(rs.getInt("id"));
+                    doctor.setUserId(rs.getInt("id"));
                     doctor.setName(rs.getString("name"));
                     doctor.setSurname(rs.getString("surname"));
                 } else {

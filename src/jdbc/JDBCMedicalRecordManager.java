@@ -24,7 +24,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setInt(1, medicalRecord.getAge());
             prep.setDouble(2, medicalRecord.getWeight());
             prep.setDouble(3, medicalRecord.getHeight());
-            prep.setString(5, medicalRecord.getSymptoms().getLast());
+            prep.setString(5, medicalRecord.getSymptoms().get(0));
             /*prep.setString(6, medicalRecord.getAcceleration());
             prep.setString(7, medicalRecord.getEmg());*/
             prep.executeUpdate();
