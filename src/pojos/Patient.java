@@ -1,22 +1,26 @@
 package pojos;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import data.ACC;
+import data.Data;
+import data.EMG;
+
+import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class PatientHandler implements Runnable{
+public class Patient {
+
     /**
-     * Patient name
+     * Patients name
      */
     private String name;
     /**
@@ -29,6 +33,10 @@ public class PatientHandler implements Runnable{
      */
     private Boolean genetic_background;
     /**
+     * User to store username and password for the application
+     */
+    private User user;
+    /**
      * A list of all the medical records the patient has
      */
     private List<MedicalRecord> medicalRecords;
@@ -37,7 +45,6 @@ public class PatientHandler implements Runnable{
      */
     private List<Doctor> doctors;
     private int id;
-    private Socket socket;
 
     public int getId() {
         return id;
@@ -48,24 +55,22 @@ public class PatientHandler implements Runnable{
     }
 
     /**
-     * Empty constructor
-     */
-    public PatientHandler(Socket socket) {
-        this.socket = socket;
-    }
-
-    /**
      * Constructor
-     * @param name patients name
+     *
+     * @param name    patients name
      * @param surname patients surname
      * @param genBack patient genetic background of essential tremor
      */
-    public PatientHandler(String name, String surname, Boolean genBack) {
+    public Patient(String name, String surname, Boolean genBack) {
         this.name = name;
         this.surname = surname;
         this.genetic_background = genBack;
         this.medicalRecords = new ArrayList<MedicalRecord>();
         this.doctors = new ArrayList<Doctor>();
+    }
+
+    public Patient() {
+
     }
 
     public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
@@ -96,6 +101,18 @@ public class PatientHandler implements Runnable{
         this.surname = surname;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<MedicalRecord> getMedicalRecords() {
+        return medicalRecords;
+    }
+
     public Boolean getGenetic_background() {
         return genetic_background;
     }
@@ -104,17 +121,13 @@ public class PatientHandler implements Runnable{
         this.genetic_background = genetic_background;
     }
 
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
-    }
-
     public void setMedicalRecord(List<MedicalRecord> medicalRecords) {
         this.medicalRecords = medicalRecords;
     }
 
-
     /**
      * Patients String representation
+     *
      * @return String representation
      */
     @Override
@@ -126,21 +139,8 @@ public class PatientHandler implements Runnable{
     }
 
     /**
-     * Creates a medical record calling other auxiliar functions
-     */
-    private void openRecord(){
-        MedicalRecord record = askData();
-        record.setPatientName(this.name);
-        record.setPatientSurname(this.surname);
-        record.setGenetic_background(this.genetic_background);
-        //Data data = obtainData();
-        //record.setAcceleration(data.getAcc());
-        //record.setEmg(data.getEmg());
-        this.getMedicalRecords().add(record);
-    }
-
-    /**
      * Asks the user to input additional data for the medical record: age, weight, height and symptoms.
+     *
      * @return a partially-complete Medical Record
      */
     private MedicalRecord askData() {
@@ -163,21 +163,23 @@ public class PatientHandler implements Runnable{
 
     /**
      * Chooses the medical record to send
+     *
      * @return the last Medical Record of the patients list
      */
-    public MedicalRecord chooseMR(){ //TODO choose
+    public MedicalRecord chooseMR() { //TODO choose
         int size = this.getMedicalRecords().size();
-        MedicalRecord mr = this.getMedicalRecords().get(size-1);
+        MedicalRecord mr = this.getMedicalRecords().get(size - 1);
         return mr;
     }
 
     /**
      * Send the Medical Record to the server for the doctor to see
+     *
      * @param medicalRecord complete Medical Record
-     * @param socket Socket with the connection to the server
+     * @param socket        Socket with the connection to the server
      * @throws IOException in case the connection fails
      */
-    private void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
+    public void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
         //TODO send info, CHECK
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("Connection established... sending text");
@@ -199,11 +201,11 @@ public class PatientHandler implements Runnable{
         String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
         printWriter.println(emg);
         printWriter.println(medicalRecord.getGenetic_background());//boolean
-        //releaseSendingResources(printWriter, socket);
     }
 
     /**
      * Creates a String from a List
+     *
      * @param list list of Strings
      * @return String with items of the list separated with commas
      */
@@ -213,6 +215,7 @@ public class PatientHandler implements Runnable{
 
     /**
      * Creates a String with the integer values of a List
+     *
      * @param list list of Integers
      * @return String with the integer values separated with commas
      */
@@ -224,10 +227,11 @@ public class PatientHandler implements Runnable{
 
     /**
      * Gets the doctors note about the medical record that was previously sent
+     *
      * @return DoctorsNote containing the evaluation
      * @throws IOException in case connection fails
      */
-    private DoctorsNote receiveDoctorsNote()throws IOException {
+    private DoctorsNote receiveDoctorsNote() throws IOException {
         //TODO check this one
         DoctorsNote doctorsNote = null;
         try (ServerSocket serverSocket = new ServerSocket(9009)) {  // Puerto 9009 para coincidir con el cliente
@@ -263,11 +267,13 @@ public class PatientHandler implements Runnable{
 
     /**
      * Realeases the resources that were used
+     *
      * @param bufferedReader used to read
-     * @param socket connection with the server
+     * @param socket         connection with the server
      * @param socketServidor server socket
      */
-    private static void releaseReceivingResources(BufferedReader bufferedReader, Socket socket, ServerSocket socketServidor) {
+    private static void releaseReceivingResources(BufferedReader bufferedReader,
+                                                  Socket socket, ServerSocket socketServidor) {
         try {
             bufferedReader.close();
         } catch (IOException ex) {
@@ -292,16 +298,6 @@ public class PatientHandler implements Runnable{
      */
     private void seeDoctorsNotes() {
         //TODO here the patient chooses what record they want to see
-    }
 
-    @Override
-    public void run() {
-        // socket conectado al paciente
-
-        // 1 registro
-
-
-
-        // 2
     }
 }

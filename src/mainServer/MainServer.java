@@ -59,7 +59,7 @@ public class MainServer {
                     System.out.println("Waiting for clients...");
                     clientSocket = serverSocket.accept();
                     System.out.println("Client connected.");
-                    new Thread(new Patient()).start();
+                    new Thread(new PatientHandler(clientSocket)).start();
                     printWriter = new PrintWriter(MainServer.clientSocket.getOutputStream(), true);
                     bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
 
