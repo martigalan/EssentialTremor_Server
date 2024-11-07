@@ -1,8 +1,7 @@
 package jdbc;
 
 import iFaces.PatientManager;
-import pojos.Doctor;
-import pojos.Patient;
+import pojos.PatientHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,7 +16,7 @@ public class JDBCPatientManager implements PatientManager {
     }
 
     @Override
-    public void addPatient(Patient patient, int userId) {
+    public void addPatient(PatientHandler patient, int userId) {
         try {
             String sql = "INSERT INTO Patient (name, surname, genetic_background, user_id) SELECT ?, ?, ?, ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
@@ -32,15 +31,15 @@ public class JDBCPatientManager implements PatientManager {
         }
     }
 
-    public Patient getPatientByUserId(int userId) throws SQLException {
-        Patient patient = null;
+    public PatientHandler getPatientByUserId(int userId) throws SQLException {
+        PatientHandler patient = null;
         try {
             String query = "SELECT * FROM Patient WHERE user_id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
             prep.setInt(1, userId);
             try (ResultSet rs = prep.executeQuery()) {
                 if (rs.next()) {
-                    patient = new Patient();
+                    patient = new PatientHandler();
                     patient.setId(rs.getInt("id"));
                     patient.setName(rs.getString("name"));
                     patient.setSurname(rs.getString("surname"));

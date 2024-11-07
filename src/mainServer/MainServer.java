@@ -60,7 +60,7 @@ public class MainServer {
                     System.out.println("Waiting for clients...");
                     clientSocket = serverSocket.accept();
                     System.out.println("Client connected.");
-                    new Thread(new Patient()).start();
+                    new Thread(new PatientHandler()).start();
                     printWriter = new PrintWriter(MainServer.clientSocket.getOutputStream(), true);
                     bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
 
@@ -184,7 +184,7 @@ public class MainServer {
         System.out.println("Waiting for information of patient...");
         bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
         String patientData = bufferedReader.readLine();
-        Patient patient = processPatientData(patientData);
+        PatientHandler patient = processPatientData(patientData);
 
         if (patient != null) {
             patientManager.addPatient(patient, userId);
@@ -312,7 +312,7 @@ public class MainServer {
         }
     }
 
-    public static Patient processPatientData(String patientData) {
+    public static PatientHandler processPatientData(String patientData) {
         // Los datos del cliente llegan en formato: "nombre|apellido|genetic_background"
         String[] data = patientData.split("\\|");
         if (data.length == 3) {
@@ -320,7 +320,7 @@ public class MainServer {
             String surname = data[1];
             boolean geneticBackground = Boolean.parseBoolean(data[2]);
 
-            Patient patient = new Patient();
+            PatientHandler patient = new PatientHandler();
             patient.setName(name);
             patient.setSurname(surname);
             patient.setGenetic_background(geneticBackground);

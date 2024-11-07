@@ -1,7 +1,7 @@
 package iFaces;
 
-import pojos.Patient;
+import pojos.PatientHandler;
 
 public interface PatientManager {
-    public void addPatient(Patient patient, int userId);
+    public void addPatient(PatientHandler patient, int userId);
 }

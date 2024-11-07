@@ -14,7 +14,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class Patient implements Runnable{
+public class PatientHandler implements Runnable{
     /**
      * Patient name
      */
@@ -49,7 +49,7 @@ public class Patient implements Runnable{
     /**
      * Empty constructor
      */
-    public Patient() {
+    public PatientHandler() {
     }
 
     /**
@@ -58,7 +58,7 @@ public class Patient implements Runnable{
      * @param surname patients surname
      * @param genBack patient genetic background of essential tremor
      */
-    public Patient(String name, String surname, Boolean genBack) {
+    public PatientHandler(String name, String surname, Boolean genBack) {
         this.name = name;
         this.surname = surname;
         this.genetic_background = genBack;
@@ -294,6 +294,12 @@ public class Patient implements Runnable{
 
     @Override
     public void run() {
+        // socket conectado al paciente
 
+        // 1 registro
+
+
+
+        // 2
     }
 }

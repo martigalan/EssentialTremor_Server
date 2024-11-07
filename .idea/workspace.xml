@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="register, login, changes db">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="javadocs for main classes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/ACC.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/ACC.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/Data.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/Data.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/data/EMG.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/data/EMG.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/PatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/PatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/Doctor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Doctor.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Treatment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -124,8 +119,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="Patient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="pojos.Patient" />
+    <configuration name="PatientHandler" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="pojos.PatientHandler" />
       <module name="EssenetialTremor_Server" />
       <extension name="coverage">
         <pattern>
@@ -141,7 +136,7 @@
       <list>
         <item itemvalue="Application.MainServer" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.Patient" />
+        <item itemvalue="Application.PatientHandler" />
         <item itemvalue="Application.Doctor" />
       </list>
     </recent_temporary>
@@ -159,6 +154,8 @@
       <workItem from="1730289855712" duration="1143000" />
       <workItem from="1730366572518" duration="5377000" />
       <workItem from="1730457424794" duration="657000" />
+      <workItem from="1730971048623" duration="33000" />
+      <workItem from="1730971315817" duration="3329000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -204,7 +201,14 @@
       <option name="project" value="LOCAL" />
       <updated>1730745680179</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="javadocs for main classes">
+      <created>1730903883670</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1730903883670</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -217,6 +221,7 @@
     <MESSAGE value="sockets for DoctorsNote" />
     <MESSAGE value="main for db" />
     <MESSAGE value="register, login, changes db" />
-    <option name="LAST_COMMIT_MESSAGE" value="register, login, changes db" />
+    <MESSAGE value="javadocs for main classes" />
+    <option name="LAST_COMMIT_MESSAGE" value="javadocs for main classes" />
   </component>
 </project>
