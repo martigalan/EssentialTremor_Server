@@ -54,13 +54,12 @@ public class MainServer {
             //Create socket
             serverSocket = new ServerSocket(9000);
 
-            //TODO wait for connections
             try {
                 while (conexion) {
                     System.out.println("Waiting for clients...");
                     clientSocket = serverSocket.accept();
                     System.out.println("Client connected.");
-                    new Thread(new PatientHandler()).start();
+                    new Thread(new Patient()).start();
                     printWriter = new PrintWriter(MainServer.clientSocket.getOutputStream(), true);
                     bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
 
@@ -184,7 +183,7 @@ public class MainServer {
         System.out.println("Waiting for information of patient...");
         bufferedReader = new BufferedReader(new InputStreamReader(MainServer.clientSocket.getInputStream()));
         String patientData = bufferedReader.readLine();
-        PatientHandler patient = processPatientData(patientData);
+        Patient patient = processPatientData(patientData);
 
         if (patient != null) {
             patientManager.addPatient(patient, userId);
@@ -196,21 +195,34 @@ public class MainServer {
 
     public static void login() throws IOException, SQLException {
         Scanner sc = new Scanner(System.in);
-        System.out.print("Username: ");
-        String username = sc.nextLine();
-        System.out.print("Password: ");
-        String password = sc.nextLine();
-        if (userManager.verifyUsername(username) && userManager.verifyPassword(username, password)) {
-            printWriter.println("LOGIN_SUCCESS");
-            User u = userManager.getUser(userManager.getId(username));
-            if (u.getRole().equals("doctor")) {
+        System.out.println("Are you a doctor or a patient?");
+        String role = sc.nextLine();
+        if (role.equals("doctor")) {
+            System.out.print("Username: ");
+            String usernameDoctor = sc.nextLine();
+            System.out.print("Password: ");
+            String passwordDoctor = sc.nextLine();
+            if (userManager.verifyUsername(usernameDoctor) && userManager.verifyPassword(usernameDoctor, passwordDoctor)) {
+                printWriter.println("LOGIN_SUCCESS");
+                User u = userManager.getUser(userManager.getId(usernameDoctor));
                 menuUser(u);
             } else {
-                // TODO Manejo del menú de paciente en el cliente
-                printWriter.println("WELCOME_PATIENT");
+                printWriter.println("LOGIN_FAILED");
             }
-        } else {
-            printWriter.println("LOGIN_FAILED");
+        } else if (role.equals("patient")) {
+            String loginData = bufferedReader.readLine();
+            String[] data = loginData.split("\\|");
+            String usernamePatient = data[0];
+            String encryptedPassword = data[1];
+            if (userManager.verifyUsername(usernamePatient) && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
+                printWriter.println("LOGIN_SUCCESS");
+                int user_id = userManager.getId(usernamePatient);
+                Patient patient = patientManager.getPatientByUserId(user_id);
+                String patientInfo = patient.getName() + "|" + patient.getSurname() + "|" + patient.getGenetic_background();
+                printWriter.println(patientInfo);
+            } else {
+                printWriter.println("LOGIN_FAILED");
+            }
         }
     }
 
@@ -219,7 +231,7 @@ public class MainServer {
         MedicalRecord mr = null;
         int userId = u.getId();
         System.out.println("Checking doctor for user ID: " + userId);
-        Doctor doctor = doctorManager.getDoctorByUserId(userId); //TODO getId bien que no lo coge
+        Doctor doctor = doctorManager.getDoctorByUserId(userId);
         if (doctor == null) {
             System.out.println("Doctor not found for user ID: " + userId);
         } else {
@@ -312,24 +324,38 @@ public class MainServer {
         }
     }
 
-    public static PatientHandler processPatientData(String patientData) {
-        // Los datos del cliente llegan en formato: "nombre|apellido|genetic_background"
+    public static Patient processPatientData(String patientData) {
+        //Los datos del cliente llegan en formato: "name|surname|genetic_background|username|password"
         String[] data = patientData.split("\\|");
-        if (data.length == 3) {
+        if (data.length == 6) {
             String name = data[0];
             String surname = data[1];
             boolean geneticBackground = Boolean.parseBoolean(data[2]);
+            String username = data[3];
+            String encryptedPassword = data[4];
+            String role = data[5];
 
-            PatientHandler patient = new PatientHandler();
-            patient.setName(name);
-            patient.setSurname(surname);
-            patient.setGenetic_background(geneticBackground);
+            //de hexadecimal (String) a byte[]
+            byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
+            User user = new User(username, passwordBytes, role);
+            userManager.addUser(user);
+            Patient patient = new Patient(name, surname, geneticBackground);
             System.out.println("Patient added successfully: " + patient.getName() + " " + patient.getSurname());
             return patient;
         } else {
             System.out.println("Error: incorrect patient data format.");
             return null;
         }
+    }
+
+    public static byte[] hexStringToByteArray(String hex) {
+        int len = hex.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+                    + Character.digit(hex.charAt(i+1), 16));
+        }
+        return data;
     }
 
 }
