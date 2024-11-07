@@ -14,10 +14,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
-public class Patient {
-
+public class PatientHandler implements Runnable{
     /**
-     * Patients name
+     * Patient name
      */
     private String name;
     /**
@@ -30,10 +29,6 @@ public class Patient {
      */
     private Boolean genetic_background;
     /**
-     * User to store username and password for the application
-     */
-    private User user;
-    /**
      * A list of all the medical records the patient has
      */
     private List<MedicalRecord> medicalRecords;
@@ -42,6 +37,7 @@ public class Patient {
      */
     private List<Doctor> doctors;
     private int id;
+    private Socket socket;
 
     public int getId() {
         return id;
@@ -54,7 +50,8 @@ public class Patient {
     /**
      * Empty constructor
      */
-    public Patient() {
+    public PatientHandler(Socket socket) {
+        this.socket = socket;
     }
 
     /**
@@ -63,7 +60,7 @@ public class Patient {
      * @param surname patients surname
      * @param genBack patient genetic background of essential tremor
      */
-    public Patient(String name, String surname, Boolean genBack) {
+    public PatientHandler(String name, String surname, Boolean genBack) {
         this.name = name;
         this.surname = surname;
         this.genetic_background = genBack;
@@ -97,18 +94,6 @@ public class Patient {
 
     public void setSurname(String surname) {
         this.surname = surname;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
     }
 
     public Boolean getGenetic_background() {
@@ -189,10 +174,10 @@ public class Patient {
     /**
      * Send the Medical Record to the server for the doctor to see
      * @param medicalRecord complete Medical Record
-     * @param socket        Socket with the connection to the server
+     * @param socket Socket with the connection to the server
      * @throws IOException in case the connection fails
      */
-    public void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
+    private void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
         //TODO send info, CHECK
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("Connection established... sending text");
@@ -282,8 +267,7 @@ public class Patient {
      * @param socket connection with the server
      * @param socketServidor server socket
      */
-    private static void releaseReceivingResources(BufferedReader bufferedReader,
-                                                  Socket socket, ServerSocket socketServidor) {
+    private static void releaseReceivingResources(BufferedReader bufferedReader, Socket socket, ServerSocket socketServidor) {
         try {
             bufferedReader.close();
         } catch (IOException ex) {
@@ -312,6 +296,12 @@ public class Patient {
 
     @Override
     public void run() {
+        // socket conectado al paciente
 
+        // 1 registro
+
+
+
+        // 2
     }
 }
