@@ -5,15 +5,21 @@ import data.EMG;
 import iFaces.SignalManager;
 
 public class JDBCSignalManager implements SignalManager {
-    private ConnectionManager cM;
+    private ConnectionManager cManager;
 
-    public JDBCSignalManager(ConnectionManager cM) {
-        this.cM = cM;
+    /**
+     * Manages the doctor-related operations using a JDBC connection.
+     * Uses an instance of {@link ConnectionManager} to interact with the SQLite database.
+     *
+     * @param cManager The {@link ConnectionManager} instance used for database operations.
+     */
+    public JDBCSignalManager(ConnectionManager cManager) {
+        this.cManager = cManager;
     }
 
     public void saveEMGSignal(EMG emg) {
         /*String query = "INSERT INTO emg_signals (signal_data, filename, path, timestamp) VALUES (?, ?, ?, ?)";
-        try (Connection conn = cM.getConnection();
+        try (Connection conn = cManager.getConnection();
              PreparedStatement prep = conn.prepareStatement(query)) {
             prep.setString(1, emg.listToString(emg.getSignalData()));
             prep.setString(2, emg.getFilename());
@@ -28,7 +34,7 @@ public class JDBCSignalManager implements SignalManager {
     @Override
     public void saveACCSignal(ACC acc) {
         /*String query = "INSERT INTO acc_signals (signal_data, filename, path, timestamp) VALUES (?, ?, ?, ?)";
-        try (Connection conn = cM.getConnection();
+        try (Connection conn = cManager.getConnection();
              PreparedStatement prep = conn.prepareStatement(query)) {
             prep.setString(1, acc.listToString(acc.getSignalData()));
             prep.setString(2, acc.getFilename());

@@ -14,6 +14,11 @@ public class ConnectionManager implements InterfaceConnectionManager {
 
     private Connection c = null;
 
+    /**
+     * Establishes a connection to the SQLite database located at "./db/EssentialTremor.db".
+     * Ensures the necessary database directory exists and creates the tables if not already created.
+     * Handles exceptions related to class loading, SQL errors, and I/O issues.
+     */
     public ConnectionManager() {
         try {
             Class.forName("org.sqlite.JDBC");
@@ -40,7 +45,23 @@ public class ConnectionManager implements InterfaceConnectionManager {
         }
     }
 
-    //------CREATE TABLES-------------
+    /**
+     * Creates the necessary tables for the database, including:
+     * <ul>
+     *     <li>Doctor</li>
+     *     <li>State</li>
+     *     <li>Treatment</li>
+     *     <li>User</li>
+     *     <li>MedicalRecord</li>
+     *     <li>Patient</li>
+     *     <li>DoctorNotes</li>
+     *     <li>HasPatient</li>
+     *     <li>HasNotes</li>
+     * </ul>
+     * If the tables already exist, it logs a message without throwing an exception.
+     *
+     * @throws SQLException if there is an error in SQL execution.
+     */
     @Override
     public void createTables() {
         try {
@@ -129,11 +150,19 @@ public class ConnectionManager implements InterfaceConnectionManager {
         }
     }
 
+    /**
+     * Provides the current connection instance to the SQLite database.
+     * @return The active {@link Connection} object to the SQLite database.
+     */
     @Override
     public Connection getConnection() {
         return c;
     }
 
+    /**
+     * Closes the active connection to the SQLite database.
+     * Logs and handles any {@link SQLException} that might occur during the disconnection process.
+     */
     @Override
     public void disconnect() {
         try {

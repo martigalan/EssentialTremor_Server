@@ -59,7 +59,8 @@ public class Patient {
 
     /**
      * Constructor
-     * @param name patients name
+     *
+     * @param name    patients name
      * @param surname patients surname
      * @param genBack patient genetic background of essential tremor
      */
@@ -119,14 +120,9 @@ public class Patient {
         this.genetic_background = genetic_background;
     }
 
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
-    }
-
     public void setMedicalRecord(List<MedicalRecord> medicalRecords) {
         this.medicalRecords = medicalRecords;
     }
-
 
     /**
      * Patients String representation
@@ -156,6 +152,7 @@ public class Patient {
 
     /**
      * Asks the user to input additional data for the medical record: age, weight, height and symptoms.
+     *
      * @return a partially-complete Medical Record
      */
     private MedicalRecord askData() {
@@ -178,16 +175,18 @@ public class Patient {
 
     /**
      * Chooses the medical record to send
+     *
      * @return the last Medical Record of the patients list
      */
-    public MedicalRecord chooseMR(){ //TODO choose
+    public MedicalRecord chooseMR() { //TODO choose
         int size = this.getMedicalRecords().size();
-        MedicalRecord mr = this.getMedicalRecords().get(size-1);
+        MedicalRecord mr = this.getMedicalRecords().get(size - 1);
         return mr;
     }
 
     /**
      * Send the Medical Record to the server for the doctor to see
+     *
      * @param medicalRecord complete Medical Record
      * @param socket        Socket with the connection to the server
      * @throws IOException in case the connection fails
@@ -219,6 +218,7 @@ public class Patient {
 
     /**
      * Creates a String from a List
+     *
      * @param list list of Strings
      * @return String with items of the list separated with commas
      */
@@ -228,6 +228,7 @@ public class Patient {
 
     /**
      * Creates a String with the integer values of a List
+     *
      * @param list list of Integers
      * @return String with the integer values separated with commas
      */
@@ -239,6 +240,7 @@ public class Patient {
 
     /**
      * Gets the doctors note about the medical record that was previously sent
+     *
      * @return DoctorsNote containing the evaluation
      * @throws IOException in case connection fails
      */
@@ -278,8 +280,9 @@ public class Patient {
 
     /**
      * Realeases the resources that were used
+     *
      * @param bufferedReader used to read
-     * @param socket connection with the server
+     * @param socket         connection with the server
      * @param socketServidor server socket
      */
     private static void releaseReceivingResources(BufferedReader bufferedReader,
@@ -308,10 +311,6 @@ public class Patient {
      */
     private void seeDoctorsNotes() {
         //TODO here the patient chooses what record they want to see
-    }
-
-    @Override
-    public void run() {
 
     }
 }

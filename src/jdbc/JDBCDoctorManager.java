@@ -12,10 +12,24 @@ public class JDBCDoctorManager implements DoctorManager {
 
     private ConnectionManager cM;
 
+    /**
+     * Manages the doctor-related operations using a JDBC connection.
+     * Uses an instance of {@link ConnectionManager} to interact with the SQLite database.
+     *
+     * @param cManager The {@link ConnectionManager} instance used for database operations.
+     */
     public JDBCDoctorManager(ConnectionManager cManager){
         this.cM = cManager;
     }
 
+    /**
+     * Adds a new doctor to the "Doctor" table in the database.
+     * Uses the provided {@link Doctor} object and user ID to insert the doctor's information.
+     *
+     * @param doctor The {@link Doctor} object containing the doctor's details (name and surname).
+     * @param userId The user ID to associate with the doctor.
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     @Override
     public void addDoctor(Doctor doctor, int userId) {
         try {

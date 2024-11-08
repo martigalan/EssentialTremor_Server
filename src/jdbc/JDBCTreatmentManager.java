@@ -10,10 +10,23 @@ import pojos.Treatment;
 public class JDBCTreatmentManager implements TreatmentManager {
     private ConnectionManager cM;
 
+    /**
+     * Manages the treatment-related operations using a JDBC connection.
+     * Uses an instance of {@link ConnectionManager} to interact with the SQLite database.
+     *
+     * @param cManager The {@link ConnectionManager} instance used for database operations.
+     */
     public JDBCTreatmentManager(ConnectionManager cManager) {
         this.cM = cManager;
     }
 
+    /**
+     * Inserts all the predefined states from the {@link Treatment} enum into the "Treatment" table in the database.
+     * Each treatment is added with its corresponding name and description.
+     * If a state already exists (based on its name), it will not be inserted again.
+     *
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     @Override
     public void addTreatment() {
         for (Treatment treatment : Treatment.values()) {
