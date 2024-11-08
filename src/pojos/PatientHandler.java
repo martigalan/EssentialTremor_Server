@@ -1,307 +1,190 @@
 package pojos;
 
+import data.ACC;
+import data.EMG;
+import jdbc.*;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.sql.SQLException;
 import java.util.List;
-import java.util.Scanner;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.stream.Collectors;
 
 public class PatientHandler implements Runnable{
-    /**
-     * Patient name
-     */
-    private String name;
-    /**
-     * Patients surname
-     */
-    private String surname;
-    /**
-     * Boolean to identify if the patient has a genetic predisposition of essential tremor
-     * TRUE if there is, FALSE if not
-     */
-    private Boolean genetic_background;
-    /**
-     * A list of all the medical records the patient has
-     */
-    private List<MedicalRecord> medicalRecords;
-    /**
-     * A list of the doctors that the patient has
-     */
-    private List<Doctor> doctors;
-    private int id;
-    private Socket socket;
 
-    public int getId() {
-        return id;
+    private static Socket socket;
+    private BufferedReader in;
+    private PrintWriter out;
+
+    public static ConnectionManager connectionManager;
+    public static JDBCUserManager userManager;
+    public static JDBCDoctorManager doctorManager;
+    public static JDBCDoctorNotesManager doctorNotesManager;
+    public static JDBCMedicalRecordManager medicalRecordManager;
+    public static JDBCPatientManager patientManager;
+    public static JDBCStateManager stateManager;
+    public static JDBCTreatmentManager treatmentManager;
+
+    public PatientHandler(Socket clientSocket, ConnectionManager dbConnection) {
+        this.socket = clientSocket;
+        this.connectionManager = dbConnection;
     }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    /**
-     * Empty constructor
-     */
-    public PatientHandler(Socket socket) {
-        this.socket = socket;
-    }
-
-    /**
-     * Constructor
-     * @param name patients name
-     * @param surname patients surname
-     * @param genBack patient genetic background of essential tremor
-     */
-    public PatientHandler(String name, String surname, Boolean genBack) {
-        this.name = name;
-        this.surname = surname;
-        this.genetic_background = genBack;
-        this.medicalRecords = new ArrayList<MedicalRecord>();
-        this.doctors = new ArrayList<Doctor>();
-    }
-
-    public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
-    }
-
-    public List<Doctor> getDoctors() {
-        return doctors;
-    }
-
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors = doctors;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public Boolean getGenetic_background() {
-        return genetic_background;
-    }
-
-    public void setGenetic_background(Boolean genetic_background) {
-        this.genetic_background = genetic_background;
-    }
-
-    public List<MedicalRecord> getMedicalRecords() {
-        return medicalRecords;
-    }
-
-    public void setMedicalRecord(List<MedicalRecord> medicalRecords) {
-        this.medicalRecords = medicalRecords;
-    }
-
-
-    /**
-     * Patients String representation
-     * @return String representation
-     */
-    @Override
-    public String toString() {
-        return "- Name: " + name + '\'' +
-                "- Surname: " + surname + '\'';
-        //"- State: " + state +
-        //"- Treatment: " + treatment;
-    }
-
-    /**
-     * Creates a medical record calling other auxiliar functions
-     */
-    private void openRecord(){
-        MedicalRecord record = askData();
-        record.setPatientName(this.name);
-        record.setPatientSurname(this.surname);
-        record.setGenetic_background(this.genetic_background);
-        //Data data = obtainData();
-        //record.setAcceleration(data.getAcc());
-        //record.setEmg(data.getEmg());
-        this.getMedicalRecords().add(record);
-    }
-
-    /**
-     * Asks the user to input additional data for the medical record: age, weight, height and symptoms.
-     * @return a partially-complete Medical Record
-     */
-    private MedicalRecord askData() {
-        Scanner sc = new Scanner(System.in);
-        System.out.println("- Age: ");
-        int age = sc.nextInt();
-        System.out.println("- Weight (kg): ");
-        double weight = sc.nextDouble();
-        System.out.println("- Height (cm): ");
-        int height = sc.nextInt();
-        System.out.println("- Symptoms (enter symptoms separated by commas): ");
-        String symptomsInput = sc.nextLine();
-
-        //Takes the symptoms input and creates a List
-        List<String> symptoms = Arrays.asList(symptomsInput.split(","));
-        symptoms = symptoms.stream().map(String::trim).collect(Collectors.toList()); // Trim extra spaces
-        sc.close();
-        return new MedicalRecord(age, weight, height, symptoms);
-    }
-
-    /**
-     * Chooses the medical record to send
-     * @return the last Medical Record of the patients list
-     */
-    public MedicalRecord chooseMR(){ //TODO choose
-        int size = this.getMedicalRecords().size();
-        MedicalRecord mr = this.getMedicalRecords().get(size-1);
-        return mr;
-    }
-
-    /**
-     * Send the Medical Record to the server for the doctor to see
-     * @param medicalRecord complete Medical Record
-     * @param socket Socket with the connection to the server
-     * @throws IOException in case the connection fails
-     */
-    private void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
-        //TODO send info, CHECK
-        PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
-        System.out.println("Connection established... sending text");
-        printWriter.println(medicalRecord.getPatientName());
-        printWriter.println(medicalRecord.getPatientSurname());
-        printWriter.println(medicalRecord.getAge());//int
-        printWriter.println(medicalRecord.getWeight());//double
-        printWriter.println(medicalRecord.getHeight());//int
-        //symptoms
-        String symptoms = joinWithCommas(medicalRecord.getSymptoms());
-        System.out.println(symptoms);
-        //timestamp
-        String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
-        printWriter.println(time);
-        //acc
-        String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
-        printWriter.println(acc);
-        //emg
-        String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
-        printWriter.println(emg);
-        printWriter.println(medicalRecord.getGenetic_background());//boolean
-        //releaseSendingResources(printWriter, socket);
-    }
-
-    /**
-     * Creates a String from a List
-     * @param list list of Strings
-     * @return String with items of the list separated with commas
-     */
-    public static String joinWithCommas(List<String> list) {
-        return String.join(",", list);
-    }
-
-    /**
-     * Creates a String with the integer values of a List
-     * @param list list of Integers
-     * @return String with the integer values separated with commas
-     */
-    public static String joinIntegersWithCommas(List<Integer> list) {
-        return list.stream()
-                .map(String::valueOf) // Convert Integer to String
-                .collect(Collectors.joining(","));
-    }
-
-    /**
-     * Gets the doctors note about the medical record that was previously sent
-     * @return DoctorsNote containing the evaluation
-     * @throws IOException in case connection fails
-     */
-    private DoctorsNote receiveDoctorsNote()throws IOException {
-        //TODO check this one
-        DoctorsNote doctorsNote = null;
-        try (ServerSocket serverSocket = new ServerSocket(9009)) {  // Puerto 9009 para coincidir con el cliente
-            System.out.println("Server started, waiting for client...");
-
-            try (Socket socket = serverSocket.accept();
-                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()))) {
-
-                System.out.println("Client connected. Receiving data...");
-
-                // Read each line
-                String doctorName = bufferedReader.readLine();
-                System.out.println(doctorName);
-                String doctorSurname = bufferedReader.readLine();
-                System.out.println(doctorSurname);
-                String notes = bufferedReader.readLine();
-                System.out.println(notes);
-
-                releaseReceivingResources(bufferedReader, socket, serverSocket);
-
-                doctorsNote = new DoctorsNote(doctorName, doctorSurname, notes);
-                //TODO meter esto en lista doctor
-                //TODO this is in the main
-                //DoctorsNote doctorsNote = createDoctorsNote(medicalRecord);
-                //medicalRecord.getDoctorsNotes().add(doctorsNote);
-                return doctorsNote;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return doctorsNote;
-    }
-
-    /**
-     * Realeases the resources that were used
-     * @param bufferedReader used to read
-     * @param socket connection with the server
-     * @param socketServidor server socket
-     */
-    private static void releaseReceivingResources(BufferedReader bufferedReader, Socket socket, ServerSocket socketServidor) {
-        try {
-            bufferedReader.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        try {
-            socketServidor.close();
-        } catch (IOException ex) {
-            Logger.getLogger(Doctor.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    /**
-     * Displays the DoctorsNote sent by the doctor
-     */
-    private void seeDoctorsNotes() {
-        //TODO here the patient chooses what record they want to see
-    }
-
     @Override
     public void run() {
-        // socket conectado al paciente
+        try {
+            in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            out = new PrintWriter(socket.getOutputStream(), true);
+            userManager = new JDBCUserManager(connectionManager);
+            doctorManager = new JDBCDoctorManager(connectionManager);
+            doctorNotesManager = new JDBCDoctorNotesManager(connectionManager);
+            medicalRecordManager = new JDBCMedicalRecordManager(connectionManager);
+            patientManager = new JDBCPatientManager(connectionManager);
+            stateManager = new JDBCStateManager(connectionManager);
+            treatmentManager = new JDBCTreatmentManager(connectionManager);
 
-        // 1 registro
-
-
-
-        // 2
+            String command;
+            while ((command = in.readLine()) != null) {
+                switch (command) {
+                    case "register":
+                        handleRegister();
+                        break;
+                    case "login":
+                        handleLogin();
+                        break;
+                    case "MedicalRecord":
+                        handleMedicalRecord();
+                        break;
+                    case "DoctorsNote":
+                        handleDoctorsNote();
+                        break;
+                    case "exit":
+                        in.close();
+                        out.close();
+                        socket.close();
+                        return;
+                    default:
+                        out.println("Comando no reconocido.");
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
     }
+
+    private void handleMedicalRecord() throws IOException {
+        MedicalRecord medicalRecord = null;
+        System.out.println("Client connected. Receiving data...");
+
+        // Read each line
+        String patientName = in.readLine();
+        String patientSurname = in.readLine();
+        int age = Integer.parseInt(in.readLine());
+        double weight = Double.parseDouble(in.readLine());
+        int height = Integer.parseInt(in.readLine());
+        // Symptoms
+        String symptoms = in.readLine();
+        List<String> listSymptoms = splitToStringList(symptoms);
+        // time, acc and emg
+        String time = in.readLine();
+        List<Integer> listTime = splitToIntegerList(time);
+        String acc = in.readLine();
+        List<Integer> listAcc = splitToIntegerList(acc);
+        String emg = in.readLine();
+        List<Integer> listEmg = splitToIntegerList(emg);
+        // genBack
+        boolean geneticBackground = Boolean.parseBoolean(bufferedReader.readLine());
+
+        ACC acc1 = new ACC(listAcc, listTime);
+        EMG emg1 = new EMG(listEmg, listTime);
+        medicalRecord = new MedicalRecord(patientName, patientSurname, age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
+        this.getMedicalRecords().add(medicalRecord);
+        medicalRecord.getDoctors().add(this);
+    }
+
+    private void handleLogin() throws IOException, SQLException {
+        String loginData = in.readLine();
+        String[] data = loginData.split("\\|");
+        String usernamePatient = data[0];
+        String encryptedPassword = data[1];
+        //checks login info
+        if (userManager.verifyUsername(usernamePatient) && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
+            out.println("LOGIN_SUCCESS");
+            int user_id = userManager.getId(usernamePatient);
+            Patient patient = patientManager.getPatientByUserId(user_id);
+            String patientInfo = patient.getName() + "|" + patient.getSurname() + "|" + patient.getGenetic_background();
+            out.println(patientInfo);
+        } else {
+            out.println("LOGIN_FAILED");
+        }
+    }
+
+    private void handleRegister() throws IOException {
+        String data = in.readLine();
+        //add user information to badatabase
+        Patient patient = processPatientData(data);
+        //get userId to add patient to database
+        String username = findUsername(data);
+        int userId = userManager.getId(username);
+        if (patient != null) {
+            patientManager.addPatient(patient, userId);
+            System.out.println("Patient registered successfully.");
+        } else {
+            System.out.println("Failed to register patient due to invalid data.");
+        }
+    }
+    
+    public static String findUsername (String patientData){
+        String[] data = patientData.split("\\|");
+        if (data.length == 6) {
+            String name = data[0];
+            String surname = data[1];
+            boolean geneticBackground = Boolean.parseBoolean(data[2]);
+            String username = data[3];
+            String encryptedPassword = data[4];
+            String role = data[5];
+            
+            return username;
+        } else {
+            System.out.println("Error: incorrect patient data format.");
+            return null;
+        }
+    }
+    public static Patient processPatientData(String patientData) {
+        //Los datos del cliente llegan en formato: "name|surname|genetic_background|username|password"
+        String[] data = patientData.split("\\|");
+        if (data.length == 6) {
+            String name = data[0];
+            String surname = data[1];
+            boolean geneticBackground = Boolean.parseBoolean(data[2]);
+            String username = data[3];
+            String encryptedPassword = data[4];
+            String role = data[5];
+
+            //de hexadecimal (String) a byte[]
+            byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
+            User user = new User(username, passwordBytes, role);
+            userManager.addUser(user);
+            Patient patient = new Patient(name, surname, geneticBackground);
+            System.out.println("Patient added successfully: " + patient.getName() + " " + patient.getSurname());
+            return patient;
+        } else {
+            System.out.println("Error: incorrect patient data format.");
+            return null;
+        }
+    }
+
+    public static byte[] hexStringToByteArray(String hex) {
+        int len = hex.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+                    + Character.digit(hex.charAt(i+1), 16));
+        }
+        return data;
+    }
+
 }
