@@ -3,6 +3,9 @@ package iFaces;
 import data.ACC;
 import data.EMG;
 
+/**
+ * Interface for managing signal-related operations in the database.
+ */
 public interface SignalManager {
     public void saveEMGSignal(EMG emg);
     public void saveACCSignal(ACC acc);

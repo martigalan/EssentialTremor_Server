@@ -11,10 +11,23 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
 
     private ConnectionManager cM;
 
+    /**
+     * Manages the doctorNotes-related operations using a JDBC connection.
+     * Uses an instance of {@link ConnectionManager} to interact with the SQLite database.
+     *
+     * @param cManager The {@link ConnectionManager} instance used for database operations.
+     */
     public JDBCDoctorNotesManager(ConnectionManager cManager){
         this.cM = cManager;
     }
 
+    /**
+     * Adds a new DoctorsNote to the "DoctorNotes" table in the database.
+     * Uses the provided {@link DoctorsNote} object to insert the doctor's note information.
+     *
+     * @param doctorsNote The {@link DoctorsNote} object containing the doctor's note details (description).
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     @Override
     public void addDoctorNote(DoctorsNote doctorsNote) {
         try {

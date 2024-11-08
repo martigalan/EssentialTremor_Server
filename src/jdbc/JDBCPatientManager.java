@@ -13,10 +13,24 @@ import java.util.logging.Logger;
 public class JDBCPatientManager implements PatientManager {
     private ConnectionManager cM;
 
+    /**
+     * Manages the patient-related operations using a JDBC connection.
+     * Uses an instance of {@link ConnectionManager} to interact with the SQLite database.
+     *
+     * @param cManager The {@link ConnectionManager} instance used for database operations.
+     */
     public JDBCPatientManager (ConnectionManager cManager){
         this.cM = cManager;
     }
 
+    /**
+     * Adds a new patient to the "Patient" table in the database.
+     * Uses the provided {@link Patient} object and user ID to insert the patient's information.
+     *
+     * @param patient The {@link Patient} object containing the patient's details (name, surname and genetic background).
+     * @param userId The user ID to associate with the patient.
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     @Override
     public void addPatient(Patient patient, int userId) {
         try {

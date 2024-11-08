@@ -28,7 +28,7 @@ public class Doctor {
     /**
      * List of patients the doctor has
      */
-    private List<PatientHandler> patients;
+    private List<Patient> patients;
     /**
      * List of medical records the doctor receives
      */
@@ -54,7 +54,7 @@ public class Doctor {
      * @param surname doctors surname
      * @param patients list of patient associated with the doctor
      */
-    public Doctor(String name, String surname, List<PatientHandler> patients) {
+    public Doctor(String name, String surname, List<Patient> patients) {
         this.name = name;
         this.surname = surname;
         this.patients = patients;
@@ -124,7 +124,7 @@ public class Doctor {
         return Objects.hash(name, surname, patients, access);
     }
 
-    public void setPatients(List<PatientHandler> patients) {
+    public void setPatients(List<Patient> patients) {
         this.patients = patients;
     }
 
@@ -136,7 +136,7 @@ public class Doctor {
         return surname;
     }
 
-    public List<PatientHandler> getPatients() {
+    public List<Patient> getPatients() {
         return patients;
     }
 
@@ -156,9 +156,9 @@ public class Doctor {
      * Chooses a patient from the doctors patients list
      * @return Patient chosen by the doctor
      */
-    private PatientHandler choosePatient() {
+    private Patient choosePatient() {
         Scanner sc = new Scanner(System.in);
-        List<PatientHandler> listOfPatients = getPatients();
+        List<Patient> listOfPatients = getPatients();
         for (int i = 0; i < listOfPatients.size(); i++) {
             System.out.println((i + 1) + ": " + listOfPatients.get(i).getName() + " " + listOfPatients.get(i).getSurname());
         }
@@ -350,7 +350,7 @@ public class Doctor {
                 System.out.println("---NOT A VALID INPUT, PLEASE TRY AGAIN...");
             }
         }
-        PatientHandler patient = new PatientHandler(name, surname, genBack);
+        Patient patient = new Patient(name, surname, genBack);
         patient.getDoctors().add(this);
         this.getPatients().add(patient);
         sc.close();

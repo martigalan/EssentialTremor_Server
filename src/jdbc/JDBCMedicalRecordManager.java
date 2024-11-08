@@ -12,10 +12,23 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
 
     private ConnectionManager cM;
 
+    /**
+     * Manages the medicalRecord-related operations using a JDBC connection.
+     * Uses an instance of {@link ConnectionManager} to interact with the SQLite database.
+     *
+     * @param cManager The {@link ConnectionManager} instance used for database operations.
+     */
     public JDBCMedicalRecordManager (ConnectionManager cManager){
         this.cM = cManager;
     }
 
+    /**
+     * Adds a new medical record to the "MedicalRecord" table in the database.
+     * Uses the provided {@link MedicalRecord} object and user ID to insert the medical's record information.
+     *
+     * @param medicalRecord The {@link MedicalRecord} object containing the medical's record details (age, weight, height, syptoms, acc and emg).
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     @Override
     public void addMedicalRecord(MedicalRecord medicalRecord) {
         try {

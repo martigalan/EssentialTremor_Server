@@ -1,18 +1,15 @@
 package pojos;
 
-import data.ACC;
-import data.Data;
-import data.EMG;
-
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -55,6 +52,12 @@ public class Patient {
     }
 
     /**
+     * Empty constructor
+     */
+    public Patient() {
+    }
+
+    /**
      * Constructor
      *
      * @param name    patients name
@@ -67,10 +70,6 @@ public class Patient {
         this.genetic_background = genBack;
         this.medicalRecords = new ArrayList<MedicalRecord>();
         this.doctors = new ArrayList<Doctor>();
-    }
-
-    public Patient() {
-
     }
 
     public void setMedicalRecords(List<MedicalRecord> medicalRecords) {
@@ -127,7 +126,6 @@ public class Patient {
 
     /**
      * Patients String representation
-     *
      * @return String representation
      */
     @Override
@@ -136,6 +134,20 @@ public class Patient {
                 "- Surname: " + surname + '\'';
         //"- State: " + state +
         //"- Treatment: " + treatment;
+    }
+
+    /**
+     * Creates a medical record calling other auxiliar functions
+     */
+    private void openRecord(){
+        MedicalRecord record = askData();
+        record.setPatientName(this.name);
+        record.setPatientSurname(this.surname);
+        record.setGenetic_background(this.genetic_background);
+        //Data data = obtainData();
+        //record.setAcceleration(data.getAcc());
+        //record.setEmg(data.getEmg());
+        this.getMedicalRecords().add(record);
     }
 
     /**
@@ -201,6 +213,7 @@ public class Patient {
         String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
         printWriter.println(emg);
         printWriter.println(medicalRecord.getGenetic_background());//boolean
+        //releaseSendingResources(printWriter, socket);
     }
 
     /**
@@ -231,7 +244,7 @@ public class Patient {
      * @return DoctorsNote containing the evaluation
      * @throws IOException in case connection fails
      */
-    private DoctorsNote receiveDoctorsNote() throws IOException {
+    private DoctorsNote receiveDoctorsNote()throws IOException {
         //TODO check this one
         DoctorsNote doctorsNote = null;
         try (ServerSocket serverSocket = new ServerSocket(9009)) {  // Puerto 9009 para coincidir con el cliente
