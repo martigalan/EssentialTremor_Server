@@ -12,6 +12,9 @@ import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
 
+import static pojos.Doctor.splitToIntegerList;
+import static pojos.Doctor.splitToStringList;
+
 public class PatientHandler implements Runnable{
 
     private static Socket socket;
@@ -96,7 +99,7 @@ public class PatientHandler implements Runnable{
         String emg = in.readLine();
         List<Integer> listEmg = splitToIntegerList(emg);
         // genBack
-        boolean geneticBackground = Boolean.parseBoolean(bufferedReader.readLine());
+        boolean geneticBackground = Boolean.parseBoolean(in.readLine());
 
         ACC acc1 = new ACC(listAcc, listTime);
         EMG emg1 = new EMG(listEmg, listTime);
