@@ -98,10 +98,11 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    patient_id INTEGER," +
                     "    age INTEGER NOT NULL," +
                     "    weight REAL NOT NULL," +
-                    "    height REAL NOT NULL," +
+                    "    height INTEGER NOT NULL," +
                     "    symptoms TEXT," +
                     "    acc VARCHAR(256)," +
                     "    emg VARCHAR(256)," +
+                    "    date TEXT," +
                     "    FOREIGN KEY (patient_id) REFERENCES Patient(id) ON DELETE CASCADE" +
                     ");";
             stmt.executeUpdate(table4);
@@ -119,6 +120,9 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    description TEXT NOT NULL," +
                     "    medical_record_id INTEGER," +
                     "    doctor_id INTEGER," +
+                    "    date TEXT," +
+                    "    state TEXT," +
+                    "    treatment TEXT," +
                     "    FOREIGN KEY (medical_record_id) REFERENCES MedicalRecord(id)," +
                     "    FOREIGN KEY (doctor_id) REFERENCES Doctor(id)" +
                     ");";

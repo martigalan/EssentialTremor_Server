@@ -16,7 +16,8 @@ public class DoctorsNote {
      */
     private Treatment treatment;
 
-
+    public DoctorsNote(){
+    }
     /**
      * Constructor
      * @param notes annotations about a medical record
