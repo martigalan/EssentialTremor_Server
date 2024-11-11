@@ -4,8 +4,11 @@ import data.ACC;
 import data.EMG;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class MedicalRecord {
 
@@ -54,7 +57,9 @@ public class MedicalRecord {
      * List of doctors that receive this medical record
      */
     private List<Doctor> doctors;
-
+    /**
+     * ID used for database
+     */
     private int patientId;
     private int doctorId;
     private int id;
@@ -63,119 +68,10 @@ public class MedicalRecord {
      */
     private LocalDate date;
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getPatientId() {
-        return patientId;
-    }
-
-    public void setPatientId(int patientId) {
-        this.patientId = patientId;
-    }
-
-    public int getDoctorId() {
-        return doctorId;
-    }
-
-    public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
-    }
-
     /**
      * Empty constructor
      */
     public MedicalRecord() {
-    }
-
-    public List<Doctor> getDoctors() {
-        return doctors;
-    }
-    public void setDoctors(List<Doctor> doctors) {
-        this.doctors = doctors;
-    }
-    public List<DoctorsNote> getDoctorsNotes() {
-        return doctorsNotes;
-    }
-    public void setDoctorsNotes(List<DoctorsNote> doctorsNotes) {
-        this.doctorsNotes = doctorsNotes;
-    }
-
-    public Boolean getGenetic_background() {
-        return genetic_background;
-    }
-
-    public void setGenetic_background(Boolean genetic_background) {
-        this.genetic_background = genetic_background;
-    }
-
-    public String getPatientName() {
-        return patientName;
-    }
-
-    public void setPatientName(String patientName) {
-        this.patientName = patientName;
-    }
-
-    public void setAge(int age) {
-        this.age = age;
-    }
-
-    public void setWeight(double weight) {
-        this.weight = weight;
-    }
-
-    public void setHeight(int height) {
-        this.height = height;
-    }
-
-    public void setSymptoms(List<String> symptoms) {
-        this.symptoms = symptoms;
-    }
-
-    public String getPatientSurname() {
-        return patientSurname;
-    }
-
-    public void setPatientSurname(String patientSurname) {
-        this.patientSurname = patientSurname;
-    }
-
-    public void setAcceleration(ACC acceleration) {
-        this.acceleration = acceleration;
-    }
-
-    public void setEmg(EMG emg) {
-        this.emg = emg;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public double getWeight() {
-        return weight;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
-    public List<String> getSymptoms() {
-        return symptoms;
-    }
-
-    public ACC getAcceleration() {
-        return acceleration;
-    }
-
-    public EMG getEmg() {
-        return emg;
     }
 
     /**
@@ -242,6 +138,126 @@ public class MedicalRecord {
         this.doctors = new ArrayList<>();
     }
 
+    public String getPatientName() {
+        return patientName;
+    }
+
+    public void setPatientName(String patientName) {
+        this.patientName = patientName;
+    }
+
+    public String getPatientSurname() {
+        return patientSurname;
+    }
+
+    public void setPatientSurname(String patientSurname) {
+        this.patientSurname = patientSurname;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
+    }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public List<String> getSymptoms() {
+        return symptoms;
+    }
+
+    public void setSymptoms(List<String> symptoms) {
+        this.symptoms = symptoms;
+    }
+
+    public ACC getAcceleration() {
+        return acceleration;
+    }
+
+    public void setAcceleration(ACC acceleration) {
+        this.acceleration = acceleration;
+    }
+
+    public EMG getEmg() {
+        return emg;
+    }
+
+    public void setEmg(EMG emg) {
+        this.emg = emg;
+    }
+
+    public Boolean getGenetic_background() {
+        return genetic_background;
+    }
+
+    public void setGenetic_background(Boolean genetic_background) {
+        this.genetic_background = genetic_background;
+    }
+
+    public List<DoctorsNote> getDoctorsNotes() {
+        return doctorsNotes;
+    }
+
+    public void setDoctorsNotes(List<DoctorsNote> doctorsNotes) {
+        this.doctorsNotes = doctorsNotes;
+    }
+
+    public List<Doctor> getDoctors() {
+        return doctors;
+    }
+
+    public void setDoctors(List<Doctor> doctors) {
+        this.doctors = doctors;
+    }
+
+    public int getPatientId() {
+        return patientId;
+    }
+
+    public void setPatientId(int patientId) {
+        this.patientId = patientId;
+    }
+
+    public int getDoctorId() {
+        return doctorId;
+    }
+
+    public void setDoctorId(int doctorId) {
+        this.doctorId = doctorId;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
     /**
      * Medical Record string representation
      * @return string representation of medical record
@@ -273,5 +289,54 @@ public class MedicalRecord {
      */
     void showEMG(){
         this.emg.plotSignal();
+    }
+
+    /**
+     * Returns the symptoms as a concatenated string, separated by commas.
+     *
+     * @return A string with all symptoms concatenated and separated by commas.
+     */
+    public String getSymptomsAsString() {
+        if (symptoms == null || symptoms.isEmpty()) {
+            return "";
+        }
+        return String.join(", ", symptoms);
+    }
+
+    /**
+     * Converts a string of concatenated symptoms back into a list of strings, so, when we retrieve this data from database, we can obtain again the list instead of a string.
+     * The symptoms in the string should be separated by commas and optional spaces.
+     *
+     * @param symptomsString string containing symptoms separated by commas.
+     * @return A list of strings, where each string is a symptom from the input string.
+     */
+    public List<String> parseSymptomsFromString(String symptomsString) {
+        if (symptomsString == null || symptomsString.isEmpty()) {
+            return new ArrayList<>();
+        }
+        return Arrays.asList(symptomsString.split(",\\s*"));
+    }
+
+    /**
+     * Get the date and return it in the format "yyyy-MM-dd".
+     *
+     * @return the date in the format "yyyy-MM-dd" in a String.
+     */
+    public String getDateAsString() {
+        return date.toString();
+    }
+
+    /**
+     * Sets the date for the medical record from a string, in the format "yyyy-MM-dd".
+     *
+     * @param dateString The string representation of the date to set.
+     * @throws IllegalArgumentException if the string cannot be parsed into a valid LocalDate.
+     */
+    public void setDateAsString(String dateString) {
+        try {
+            this.date = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use 'yyyy-MM-dd'.", e);
+        }
     }
 }

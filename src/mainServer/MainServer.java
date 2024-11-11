@@ -5,14 +5,9 @@ import pojos.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
-import java.sql.SQLException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -39,7 +34,8 @@ public class MainServer {
         serverSocket = null;
         printWriter = null;
         bufferedReader = null;
-        boolean conexion = true;
+        boolean connection = true;
+        int port = 9000;
 
         try {
             connectionManager = new ConnectionManager();
@@ -52,10 +48,32 @@ public class MainServer {
             treatmentManager = new JDBCTreatmentManager(connectionManager);
 
             //Create socket
-            serverSocket = new ServerSocket(9000);
-            //TODO meter hilos
+            serverSocket = new ServerSocket(port);
+            System.out.println("Server listening in port " + port);
 
+            //TODO preguntar si, para crear los hilos por separado debemos hacernos un ClientHandler, que haga registro y login
+            //y según el rol, me cree un paciente y un doctor
+            /*
+            while (connection) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket.getInetAddress());
 
+                //Create thread to manage connection
+                new Thread(new ClientHandler(clientSocket)).start();
+            }*/
+            //TODO otra opción podría ser esta?
+            /*
+                while (connection) {
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Client connected: " + clientSocket.getInetAddress());
+
+                //Create thread to manage connection
+                PatientHandler patientHandler = new PatientHandler(clientSocket);
+                new Thread(patientHandler).start();
+                DoctorHandler doctorHandler = new DoctorHandler(clientSocket);
+                new Thread(doctorHandler).start();
+            }
+             */
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {

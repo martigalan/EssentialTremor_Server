@@ -4,13 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="doctorNote and others">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -233,7 +237,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731325390231</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="doctorNote and others">
+      <option name="closed" value="true" />
+      <created>1731329282525</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1731329282525</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -253,6 +265,7 @@
     <MESSAGE value="added Handlers" />
     <MESSAGE value="jdbc mr" />
     <MESSAGE value="merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge" />
+    <MESSAGE value="doctorNote and others" />
+    <option name="LAST_COMMIT_MESSAGE" value="doctorNote and others" />
   </component>
 </project>

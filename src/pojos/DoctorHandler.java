@@ -1,33 +1,48 @@
 package pojos;
 
-import data.ACC;
-import data.EMG;
-import jdbc.ConnectionManager;
+import jdbc.*;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.*;
-import java.util.stream.Collectors;
+import java.sql.SQLException;
+import static pojos.Patient.joinIntegersWithCommas;
+import static pojos.Patient.joinWithCommas;
 
-public class DoctorHandler implements Runnable{
+public class DoctorHandler implements Runnable {
+
     private static Socket socket;
     private BufferedReader in;
     private PrintWriter out;
 
     public static ConnectionManager connectionManager;
+    public static JDBCUserManager userManager;
+    public static JDBCDoctorManager doctorManager;
+    public static JDBCDoctorNotesManager doctorNotesManager;
+    public static JDBCMedicalRecordManager medicalRecordManager;
+    public static JDBCPatientManager patientManager;
+    public static JDBCStateManager stateManager;
+    public static JDBCTreatmentManager treatmentManager;
 
     public DoctorHandler(Socket clientSocket, ConnectionManager dbConnection) {
         this.socket = clientSocket;
         this.connectionManager = dbConnection;
     }
+
     @Override
     public void run() {
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+            userManager = new JDBCUserManager(connectionManager);
+            doctorManager = new JDBCDoctorManager(connectionManager);
+            doctorNotesManager = new JDBCDoctorNotesManager(connectionManager);
+            medicalRecordManager = new JDBCMedicalRecordManager(connectionManager);
+            patientManager = new JDBCPatientManager(connectionManager);
+            stateManager = new JDBCStateManager(connectionManager);
+            treatmentManager = new JDBCTreatmentManager(connectionManager);
 
             String command;
             while ((command = in.readLine()) != null) {
@@ -41,7 +56,7 @@ public class DoctorHandler implements Runnable{
                     case "MedicalRecord":
                         handleMedicalRecord();
                         break;
-                    case "DoctorsNote":
+                    case "Doctor":
                         handleDoctorsNote();
                         break;
                     case "exit":
@@ -55,6 +70,132 @@ public class DoctorHandler implements Runnable{
             }
         } catch (IOException e) {
             e.printStackTrace();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    private void handleLogin() throws IOException, SQLException {
+        String loginData = in.readLine();
+        String[] data = loginData.split("\\|");
+        String usernameDoctor = data[0];
+        String encryptedPassword = data[1];
+        //checks login info
+        if (userManager.verifyUsername(usernameDoctor) && userManager.verifyPassword(usernameDoctor, encryptedPassword)) {
+            out.println("LOGIN_SUCCESS");
+            int user_id = userManager.getId(usernameDoctor);
+            Doctor doctor = doctorManager.getDoctorByUserId(user_id);
+            String doctorInfo = doctor.getName() + "|" + doctor.getSurname();
+            out.println(doctorInfo);
+        } else {
+            out.println("LOGIN_FAILED");
+        }
+    }
+
+    private void handleRegister() throws IOException {
+        String data = in.readLine();
+        //add user information to database
+        Doctor doctor = processRegisterInfo(data);
+        //get userId to add patient to database
+        String username = findUsername(data);
+        int userId = userManager.getId(username);
+        if (doctor != null) {
+            doctorManager.addDoctor(doctor, userId);
+            out.println("REGISTER_SUCCESS");
+        } else {
+            out.println("REGISTER_FAILED");
+        }
+    }
+
+    public static String findUsername (String doctorData){
+        String[] data = doctorData.split("\\|");
+        if (data.length == 5) {
+            String name = data[0];
+            String surname = data[1];
+            String username = data[2];
+            String encryptedPassword = data[3];
+            String role = data[4];
+
+            return username;
+        } else {
+            System.out.println("Error: incorrect doctor data format.");
+            return null;
+        }
+    }
+    public static Doctor processRegisterInfo(String doctorData) {
+        //Los datos del cliente llegan en formato: "name|surname|username|password"
+        String[] data = doctorData.split("\\|");
+        if (data.length == 5) {
+            String name = data[0];
+            String surname = data[1];
+            String username = data[2];
+            String encryptedPassword = data[3];
+            String role = data[4];
+
+            //de hexadecimal (String) a byte[]
+            byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
+            User user = new User(username, passwordBytes, role);
+            //TODO si es necesario meter User
+            userManager.addUser(user);
+            Doctor doctor = new Doctor(name, surname);
+            System.out.println("Doctor added successfully: " + doctor.getName() + " " + doctor.getSurname());
+            return doctor;
+        } else {
+            System.out.println("Error: incorrect doctor data format.");
+            return null;
+        }
+    }
+
+    public static byte[] hexStringToByteArray(String hex) {
+        int len = hex.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+                    + Character.digit(hex.charAt(i+1), 16));
+        }
+        return data;
+    }
+
+    private void handleMedicalRecord() throws IOException, SQLException {
+        MedicalRecord medicalRecord = null;
+        //TODO obtener medicalRecord de bbdd metiendo id?
+        //medicalRecord = medicalRecordManager.getMedicalRecordByID();
+        if (medicalRecord != null) {
+            out.println("SEND_MEDICALRECORD");
+            //send data
+            out.println(medicalRecord.getPatientName());
+            out.println(medicalRecord.getPatientSurname());
+            out.println(medicalRecord.getGenetic_background());
+            out.println(medicalRecord.getAge());
+            out.println(medicalRecord.getWeight());
+            out.println(medicalRecord.getHeight());
+            //symptoms
+            String symptoms = joinWithCommas(medicalRecord.getSymptoms());
+            System.out.println(symptoms);
+            //timestamp
+            String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
+            out.println(time);
+            //acc
+            String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
+            out.println(acc);
+            //emg
+            String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
+            out.println(emg);
+            out.println(medicalRecord.getGenetic_background());//boolean
+            //Receives approval
+            String approval = in.readLine();
+            if (approval.equals("MEDICALRECORD_SUCCESS")){
+                System.out.println("Medical Record sent correctly");
+                return;
+            } else{
+                System.out.println("Couldn't send Medical Record. Please try again.");
+            }
+        } else {
+            out.println("No medical record found for this patient.");
+        }
+    }
+
+    private void handleDoctorsNote() throws IOException, SQLException {
+
     }
 }

@@ -121,8 +121,8 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    medical_record_id INTEGER," +
                     "    doctor_id INTEGER," +
                     "    date TEXT," +
-                    "    state TEXT," +
-                    "    treatment TEXT," +
+                    "    state INTEGER," +
+                    "    treatment INTEGER," +
                     "    FOREIGN KEY (medical_record_id) REFERENCES MedicalRecord(id)," +
                     "    FOREIGN KEY (doctor_id) REFERENCES Doctor(id)" +
                     ");";

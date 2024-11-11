@@ -47,6 +47,13 @@ public class JDBCPatientManager implements PatientManager {
         }
     }
 
+    /**
+     * Retrieves a Patient object from the database using the given user ID.
+     *
+     * @param userId The user ID of the patient to retrieve.
+     * @return The Patient object corresponding to the given user ID, or null if no patient is found.
+     * @throws SQLException If there is an error executing the SQL query.
+     */
     public Patient getPatientByUserId(int userId) throws SQLException {
         Patient patient = null;
         try {
@@ -69,6 +76,14 @@ public class JDBCPatientManager implements PatientManager {
         return patient;
     }
 
+    /**
+     * Retrieves the ID of a patient from the database using their name and surname.
+     *
+     * @param name The name of the patient.
+     * @param surname The surname of the patient.
+     * @return The ID of the patient, or null if no patient is found.
+     * @throws SQLException If there is an error executing the SQL query.
+     */
     public Integer getIdByNameSurname (String name, String surname) throws SQLException {
         Integer patient_id = null;
         try {

@@ -45,6 +45,14 @@ public class JDBCDoctorManager implements DoctorManager {
         }
     }
 
+    /**
+     * Retrieves a Doctor object from the database based on the user ID.
+     * The Doctor is fetched by matching the given user ID with the doctor's user ID in the database.
+     *
+     * @param userId The user ID of the doctor to retrieve.
+     * @return A Doctor object populated with data from the database, or null if no doctor is found.
+     * @throws SQLException If there is an error accessing the database.
+     */
     public Doctor getDoctorByUserId(int userId) throws SQLException {
         Doctor doctor = null;
         try {
@@ -68,6 +76,4 @@ public class JDBCDoctorManager implements DoctorManager {
         }
         return doctor;
     }
-
-
 }
