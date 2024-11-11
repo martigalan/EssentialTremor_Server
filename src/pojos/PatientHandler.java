@@ -78,7 +78,7 @@ public class PatientHandler implements Runnable{
         }
     }
 
-    private void handleMedicalRecord() throws IOException {
+    private void handleMedicalRecord() throws IOException, SQLException {
         MedicalRecord medicalRecord = null;
         System.out.println("Client connected. Receiving data...");
 
@@ -104,8 +104,9 @@ public class PatientHandler implements Runnable{
         ACC acc1 = new ACC(listAcc, listTime);
         EMG emg1 = new EMG(listEmg, listTime);
         medicalRecord = new MedicalRecord(patientName, patientSurname, age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
-        this.getMedicalRecords().add(medicalRecord);
-        medicalRecord.getDoctors().add(this);
+        //TODO meter en la bbdd
+        Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
+        medicalRecordManager.addMedicalRecord(patient_id, medicalRecord);
     }
 
     private void handleLogin() throws IOException, SQLException {
@@ -128,15 +129,15 @@ public class PatientHandler implements Runnable{
     private void handleRegister() throws IOException {
         String data = in.readLine();
         //add user information to badatabase
-        Patient patient = processPatientData(data);
+        Patient patient = processRegisterInfo(data);
         //get userId to add patient to database
         String username = findUsername(data);
         int userId = userManager.getId(username);
         if (patient != null) {
             patientManager.addPatient(patient, userId);
-            System.out.println("Patient registered successfully.");
+            out.println("REGISTER_SUCCESS");
         } else {
-            System.out.println("Failed to register patient due to invalid data.");
+            out.println("REGISTER_FAILED");
         }
     }
     
@@ -156,7 +157,7 @@ public class PatientHandler implements Runnable{
             return null;
         }
     }
-    public static Patient processPatientData(String patientData) {
+    public static Patient processRegisterInfo(String patientData) {
         //Los datos del cliente llegan en formato: "name|surname|genetic_background|username|password"
         String[] data = patientData.split("\\|");
         if (data.length == 6) {
@@ -170,6 +171,7 @@ public class PatientHandler implements Runnable{
             //de hexadecimal (String) a byte[]
             byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
             User user = new User(username, passwordBytes, role);
+            //TODO si es necesario meter User
             userManager.addUser(user);
             Patient patient = new Patient(name, surname, geneticBackground);
             System.out.println("Patient added successfully: " + patient.getName() + " " + patient.getSurname());

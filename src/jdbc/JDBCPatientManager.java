@@ -69,4 +69,20 @@ public class JDBCPatientManager implements PatientManager {
         return patient;
     }
 
+    public Integer getIdByNameSurname (String name, String surname) throws SQLException {
+        Integer patient_id = null;
+        try {
+            String query = "SELECT id FROM Patient WHERE name = ? AND surname = ?";
+            PreparedStatement prep = cM.getConnection().prepareStatement(query);
+            prep.setString(1, name);
+            prep.setString(2, surname);
+            try (ResultSet rs = prep.executeQuery()) {
+                patient_id = rs.getInt("id");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving ID by name and surname: " + e.getMessage());
+            throw e;
+        }
+        return patient_id;
+    }
 }
