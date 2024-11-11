@@ -262,6 +262,10 @@ public class Patient {
                 System.out.println(doctorSurname);
                 String notes = bufferedReader.readLine();
                 System.out.println(notes);
+                State st = State.valueOf(bufferedReader.readLine());
+                System.out.println(st);
+                Treatment trt = Treatment.valueOf(bufferedReader.readLine());
+                System.out.println(trt);
 
                 releaseReceivingResources(bufferedReader, socket, serverSocket);
 
