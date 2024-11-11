@@ -3,6 +3,7 @@ package pojos;
 import data.ACC;
 import data.EMG;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,6 +58,10 @@ public class MedicalRecord {
     private int patientId;
     private int doctorId;
     private int id;
+    /**
+     * Date of creation
+     */
+    private LocalDate date;
 
     public int getId() {
         return id;
@@ -189,6 +194,26 @@ public class MedicalRecord {
         this.emg = new EMG();
         this.doctorsNotes = new ArrayList<>();
         this.doctors = new ArrayList<>();
+        this.date = LocalDate.now();
+    }
+    /**
+     * Constructor
+     * @param age patients age
+     * @param weight patients weight
+     * @param height patient height
+     * @param symptoms patients symptoms
+     * @param date date of creation
+     */
+    public MedicalRecord(int age, double weight, int height, List<String> symptoms, LocalDate date) {
+        this.age = age;
+        this.weight = weight;
+        this.height = height;
+        this.symptoms = symptoms;
+        this.acceleration = new ACC();
+        this.emg = new EMG();
+        this.doctorsNotes = new ArrayList<>();
+        this.doctors = new ArrayList<>();
+        this.date = date;
     }
 
     /**

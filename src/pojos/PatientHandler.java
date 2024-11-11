@@ -78,6 +78,9 @@ public class PatientHandler implements Runnable{
         }
     }
 
+    private void handleDoctorsNote() {
+    }
+
     private void handleMedicalRecord() throws IOException, SQLException {
         MedicalRecord medicalRecord = null;
         System.out.println("Client connected. Receiving data...");
@@ -104,7 +107,7 @@ public class PatientHandler implements Runnable{
         ACC acc1 = new ACC(listAcc, listTime);
         EMG emg1 = new EMG(listEmg, listTime);
         medicalRecord = new MedicalRecord(patientName, patientSurname, age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
-        //TODO meter en la bbdd
+        //add to data base
         Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
         medicalRecordManager.addMedicalRecord(patient_id, medicalRecord);
     }
