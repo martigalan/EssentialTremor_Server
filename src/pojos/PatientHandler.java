@@ -4,10 +4,7 @@ import data.ACC;
 import data.EMG;
 import jdbc.*;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
@@ -20,6 +17,7 @@ public class PatientHandler implements Runnable{
     private static Socket socket;
     private BufferedReader in;
     private PrintWriter out;
+    private DataInputStream dataInputStream;
 
     public static ConnectionManager connectionManager;
     public static JDBCUserManager userManager;
@@ -39,6 +37,7 @@ public class PatientHandler implements Runnable{
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+            //dataInputStream = new DataInputStream(in);
             userManager = new JDBCUserManager(connectionManager);
             doctorManager = new JDBCDoctorManager(connectionManager);
             doctorNotesManager = new JDBCDoctorNotesManager(connectionManager);
@@ -100,13 +99,40 @@ public class PatientHandler implements Runnable{
         List<Integer> listEmg = splitToIntegerList(emg);
         // genBack
         boolean geneticBackground = Boolean.parseBoolean(in.readLine());
+        String approval = in.readLine();
 
         ACC acc1 = new ACC(listAcc, listTime);
         EMG emg1 = new EMG(listEmg, listTime);
         medicalRecord = new MedicalRecord(patientName, patientSurname, age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
-        //TODO meter en la bbdd
+        if (medicalRecord != null) {
+            out.println("MEDICALRECORD_SUCCESS");
+            Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
+            medicalRecordManager.addMedicalRecord(patient_id, medicalRecord);
+        } else {
+            out.println("MEDICALRECORD_FAILED");
+        }
+    }
+
+    private void handleDoctorsNote() throws SQLException, IOException {
+        DoctorsNote dn =  null;
+        //1º busca medicalRecord paciente
+        String patientName = in.readLine();
+        String patientSurname = in.readLine();
         Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
-        medicalRecordManager.addMedicalRecord(patient_id, medicalRecord);
+        List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
+        out.write("Medical Records:\n");
+        for (MedicalRecord record : medicalRecords) {
+            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+        }
+        Integer mr_id = Integer.parseInt(in.readLine());
+        DoctorsNote doctorsNote = null;
+        doctorsNote = doctorNotesManager.getDoctorsNoteByID(mr_id);
+        out.println(doctorsNote.getDoctorName());
+        out.println(doctorsNote.getDoctorSurname());
+        out.println(doctorsNote.getNotes());
+        out.println(doctorsNote.getState());
+        out.println(doctorsNote.getTreatment());
+        out.println(doctorsNote.getDate());
     }
 
     private void handleLogin() throws IOException, SQLException {
