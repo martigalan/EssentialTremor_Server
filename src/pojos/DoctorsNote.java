@@ -7,6 +7,43 @@ public class DoctorsNote {
     private String notes;
     private int medicalRecordId;
     private int doctorId;
+    /**
+     * State assigned to the patient by the doctor
+     */
+    private State state;
+    /**
+     * Treatment the patient should undergo
+     */
+    private Treatment treatment;
+
+
+    /**
+     * Constructor
+     * @param notes annotations about a medical record
+     * @param state state assigned to the patient
+     * @param treatment treatment assigned to the patient
+     */
+    public DoctorsNote(String notes, State state, Treatment treatment) {
+        this.notes = notes;
+        this.state = state;
+        this.treatment = treatment;
+    }
+
+    /**
+     * Constructor
+     * @param doctorName doctors name
+     * @param doctorSurname doctors surname
+     * @param notes annotations about a medical record
+     * @param state state assigned to the patient
+     * @param treatment treatment assigned to the patient
+     */
+    public DoctorsNote(String doctorName, String doctorSurname, String notes, State state, Treatment treatment) {
+        this.doctorName = doctorName;
+        this.doctorSurname = doctorSurname;
+        this.notes = notes;
+        this.state = state;
+        this.treatment = treatment;
+    }
 
     public DoctorsNote(String notes) {
         this.notes = notes;
@@ -16,6 +53,22 @@ public class DoctorsNote {
         this.doctorName = doctorName;
         this.doctorSurname = doctorSurname;
         this.notes = notes;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public Treatment getTreatment() {
+        return treatment;
+    }
+
+    public void setTreatment(Treatment treatment) {
+        this.treatment = treatment;
     }
 
     public String getNotes() {
