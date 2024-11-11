@@ -30,13 +30,14 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
      * @throws SQLException if there is an error during the SQL operation.
      */
     @Override
-    public void addMedicalRecord(MedicalRecord medicalRecord) {
+    public void addMedicalRecord(Integer patient_id, MedicalRecord medicalRecord) {
         try {
-            String sql = "INSERT INTO MedicalRecord (age, weight, height, syptoms, acc, emg) SELECT ?, ?, ?, ?, ?, ?";
+            String sql = "INSERT INTO MedicalRecord (patient_id, age, weight, height, syptoms, acc, emg) SELECT ?, ?, ?, ?, ?, ?, ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
-            prep.setInt(1, medicalRecord.getAge());
-            prep.setDouble(2, medicalRecord.getWeight());
-            prep.setDouble(3, medicalRecord.getHeight());
+            prep.setInt(1, patient_id);
+            prep.setInt(2, medicalRecord.getAge());
+            prep.setDouble(3, medicalRecord.getWeight());
+            prep.setDouble(4, medicalRecord.getHeight());
             prep.setString(5, medicalRecord.getSymptoms().get(0));
             /*prep.setString(6, medicalRecord.getAcceleration());
             prep.setString(7, medicalRecord.getEmg());*/
