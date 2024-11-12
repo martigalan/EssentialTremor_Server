@@ -135,7 +135,7 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    FOREIGN KEY (patient_id) REFERENCES Patient(id)" +
                     ");";
             stmt.executeUpdate(table7);
-            String table8 = "CREATE TABLE HasNotes (" +
+            String table8 = "CREATE TABLE HasMedicalRecord (" +
                     "    id INTEGER PRIMARY KEY AUTOINCREMENT," +
                     "    doctor_id INTEGER," +
                     "    medical_record_id INTEGER," +
