@@ -61,6 +61,7 @@ public class DoctorHandler implements Runnable {
                         handleMedicalRecord();
                         break;
                     case "DoctorsNote":
+                        //TODO see this
                         handleDoctorsNote();
                         break;
                     case "exit":
