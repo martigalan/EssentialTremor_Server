@@ -1,6 +1,7 @@
 package jdbc;
 
 import iFaces.MedicalRecordManager;
+import pojos.DoctorsNote;
 import pojos.MedicalRecord;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -34,16 +35,16 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
     @Override
     public void addMedicalRecord(Integer patient_id, MedicalRecord medicalRecord) {
         try {
-            String sql = "INSERT INTO MedicalRecord (patient_id, age, weight, height, syptoms, acc, emg, date) SELECT ?, ?, ?, ?, ?, ?, ?, ?";
+            String sql = "INSERT INTO MedicalRecord (patient_id, age, weight, height, symptoms, acc, emg, date) SELECT ?, ?, ?, ?, ?, ?, ?, ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setInt(1, patient_id);
             prep.setInt(2, medicalRecord.getAge());
             prep.setDouble(3, medicalRecord.getWeight());
             prep.setInt(4, medicalRecord.getHeight());
-            prep.setString(5, medicalRecord.getSymptoms().get(0));
+            prep.setString(5, medicalRecord.getSymptomsAsString());
             /*prep.setString(6, medicalRecord.getAcceleration());
             prep.setString(7, medicalRecord.getEmg());*/
-            prep.setString(8, medicalRecord.getDate());
+            prep.setString(8, medicalRecord.getDateAsString());
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
@@ -51,6 +52,13 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
         }
     }
 
+    /**
+     * Retrieves a List<MedicalRecord> which provides all the medical's record in a whole.
+     * Create a List<MedicalRecord> obtaining the id and date of each one from database.
+     *
+     * @param patient_id id of patient, related to the medical records that it has.
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     public List<MedicalRecord> findByPatientId (int patient_id) {
         List<MedicalRecord> records = new ArrayList<>();
         try {
@@ -62,7 +70,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             if (rs.next()) {
                 MedicalRecord record = new MedicalRecord();
                 record.setId(rs.getInt("id"));
-                record.setDate(rs.getString("date"));
+                record.setDateAsString(rs.getString("date"));
                 records.add(record);
             }
         } catch (SQLException e) {
@@ -71,7 +79,15 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
         return records;
     }
 
-    public MedicalRecord getMedicalRecordByID(Integer medicalRecord_id) throws SQLException {
+    /**
+     * Retrieves a MedicalRecord object from the database based on the given medical record ID.
+     * The record is fetched by matching the given medical record ID with the records stored in the database.
+     *
+     * @param medicalRecord_id The ID of the medical record to retrieve.
+     * @return A MedicalRecord object populated with data from the database, or null if no record is found.
+     * @throws SQLException If there is an error accessing the database.
+     */
+    public MedicalRecord getMedicalRecordByID (Integer medicalRecord_id) throws SQLException {
         MedicalRecord record = null;
         try {
             String query = "SELECT * FROM MedicalRecords WHERE id = ?";
@@ -86,10 +102,10 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
                     record.setAge(rs.getInt("age"));
                     record.setWeight(rs.getDouble("weight"));
                     record.setHeight(rs.getInt("height"));
-                    //TODO que me devuelva un string con todos los symptoms
-                    record.setSymptoms(rs.getString("symptoms"));
+                    //TODO este que no se como hacerlo
+                    record.symptomsToString(rs.getString("symptoms"));
                     //añadir emg y acc
-                    record.setDate(rs.getString("date"));
+                    record.setDateAsString(rs.getString("date"));
                 } else {
                     System.out.println("No Medical Record found for ID: " + medicalRecord_id);
                 }

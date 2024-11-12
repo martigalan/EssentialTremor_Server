@@ -1,5 +1,8 @@
 package pojos;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
+
 public class DoctorsNote {
 
     private String doctorName;
@@ -7,6 +10,7 @@ public class DoctorsNote {
     private String notes;
     private int medicalRecordId;
     private int doctorId;
+    private LocalDate date;
     /**
      * State assigned to the patient by the doctor
      */
@@ -110,5 +114,36 @@ public class DoctorsNote {
 
     public void setDoctorId(int doctorId) {
         this.doctorId = doctorId;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    /**
+     * Get the date and return it in the format "yyyy-MM-dd".
+     *
+     * @return the date in the format "yyyy-MM-dd" in a String.
+     */
+    public String getDateAsString() {
+        return date.toString();
+    }
+
+    /**
+     * Sets the date for the doctor's note from a string, in the format "yyyy-MM-dd".
+     *
+     * @param dateString The string representation of the date to set.
+     * @throws IllegalArgumentException if the string cannot be parsed into a valid LocalDate.
+     */
+    public void setDateAsString(String dateString) {
+        try {
+            this.date = LocalDate.parse(dateString);
+        } catch (DateTimeParseException e) {
+            throw new IllegalArgumentException("Invalid date format. Please use 'yyyy-MM-dd'.", e);
+        }
     }
 }

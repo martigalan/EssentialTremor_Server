@@ -20,7 +20,6 @@ public class PatientHandler implements Runnable{
     private static Socket socket;
     private BufferedReader in;
     private PrintWriter out;
-    private DataInputStream dataInputStream;
 
     public static ConnectionManager connectionManager;
     public static JDBCUserManager userManager;
@@ -40,7 +39,6 @@ public class PatientHandler implements Runnable{
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
-            //dataInputStream = new DataInputStream(in);
             userManager = new JDBCUserManager(connectionManager);
             doctorManager = new JDBCDoctorManager(connectionManager);
             doctorNotesManager = new JDBCDoctorNotesManager(connectionManager);
@@ -118,7 +116,6 @@ public class PatientHandler implements Runnable{
 
     private void handleDoctorsNote() throws SQLException, IOException {
         DoctorsNote dn =  null;
-        //1º busca medicalRecord paciente
         String patientName = in.readLine();
         String patientSurname = in.readLine();
         Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
@@ -157,7 +154,7 @@ public class PatientHandler implements Runnable{
 
     private void handleRegister() throws IOException {
         String data = in.readLine();
-        //add user information to badatabase
+        //add user information to database
         Patient patient = processRegisterInfo(data);
         //get userId to add patient to database
         String username = findUsername(data);

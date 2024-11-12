@@ -1,8 +1,10 @@
 package jdbc;
 
 import iFaces.DoctorNotesManager;
-import pojos.Doctor;
 import pojos.DoctorsNote;
+import pojos.State;
+import pojos.Treatment;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -38,10 +40,9 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
             prep.setString(1, doctorsNote.getNotes());
             prep.setInt(2, doctorsNote.getMedicalRecordId());
             prep.setInt(3, doctorsNote.getDoctorId());
-            prep.setString(4, doctorsNote.getDate());
-            //TODO meter state and treatment
-            prep.setString(5, doctorsNote.getState());
-            prep.setString(6, doctorsNote.getTreatment());
+            prep.setString(4, doctorsNote.getDateAsString());
+            prep.setInt(5, doctorsNote.getState().getId());
+            prep.setInt(6, doctorsNote.getTreatment().getId());
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
@@ -49,6 +50,13 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
         }
     }
 
+    /**
+     * Retrieves a {@link DoctorsNote} object with provides all the doctor's note information.
+     * Create a {@link DoctorsNote} object to insert the doctor's note information obtain from the database.
+     *
+     * @param medicalRecord_id id of medicalRecord, related to the doctor's note.
+     * @throws SQLException if there is an error during the SQL operation.
+     */
     public DoctorsNote getDoctorsNoteByID (Integer medicalRecord_id) throws SQLException {
         DoctorsNote dn = null;
         try {
@@ -60,9 +68,17 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
                 if (rs.next()) {
                     dn = new DoctorsNote();
                     dn.setNotes(rs.getString("description"));
-                    //TODO meterlo en la bbdd
-                    dn.setState(rs.);
-                    dn.setTreatment(rs.);
+                    int stateId = rs.getInt("state");
+                    if (!rs.wasNull()) {
+                        State state = State.getById(stateId);
+                        dn.setState(state);
+                    }
+                    int treatmentId = rs.getInt("treatment");
+                    if (!rs.wasNull()) {
+                        Treatment treatment = Treatment.getById(treatmentId);
+                        dn.setTreatment(treatment);
+                    }
+                    dn.setDateAsString(rs.getString("date"));
                 } else {
                     System.out.println("No doctors note found for medical record ID: " + medicalRecord_id);
                 }
