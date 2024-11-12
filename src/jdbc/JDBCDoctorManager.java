@@ -76,4 +76,34 @@ public class JDBCDoctorManager implements DoctorManager {
         }
         return doctor;
     }
+    /**
+     * Retrieves an id from the database based on the name and surname.
+     * The id is fetched by matching the given name and surname with the doctor's parameters in the database.
+     *
+     * @param name name of the doctor whose id we want to retrieve.
+     * @param surname surname of the doctor whose id we want to retrieve.
+     * @return An id Ineteger, or null if no doctor is found.
+     * @throws SQLException If there is an error accessing the database.
+     */
+    public Integer getIdByNameSurname(String name, String surname) throws SQLException {
+        Integer id = null;
+        try {
+            String query = "SELECT id FROM Doctor WHERE name = ? AND surname = ?";
+            PreparedStatement prep = cM.getConnection().prepareStatement(query);
+            prep.setString(1, name);
+            prep.setString(2, surname);
+
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
+                    id = rs.getInt("id");
+                } else {
+                    System.out.println("No doctor found for name and surname: " + name + surname);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving doctor by name and surname: " + e.getMessage());
+            throw e;
+        }
+        return id;
+    }
 }

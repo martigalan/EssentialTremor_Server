@@ -37,6 +37,7 @@ public class PatientHandler implements Runnable{
     @Override
     public void run() {
         try {
+            //TODO quitar algunas cosas de estas!?
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             userManager = new JDBCUserManager(connectionManager);
@@ -100,7 +101,6 @@ public class PatientHandler implements Runnable{
         List<Integer> listEmg = splitToIntegerList(emg);
         // genBack
         boolean geneticBackground = Boolean.parseBoolean(in.readLine());
-        String approval = in.readLine();
 
         ACC acc1 = new ACC(listAcc, listTime);
         EMG emg1 = new EMG(listEmg, listTime);
@@ -116,15 +116,22 @@ public class PatientHandler implements Runnable{
 
     private void handleDoctorsNote() throws SQLException, IOException {
         DoctorsNote dn =  null;
+
         String patientName = in.readLine();
         String patientSurname = in.readLine();
+
         Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
+        //obtain list of medical records associated to the patient
+        //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
-        out.write("Medical Records:\n");
+
         for (MedicalRecord record : medicalRecords) {
             out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
         }
+        //chosen medical record
         Integer mr_id = Integer.parseInt(in.readLine());
+        //doctors note associated to the medical record
+        //todo possibly change to get all the dn associated to that mr
         DoctorsNote doctorsNote = null;
         doctorsNote = doctorNotesManager.getDoctorsNoteByID(mr_id);
         out.println(doctorsNote.getDoctorName());
@@ -133,6 +140,7 @@ public class PatientHandler implements Runnable{
         out.println(doctorsNote.getState());
         out.println(doctorsNote.getTreatment());
         out.println(doctorsNote.getDate());
+        return;
     }
 
     private void handleLogin() throws IOException, SQLException {
@@ -147,8 +155,10 @@ public class PatientHandler implements Runnable{
             Patient patient = patientManager.getPatientByUserId(user_id);
             String patientInfo = patient.getName() + "|" + patient.getSurname() + "|" + patient.getGenetic_background();
             out.println(patientInfo);
+            return;
         } else {
             out.println("LOGIN_FAILED");
+            return;
         }
     }
 
@@ -162,8 +172,10 @@ public class PatientHandler implements Runnable{
         if (patient != null) {
             patientManager.addPatient(patient, userId);
             out.println("REGISTER_SUCCESS");
+            return;
         } else {
             out.println("REGISTER_FAILED");
+            return;
         }
     }
     
@@ -184,7 +196,7 @@ public class PatientHandler implements Runnable{
         }
     }
     public static Patient processRegisterInfo(String patientData) {
-        //Los datos del cliente llegan en formato: "name|surname|genetic_background|username|password"
+        //Client info comes as: "name|surname|genetic_background|username|password"
         String[] data = patientData.split("\\|");
         if (data.length == 6) {
             String name = data[0];
@@ -194,10 +206,11 @@ public class PatientHandler implements Runnable{
             String encryptedPassword = data[4];
             String role = data[5];
 
-            //de hexadecimal (String) a byte[]
+            //from hexadecimal (String) t byte[]
             byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
             User user = new User(username, passwordBytes, role);
             //TODO si es necesario meter User
+            //add register info (username and password) to ddbb
             userManager.addUser(user);
             Patient patient = new Patient(name, surname, geneticBackground);
             System.out.println("Patient added successfully: " + patient.getName() + " " + patient.getSurname());

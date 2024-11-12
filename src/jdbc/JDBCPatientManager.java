@@ -7,6 +7,7 @@ import pojos.PatientHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -99,5 +100,33 @@ public class JDBCPatientManager implements PatientManager {
             throw e;
         }
         return patient_id;
+    }
+    /**
+     * Retrieves a list of all the patients.
+     *
+     * @return The Patient list object or null if no patients are found.
+     * @throws SQLException If there is an error executing the SQL query.
+     */
+    public List<Patient> getPatients() throws SQLException {
+        List<Patient> pList = null;
+        Patient patient = null;
+        try {
+            String query = "SELECT id, name, surname FROM Patient";
+            PreparedStatement prep = cM.getConnection().prepareStatement(query);
+
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
+                    patient = new Patient();
+                    patient.setId(rs.getInt("id"));
+                    patient.setName(rs.getString("name"));
+                    patient.setSurname(rs.getString("surname"));
+                    pList.add(patient);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving patient by user ID: " + e.getMessage());
+            throw e;
+        }
+        return pList;
     }
 }
