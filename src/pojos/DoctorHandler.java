@@ -8,6 +8,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.util.List;
+
 import static pojos.Patient.joinIntegersWithCommas;
 import static pojos.Patient.joinWithCommas;
 
@@ -25,6 +27,7 @@ public class DoctorHandler implements Runnable {
     public static JDBCPatientManager patientManager;
     public static JDBCStateManager stateManager;
     public static JDBCTreatmentManager treatmentManager;
+    public static JDBCHasPatientManager hasPatientManager;
 
     public DoctorHandler(Socket clientSocket, ConnectionManager dbConnection) {
         this.socket = clientSocket;
@@ -34,6 +37,7 @@ public class DoctorHandler implements Runnable {
     @Override
     public void run() {
         try {
+            //TODO quitar algunas cosas de estas!?
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             userManager = new JDBCUserManager(connectionManager);
@@ -43,7 +47,7 @@ public class DoctorHandler implements Runnable {
             patientManager = new JDBCPatientManager(connectionManager);
             stateManager = new JDBCStateManager(connectionManager);
             treatmentManager = new JDBCTreatmentManager(connectionManager);
-
+            hasPatientManager = new JDBCHasPatientManager(connectionManager);
             String command;
             while ((command = in.readLine()) != null) {
                 switch (command) {
@@ -56,7 +60,7 @@ public class DoctorHandler implements Runnable {
                     case "MedicalRecord":
                         handleMedicalRecord();
                         break;
-                    case "Doctor":
+                    case "DoctorsNote":
                         handleDoctorsNote();
                         break;
                     case "exit":
@@ -158,8 +162,30 @@ public class DoctorHandler implements Runnable {
 
     private void handleMedicalRecord() throws IOException, SQLException {
         MedicalRecord medicalRecord = null;
-        //TODO obtener medicalRecord de bbdd metiendo id?
-        //medicalRecord = medicalRecordManager.getMedicalRecordByID();
+
+        //find doctor_id for later use
+        String doctorName = in.readLine();
+        String doctorSurname = in.readLine();
+        Integer doctor_id = doctorManager.getIdByNameSurname(doctorName, doctorSurname);
+
+        //get all the patient ids, names and surnames and send
+        List<Patient> pList = patientManager.getPatients();
+        for (Patient p : pList) {
+            out.write("ID: " + p.getId() + ", Name: " + p.getName() + ", Surname: " + p.getSurname()+ "\n");
+        }
+        //receive the desired patient id and add to HasPatient table
+        Integer patient_id = Integer.parseInt(in.readLine());
+        hasPatientManager.addPatientDoctor(doctor_id, patient_id);
+
+        //go to the medical records and choose those that have the pateint_id
+        //they only have id and date to simplify the data download from ddbb
+        List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
+        for (MedicalRecord record : medicalRecords) {
+            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+        }
+        Integer mr_id = Integer.parseInt(in.readLine());
+
+        medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
         if (medicalRecord != null) {
             out.println("SEND_MEDICALRECORD");
             //send data
@@ -171,7 +197,7 @@ public class DoctorHandler implements Runnable {
             out.println(medicalRecord.getHeight());
             //symptoms
             String symptoms = joinWithCommas(medicalRecord.getSymptoms());
-            System.out.println(symptoms);
+            out.println(symptoms);
             //timestamp
             String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
             out.println(time);

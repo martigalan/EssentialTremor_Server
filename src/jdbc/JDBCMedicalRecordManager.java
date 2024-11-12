@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -102,9 +103,10 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
                     record.setAge(rs.getInt("age"));
                     record.setWeight(rs.getDouble("weight"));
                     record.setHeight(rs.getInt("height"));
-                    //TODO este que no se como hacerlo
-                    record.symptomsToString(rs.getString("symptoms"));
-                    //añadir emg y acc
+                    //converts the text to a list
+                    String symptoms = (rs.getString("symptoms"));
+                    record.setSymptoms(symptomsToList(symptoms));
+                    //TODO añadir emg y acc
                     record.setDateAsString(rs.getString("date"));
                 } else {
                     System.out.println("No Medical Record found for ID: " + medicalRecord_id);
@@ -115,6 +117,14 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             throw e;
         }
         return record;
+    }
+
+    public static List<String> symptomsToList(String sintomasTexto) {
+        if (sintomasTexto == null || sintomasTexto.isEmpty()) {
+            return List.of(); // null if empty
+        }
+        // Divide and create the list
+        return Arrays.asList(sintomasTexto.split(",\\s*"));
     }
 
 }
