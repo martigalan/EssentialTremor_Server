@@ -28,6 +28,7 @@ public class DoctorHandler implements Runnable {
     public static JDBCStateManager stateManager;
     public static JDBCTreatmentManager treatmentManager;
     public static JDBCHasPatientManager hasPatientManager;
+    public static JDBCHasMedicalRecordManager hasMedicalRecordManager;
 
     public DoctorHandler(Socket clientSocket, ConnectionManager dbConnection) {
         this.socket = clientSocket;
@@ -48,6 +49,7 @@ public class DoctorHandler implements Runnable {
             stateManager = new JDBCStateManager(connectionManager);
             treatmentManager = new JDBCTreatmentManager(connectionManager);
             hasPatientManager = new JDBCHasPatientManager(connectionManager);
+            hasMedicalRecordManager = new JDBCHasMedicalRecordManager(connectionManager);
             String command;
             while ((command = in.readLine()) != null) {
                 switch (command) {
@@ -178,7 +180,7 @@ public class DoctorHandler implements Runnable {
         Integer patient_id = Integer.parseInt(in.readLine());
         hasPatientManager.addPatientDoctor(doctor_id, patient_id);
 
-        //go to the medical records and choose those that have the pateint_id
+        //go to the medical records and choose those that have the patient_id
         //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
         for (MedicalRecord record : medicalRecords) {
@@ -186,6 +188,9 @@ public class DoctorHandler implements Runnable {
         }
         Integer mr_id = Integer.parseInt(in.readLine());
 
+        //once I have my medicalRecord, add it to my doctor, to associate it in ddbb
+        hasMedicalRecordManager.addMedicalRecordDoctor(doctor_id, mr_id);
+        //obtain this medicalRecord from ddbb to send it to the Doctor
         medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
         if (medicalRecord != null) {
             out.println("SEND_MEDICALRECORD");
