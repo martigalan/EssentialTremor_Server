@@ -8,7 +8,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.time.ZonedDateTime;
 
 import static pojos.Patient.joinIntegersWithCommas;
 import static pojos.Patient.joinWithCommas;
@@ -228,6 +231,27 @@ public class DoctorHandler implements Runnable {
     }
 
     private void handleDoctorsNote() throws IOException, SQLException {
+        //receive doctors note
+        String dName = in.readLine();
+        String dSurname = in.readLine();
+        String notes = in.readLine();
+        State st = State.valueOf(in.readLine());
+        Treatment trt = Treatment.valueOf(in.readLine());
+        String dateTxt = in.readLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
+           // Parse to ZonedDateTime first
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTxt, formatter);
+           // Extract LocalDate from ZonedDateTime
+        LocalDate date = zonedDateTime.toLocalDate();
+        DoctorsNote dn = new DoctorsNote(dName, dSurname, notes, st, trt, date);
+
+        //find doctor_id
+        String doctorName = in.readLine();
+        String doctorSurname = in.readLine();
+        Integer doctor_id = doctorManager.getIdByNameSurname(doctorName, doctorSurname);
+        dn.setDoctorId(doctor_id);
+
+        //TODO find medicalRecord_id
 
     }
 }
