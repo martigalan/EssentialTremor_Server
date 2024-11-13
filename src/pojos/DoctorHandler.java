@@ -221,7 +221,6 @@ public class DoctorHandler implements Runnable {
             String approval = in.readLine();
             if (approval.equals("MEDICALRECORD_SUCCESS")){
                 System.out.println("Medical Record sent correctly");
-                return;
             } else{
                 System.out.println("Couldn't send Medical Record. Please try again.");
             }
@@ -243,7 +242,10 @@ public class DoctorHandler implements Runnable {
         ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTxt, formatter);
            // Extract LocalDate from ZonedDateTime
         LocalDate date = zonedDateTime.toLocalDate();
+        Integer mr_id = Integer.valueOf(in.readLine());
+
         DoctorsNote dn = new DoctorsNote(dName, dSurname, notes, st, trt, date);
+        dn.setMedicalRecordId(mr_id);
 
         //find doctor_id
         String doctorName = in.readLine();
@@ -251,7 +253,11 @@ public class DoctorHandler implements Runnable {
         Integer doctor_id = doctorManager.getIdByNameSurname(doctorName, doctorSurname);
         dn.setDoctorId(doctor_id);
 
-        //TODO find medicalRecord_id
-
+        if (dn != null) {
+            out.println("DOCTORNOTE_SUCCESS");
+            doctorNotesManager.addDoctorNote(dn);
+        } else {
+            out.println("DOCTORNOTE_FAILED");
+        }
     }
 }

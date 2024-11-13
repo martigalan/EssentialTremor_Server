@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="started with handleDoctorsNote">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,6 +151,7 @@
       <workItem from="1730366572518" duration="5377000" />
       <workItem from="1730457424794" duration="657000" />
       <workItem from="1731322558864" duration="2657000" />
+      <workItem from="1731502385548" duration="968000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -245,7 +245,14 @@
       <option name="project" value="LOCAL" />
       <updated>1731420412629</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="started with handleDoctorsNote">
+      <created>1731501303749</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1731501303749</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -277,6 +284,7 @@
     <MESSAGE value="jdbc mr" />
     <MESSAGE value="doctorNote and others" />
     <MESSAGE value="merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge" />
+    <MESSAGE value="started with handleDoctorsNote" />
+    <option name="LAST_COMMIT_MESSAGE" value="started with handleDoctorsNote" />
   </component>
 </project>
