@@ -108,7 +108,6 @@ public class DoctorHandler implements Runnable {
         //get userId to add patient to database
         String username = findUsername(data);
         int userId = userManager.getId(username);
-        out.println("hola");
         if (doctor != null) {
             doctorManager.addDoctor(doctor, userId);
             out.println("REGISTER_SUCCESS");
