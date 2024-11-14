@@ -43,8 +43,8 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setDouble(3, medicalRecord.getWeight());
             prep.setInt(4, medicalRecord.getHeight());
             prep.setString(5, medicalRecord.getSymptomsAsString());
-            /*prep.setString(6, medicalRecord.getAcceleration());
-            prep.setString(7, medicalRecord.getEmg());*/
+            prep.setString(6, medicalRecord.getAcceleration());
+            prep.setString(7, medicalRecord.getEmg());
             prep.setString(8, medicalRecord.getDateAsString());
             prep.executeUpdate();
             prep.close();
@@ -63,7 +63,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
     public List<MedicalRecord> findByPatientId (int patient_id) {
         List<MedicalRecord> records = new ArrayList<>();
         try {
-            String sql = "SELECT id, date FROM MedicalRecords WHERE patient_id = ?";
+            String sql = "SELECT id, date FROM MedicalRecord WHERE patient_id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setInt(1, patient_id);
 
@@ -91,7 +91,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
     public MedicalRecord getMedicalRecordByID (Integer medicalRecord_id) throws SQLException {
         MedicalRecord record = null;
         try {
-            String query = "SELECT * FROM MedicalRecords WHERE id = ?";
+            String query = "SELECT * FROM MedicalRecord WHERE id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
             prep.setInt(1, medicalRecord_id);
 

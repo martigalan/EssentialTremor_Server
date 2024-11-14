@@ -8,7 +8,6 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class MedicalRecord {
 
@@ -136,6 +135,7 @@ public class MedicalRecord {
         this.genetic_background = genetic_background;
         this.doctorsNotes = new ArrayList<>();
         this.doctors = new ArrayList<>();
+        this.date = LocalDate.now();
     }
 
     public String getPatientName() {
