@@ -37,7 +37,6 @@ public class PatientHandler implements Runnable{
     @Override
     public void run() {
         try {
-            //TODO quitar algunas cosas de estas!?
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             userManager = new JDBCUserManager(connectionManager);
@@ -148,6 +147,7 @@ public class PatientHandler implements Runnable{
         String[] data = loginData.split("\\|");
         String usernamePatient = data[0];
         String encryptedPassword = data[1];
+
         //checks login info
         if (userManager.verifyUsername(usernamePatient) && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
             out.println("LOGIN_SUCCESS");
@@ -172,10 +172,8 @@ public class PatientHandler implements Runnable{
         if (patient != null) {
             patientManager.addPatient(patient, userId);
             out.println("REGISTER_SUCCESS");
-            return;
         } else {
             out.println("REGISTER_FAILED");
-            return;
         }
     }
     

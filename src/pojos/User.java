@@ -39,6 +39,9 @@ public class User implements Serializable {
     }
 
     public User(String username, byte[] passwordBytes, String role) {
+        this.username = username;
+        this.password = passwordBytes;
+        this.role = role;
     }
 
     public String getUsername() {

@@ -41,7 +41,6 @@ public class DoctorHandler implements Runnable {
     @Override
     public void run() {
         try {
-            //TODO quitar algunas cosas de estas!?
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             userManager = new JDBCUserManager(connectionManager);
@@ -109,6 +108,7 @@ public class DoctorHandler implements Runnable {
         //get userId to add patient to database
         String username = findUsername(data);
         int userId = userManager.getId(username);
+        out.println("hola");
         if (doctor != null) {
             doctorManager.addDoctor(doctor, userId);
             out.println("REGISTER_SUCCESS");
