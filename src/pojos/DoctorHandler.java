@@ -8,7 +8,10 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.time.ZonedDateTime;
 
 import static pojos.Patient.joinIntegersWithCommas;
 import static pojos.Patient.joinWithCommas;
@@ -38,7 +41,6 @@ public class DoctorHandler implements Runnable {
     @Override
     public void run() {
         try {
-            //TODO quitar algunas cosas de estas!?
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
             userManager = new JDBCUserManager(connectionManager);
@@ -106,6 +108,7 @@ public class DoctorHandler implements Runnable {
         //get userId to add patient to database
         String username = findUsername(data);
         int userId = userManager.getId(username);
+        out.println("hola");
         if (doctor != null) {
             doctorManager.addDoctor(doctor, userId);
             out.println("REGISTER_SUCCESS");
@@ -218,7 +221,6 @@ public class DoctorHandler implements Runnable {
             String approval = in.readLine();
             if (approval.equals("MEDICALRECORD_SUCCESS")){
                 System.out.println("Medical Record sent correctly");
-                return;
             } else{
                 System.out.println("Couldn't send Medical Record. Please try again.");
             }
@@ -228,6 +230,34 @@ public class DoctorHandler implements Runnable {
     }
 
     private void handleDoctorsNote() throws IOException, SQLException {
+        //receive doctors note
+        String dName = in.readLine();
+        String dSurname = in.readLine();
+        String notes = in.readLine();
+        State st = State.valueOf(in.readLine());
+        Treatment trt = Treatment.valueOf(in.readLine());
+        String dateTxt = in.readLine();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
+           // Parse to ZonedDateTime first
+        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTxt, formatter);
+           // Extract LocalDate from ZonedDateTime
+        LocalDate date = zonedDateTime.toLocalDate();
+        Integer mr_id = Integer.valueOf(in.readLine());
 
+        DoctorsNote dn = new DoctorsNote(dName, dSurname, notes, st, trt, date);
+        dn.setMedicalRecordId(mr_id);
+
+        //find doctor_id
+        String doctorName = in.readLine();
+        String doctorSurname = in.readLine();
+        Integer doctor_id = doctorManager.getIdByNameSurname(doctorName, doctorSurname);
+        dn.setDoctorId(doctor_id);
+
+        if (dn != null) {
+            out.println("DOCTORNOTE_SUCCESS");
+            doctorNotesManager.addDoctorNote(dn);
+        } else {
+            out.println("DOCTORNOTE_FAILED");
+        }
     }
 }

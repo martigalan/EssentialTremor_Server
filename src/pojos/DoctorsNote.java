@@ -42,12 +42,13 @@ public class DoctorsNote {
      * @param state state assigned to the patient
      * @param treatment treatment assigned to the patient
      */
-    public DoctorsNote(String doctorName, String doctorSurname, String notes, State state, Treatment treatment) {
+    public DoctorsNote(String doctorName, String doctorSurname, String notes, State state, Treatment treatment, LocalDate date) {
         this.doctorName = doctorName;
         this.doctorSurname = doctorSurname;
         this.notes = notes;
         this.state = state;
         this.treatment = treatment;
+        this.date = date;
     }
 
     public DoctorsNote(String notes) {

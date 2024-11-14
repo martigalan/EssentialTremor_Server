@@ -88,16 +88,17 @@ public class JDBCUserManager implements UserManager {
             prep.setString(1, username);
             ResultSet rs = prep.executeQuery();
             if (rs.next()) {
+                return true;
+            }
+            /*if (rs.next()) {
                 MessageDigest md = MessageDigest.getInstance("MD5");
                 md.update(passwordIntroduced.getBytes());
                 byte[] hashIntroduced = md.digest();
                 byte[] hashSaved = rs.getBytes("password");
                 return Arrays.equals(hashIntroduced, hashSaved);
-            }
+            }*/
         } catch (SQLException e) {
             e.printStackTrace();
-        } catch (NoSuchAlgorithmException ex) {
-            System.out.println("MD5 algorithm not found: " + ex.getMessage());
         }
         return false;
     }
