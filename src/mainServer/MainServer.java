@@ -43,7 +43,9 @@ public class MainServer {
             medicalRecordManager = new JDBCMedicalRecordManager(connectionManager);
             patientManager = new JDBCPatientManager(connectionManager);
             stateManager = new JDBCStateManager(connectionManager);
+            stateManager.addState();
             treatmentManager = new JDBCTreatmentManager(connectionManager);
+            treatmentManager.addTreatment();
 
             //Create socket
             serverSocket = new ServerSocket(port);

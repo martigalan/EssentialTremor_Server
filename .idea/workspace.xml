@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="fixed error, and perfectioned methods">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="fixed errors">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iFaces/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/UserManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/HasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/HasPatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -280,7 +281,14 @@
       <option name="project" value="LOCAL" />
       <updated>1731664825171</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="fixed errors">
+      <created>1731667093175</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731667093175</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,6 +324,7 @@
     <MESSAGE value="finished handleDoctorsNote in DoctorHandler" />
     <MESSAGE value="acc and emg to JSON" />
     <MESSAGE value="fixed error, and perfectioned methods" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed error, and perfectioned methods" />
+    <MESSAGE value="fixed errors" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed errors" />
   </component>
 </project>

@@ -181,9 +181,13 @@ public class DoctorHandler implements Runnable {
             out.write("ID: " + p.getId() + ", Name: " + p.getName() + ", Surname: " + p.getSurname()+ "\n");
             out.flush();
         }
-        //receive the desired patient id and add to HasPatient table
+        //receive the desired patient id and add to HasPatient table if its not already there
         Integer patient_id = Integer.parseInt(in.readLine());
-        hasPatientManager.addPatientDoctor(doctor_id, patient_id);
+        //check if its already in the table
+        Boolean check = hasPatientManager.isAlreadyCreated(doctor_id, patient_id);
+        if (check){
+            hasPatientManager.addPatientDoctor(doctor_id, patient_id);
+        }
 
         //go to the medical records and choose those that have the patient_id
         //they only have id and date to simplify the data download from ddbb
