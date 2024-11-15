@@ -71,7 +71,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setInt(1, patient_id);
 
             ResultSet rs = prep.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 MedicalRecord record = new MedicalRecord();
                 record.setId(rs.getInt("id"));
                 record.setDateAsString(rs.getString("date"));

@@ -127,22 +127,32 @@ public class PatientHandler implements Runnable{
         //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
 
+        out.println(medicalRecords.size());
         for (MedicalRecord record : medicalRecords) {
-            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"); //TODO esto nunca le llega, aunque sí lo manda
+            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+            //System.out.println(("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"));
+            out.flush();
         }
+
         //chosen medical record
-        Integer mr_id = Integer.parseInt(in.readLine()); //TODO aquí peta
+        Integer mr_id = Integer.parseInt(in.readLine());
         //doctors note associated to the medical record
         //todo possibly change to get all the dn associated to that mr
         DoctorsNote doctorsNote = null;
         doctorsNote = doctorNotesManager.getDoctorsNoteByID(mr_id);
-        out.println(doctorsNote.getDoctorName());
-        out.println(doctorsNote.getDoctorSurname());
-        out.println(doctorsNote.getNotes());
-        out.println(doctorsNote.getState());
-        out.println(doctorsNote.getTreatment());
-        out.println(doctorsNote.getDate());
-        return;
+        if (doctorsNote!=null) {
+            String approval = "FOUND";
+            out.println(approval);
+            out.println(doctorsNote.getDoctorName());
+            out.println(doctorsNote.getDoctorSurname());
+            out.println(doctorsNote.getNotes());
+            out.println(doctorsNote.getState());
+            out.println(doctorsNote.getTreatment());
+            out.println(doctorsNote.getDate());
+        }else {
+            String approval = "NOT_FOUND";
+            out.println(approval);
+        }
     }
 
     private void handleLogin() throws IOException, SQLException {
