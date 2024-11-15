@@ -3,14 +3,15 @@ package pojos;
 import data.ACC;
 import data.EMG;
 import jdbc.*;
+import mainServer.MainServer;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
+import java.io.*;
+import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static pojos.Doctor.splitToIntegerList;
 import static pojos.Doctor.splitToStringList;
@@ -75,6 +76,8 @@ public class PatientHandler implements Runnable{
             e.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            releaseResourcesPatient(in, out, socket);
         }
     }
 
@@ -125,10 +128,10 @@ public class PatientHandler implements Runnable{
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
 
         for (MedicalRecord record : medicalRecords) {
-            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"); //TODO esto nunca le llega, aunque sí lo manda
         }
         //chosen medical record
-        Integer mr_id = Integer.parseInt(in.readLine());
+        Integer mr_id = Integer.parseInt(in.readLine()); //TODO aquí peta
         //doctors note associated to the medical record
         //todo possibly change to get all the dn associated to that mr
         DoctorsNote doctorsNote = null;
@@ -227,6 +230,24 @@ public class PatientHandler implements Runnable{
                     + Character.digit(hex.charAt(i+1), 16));
         }
         return data;
+    }
+
+    private static void releaseResourcesPatient(BufferedReader bufferedReader, PrintWriter printWriter, Socket socket) {
+        try {
+            bufferedReader.close();
+        } catch (IOException ex) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            printWriter.close();
+        } catch (Exception ex) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }
