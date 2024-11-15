@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="fixed errors">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="tables State and Treatment filled by default">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iFaces/HasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/HasPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -288,7 +283,14 @@
       <option name="project" value="LOCAL" />
       <updated>1731667093175</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="tables State and Treatment filled by default">
+      <created>1731669180981</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1731669180981</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -325,6 +327,7 @@
     <MESSAGE value="acc and emg to JSON" />
     <MESSAGE value="fixed error, and perfectioned methods" />
     <MESSAGE value="fixed errors" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed errors" />
+    <MESSAGE value="tables State and Treatment filled by default" />
+    <option name="LAST_COMMIT_MESSAGE" value="tables State and Treatment filled by default" />
   </component>
 </project>

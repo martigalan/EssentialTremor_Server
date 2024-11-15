@@ -12,6 +12,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.time.ZonedDateTime;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static pojos.Patient.joinIntegersWithCommas;
 import static pojos.Patient.joinWithCommas;
@@ -81,6 +83,8 @@ public class DoctorHandler implements Runnable {
             e.printStackTrace();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } finally {
+            releaseResourcesDoctor(in, out, socket);
         }
     }
 
@@ -267,6 +271,24 @@ public class DoctorHandler implements Runnable {
             doctorNotesManager.addDoctorNote(dn);
         } else {
             out.println("DOCTORNOTE_FAILED");
+        }
+    }
+
+    private static void releaseResourcesDoctor(BufferedReader bufferedReader, PrintWriter printWriter, Socket socket) {
+        try {
+            bufferedReader.close();
+        } catch (IOException ex) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            printWriter.close();
+        } catch (Exception ex) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            socket.close();
+        } catch (IOException ex) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }
