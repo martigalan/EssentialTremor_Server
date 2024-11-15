@@ -4,9 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="acc and emg to JSON">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="fixed error, and perfectioned methods">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -269,7 +273,14 @@
       <option name="project" value="LOCAL" />
       <updated>1731662981354</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed error, and perfectioned methods">
+      <created>1731664825171</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1731664825171</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -304,6 +315,7 @@
     <MESSAGE value="started with handleDoctorsNote" />
     <MESSAGE value="finished handleDoctorsNote in DoctorHandler" />
     <MESSAGE value="acc and emg to JSON" />
-    <option name="LAST_COMMIT_MESSAGE" value="acc and emg to JSON" />
+    <MESSAGE value="fixed error, and perfectioned methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed error, and perfectioned methods" />
   </component>
 </project>

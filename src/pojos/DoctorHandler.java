@@ -90,7 +90,7 @@ public class DoctorHandler implements Runnable {
         String usernameDoctor = data[0];
         String encryptedPassword = data[1];
         //checks login info
-        if (userManager.verifyUsername(usernameDoctor) && userManager.verifyPassword(usernameDoctor, encryptedPassword)) {
+        if (userManager.verifyUsername(usernameDoctor, "doctor") && userManager.verifyPassword(usernameDoctor, encryptedPassword)) {
             out.println("LOGIN_SUCCESS");
             int user_id = userManager.getId(usernameDoctor);
             Doctor doctor = doctorManager.getDoctorByUserId(user_id);
@@ -175,8 +175,11 @@ public class DoctorHandler implements Runnable {
 
         //get all the patient ids, names and surnames and send
         List<Patient> pList = patientManager.getPatients();
+        Integer numberOfPatients = pList.size();
+        out.println(numberOfPatients);
         for (Patient p : pList) {
             out.write("ID: " + p.getId() + ", Name: " + p.getName() + ", Surname: " + p.getSurname()+ "\n");
+            out.flush();
         }
         //receive the desired patient id and add to HasPatient table
         Integer patient_id = Integer.parseInt(in.readLine());
@@ -185,8 +188,11 @@ public class DoctorHandler implements Runnable {
         //go to the medical records and choose those that have the patient_id
         //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
+        Integer numberOfMR = medicalRecords.size();
+        out.println(numberOfMR);
         for (MedicalRecord record : medicalRecords) {
             out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+            out.flush();
         }
         Integer mr_id = Integer.parseInt(in.readLine());
 

@@ -162,7 +162,7 @@ public class PatientHandler implements Runnable{
         String encryptedPassword = data[1];
 
         //checks login info
-        if (userManager.verifyUsername(usernamePatient) && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
+        if (userManager.verifyUsername(usernamePatient, "patient") && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
             out.println("LOGIN_SUCCESS");
             int user_id = userManager.getId(usernamePatient);
             Patient patient = patientManager.getPatientByUserId(user_id);
