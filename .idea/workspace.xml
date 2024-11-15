@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,7 +60,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/jfreechart-1.0.19.jar",
+    "last_opened_file_path": "C:/Users/blanc/Downloads/jackson-databind-2.18.1.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
