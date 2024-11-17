@@ -5,11 +5,29 @@ import java.time.format.DateTimeParseException;
 
 public class DoctorsNote {
 
+    /**
+     * Name of the doctor that redacts the note
+     */
     private String doctorName;
+    /**
+     * Surname of the doctor that redacts the note
+     */
     private String doctorSurname;
+    /**
+     * String containing the annotations made about a medical record
+     */
     private String notes;
+    /**
+     * ID of the medical record its associated to.
+     */
     private int medicalRecordId;
+    /**
+     * ID of the doctors its associated to.
+     */
     private int doctorId;
+    /**
+     * Date of creation
+     */
     private LocalDate date;
     /**
      * State assigned to the patient by the doctor
@@ -49,10 +67,6 @@ public class DoctorsNote {
         this.state = state;
         this.treatment = treatment;
         this.date = date;
-    }
-
-    public DoctorsNote(String notes) {
-        this.notes = notes;
     }
 
     public DoctorsNote(String doctorName, String doctorSurname, String notes) {

@@ -129,6 +129,11 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
         return record;
     }
 
+    /**
+     * Auxiliar function to convert a String of symptoms separated by commas into a List of Strings.
+     * @param sintomasTexto String containing the symptoms separated by commas.
+     * @return List of String with the symptoms.
+     */
     public static List<String> symptomsToList(String sintomasTexto) {
         if (sintomasTexto == null || sintomasTexto.isEmpty()) {
             return List.of(); // null if empty

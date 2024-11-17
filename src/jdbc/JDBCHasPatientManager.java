@@ -40,6 +40,15 @@ public class JDBCHasPatientManager implements HasPatientManager {
             Logger.getLogger(JDBCHasPatientManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Checks to see if the conexion between doctor and pateint is already created.
+     * Returns true if it's in the table, and false if it isn't.
+     * @param doctor_id doctor id
+     * @param patient_id patient id
+     * @return true or false
+     * @throws SQLException in case of SQL error.
+     */
     @Override
     public Boolean isAlreadyCreated (int doctor_id, int patient_id) throws  SQLException{
         Boolean result;

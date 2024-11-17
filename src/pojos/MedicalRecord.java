@@ -59,10 +59,16 @@ public class MedicalRecord {
      */
     private List<Doctor> doctors;
     /**
-     * ID used for database
+     * ID of the patient its associated to
      */
     private int patientId;
+    /**
+     * ID of the doctor its associated to
+     */
     private int doctorId;
+    /**
+     * ID of the medical record in the database
+     */
     private int id;
     /**
      * Date of creation
@@ -279,7 +285,6 @@ public class MedicalRecord {
                 '}';
     }
 
-    //TODO this is to pass to json and viceversa
     /**
      * Converts `ACC` to a JSON String.
      *
