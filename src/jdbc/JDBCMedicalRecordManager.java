@@ -1,5 +1,6 @@
 package jdbc;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import iFaces.MedicalRecordManager;
 import pojos.DoctorsNote;
 import pojos.MedicalRecord;
@@ -43,13 +44,15 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setDouble(3, medicalRecord.getWeight());
             prep.setInt(4, medicalRecord.getHeight());
             prep.setString(5, medicalRecord.getSymptomsAsString());
-            prep.setString(6, medicalRecord.getAcceleration());
-            prep.setString(7, medicalRecord.getEmg());
+            prep.setString(6, medicalRecord.getAccelerationAsJson());
+            prep.setString(7, medicalRecord.getEmgAsJson());
             prep.setString(8, medicalRecord.getDateAsString());
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
             Logger.getLogger(JDBCMedicalRecordManager.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -68,7 +71,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setInt(1, patient_id);
 
             ResultSet rs = prep.executeQuery();
-            if (rs.next()) {
+            while (rs.next()) {
                 MedicalRecord record = new MedicalRecord();
                 record.setId(rs.getInt("id"));
                 record.setDateAsString(rs.getString("date"));
@@ -106,11 +109,18 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
                     //converts the text to a list
                     String symptoms = (rs.getString("symptoms"));
                     record.setSymptoms(symptomsToList(symptoms));
-                    //TODO añadir emg y acc
+                    // Deserialize ACC and EMG from JSON
+                    String accJson = rs.getString("acc");
+                    String emgJson = rs.getString("emg");
+                    record.setAccelerationFromJson(accJson);
+                    record.setEmgFromJson(emgJson);
+
                     record.setDateAsString(rs.getString("date"));
                 } else {
                     System.out.println("No Medical Record found for ID: " + medicalRecord_id);
                 }
+            } catch (JsonProcessingException e) {
+                throw new RuntimeException(e);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving MedicalRecord by ID: " + e.getMessage());
@@ -119,6 +129,11 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
         return record;
     }
 
+    /**
+     * Auxiliar function to convert a String of symptoms separated by commas into a List of Strings.
+     * @param sintomasTexto String containing the symptoms separated by commas.
+     * @return List of String with the symptoms.
+     */
     public static List<String> symptomsToList(String sintomasTexto) {
         if (sintomasTexto == null || sintomasTexto.isEmpty()) {
             return List.of(); // null if empty

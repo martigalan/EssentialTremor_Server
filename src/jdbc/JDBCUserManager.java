@@ -55,11 +55,12 @@ public class JDBCUserManager implements UserManager {
      * @throws SQLException if there is an error during the SQL query execution.
      */
     @Override
-    public boolean verifyUsername(String username) {
-        String sql = "SELECT username FROM user WHERE username LIKE ?";
+    public boolean verifyUsername(String username, String role) {
+        String sql = "SELECT username FROM user WHERE username LIKE ? AND role = ?";
         try {
             PreparedStatement prep = cM.getConnection().prepareStatement(sql);
             prep.setString(1, username);
+            prep.setString(2, role);
             ResultSet rs = prep.executeQuery();
             if (rs.next()) {
                 return true;

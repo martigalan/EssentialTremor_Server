@@ -22,8 +22,16 @@ public enum State {
      * Small description of each condition state with each identifier
      */
     private final int id;
+    /**
+     * Small description of each condition state with each identifier.
+     */
     private final String description;
 
+    /**
+     * Constructor.
+     * @param id identifier.
+     * @param description small description.
+     */
     State(int id, String description) {
         this.id = id;
         this.description = description;

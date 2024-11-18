@@ -7,6 +7,7 @@ import pojos.PatientHandler;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -108,14 +109,14 @@ public class JDBCPatientManager implements PatientManager {
      * @throws SQLException If there is an error executing the SQL query.
      */
     public List<Patient> getPatients() throws SQLException {
-        List<Patient> pList = null;
+        List<Patient> pList = new ArrayList<>();
         Patient patient = null;
         try {
             String query = "SELECT id, name, surname FROM Patient";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
 
             try (ResultSet rs = prep.executeQuery()) {
-                if (rs.next()) {
+                while (rs.next()) {
                     patient = new Patient();
                     patient.setId(rs.getInt("id"));
                     patient.setName(rs.getString("name"));

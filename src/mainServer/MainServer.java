@@ -12,22 +12,64 @@ import java.util.logging.Logger;
 
 public class MainServer {
 
+    /**
+     * Connexion manager
+     */
     public static ConnectionManager connectionManager;
+    /**
+     * User manager
+     */
     public static JDBCUserManager userManager;
+    /**
+     * Doctor manager
+     */
     public static JDBCDoctorManager doctorManager;
+    /**
+     * DoctorsNote manager
+     */
     public static JDBCDoctorNotesManager doctorNotesManager;
+    /**
+     * MedicalRecord manager
+     */
     public static JDBCMedicalRecordManager medicalRecordManager;
+    /**
+     * Patient manager
+     */
     public static JDBCPatientManager patientManager;
+    /**
+     * State manager
+     */
     public static JDBCStateManager stateManager;
+    /**
+     * Treatment manager
+     */
     public static JDBCTreatmentManager treatmentManager;
-    private static boolean control;
+    /**
+     * Scanner for user input
+     */
     private static Scanner sc = new Scanner(System.in);
-    private static Doctor doctor;
+    /**
+     * Server socket waiting for connexions
+     */
     private static ServerSocket serverSocket;
+    /**
+     * Client socket (either doctor or patient)
+     */
     private static Socket clientSocket;
+    /**
+     * Output control
+     */
     private static PrintWriter printWriter;
+    /**
+     * Input control
+     */
     private static BufferedReader bufferedReader;
 
+    /**
+     * Main for the server.
+     * Waits for connexion and creates threads for mutliple clients. It derives the client to their respective logics depending on their role (patient or doctor).
+     * @param args
+     */
     public static void main(String[] args) {
         serverSocket = null;
         printWriter = null;
@@ -43,14 +85,16 @@ public class MainServer {
             medicalRecordManager = new JDBCMedicalRecordManager(connectionManager);
             patientManager = new JDBCPatientManager(connectionManager);
             stateManager = new JDBCStateManager(connectionManager);
+            stateManager.addState();
             treatmentManager = new JDBCTreatmentManager(connectionManager);
+            treatmentManager.addTreatment();
 
             //Create socket
             serverSocket = new ServerSocket(port);
             System.out.println("Server listening in port " + port);
 
                 while (connection) {
-                Socket clientSocket = serverSocket.accept();
+                clientSocket = serverSocket.accept();
                 System.out.println("Client connected: " + clientSocket.getInetAddress());
                 bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                 printWriter = new PrintWriter(clientSocket.getOutputStream());
@@ -69,16 +113,26 @@ public class MainServer {
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {
-            releaseResourcesServer(serverSocket);
+            releaseResourcesServer(serverSocket, bufferedReader, printWriter);
             sc.close();
         }
     }
 
-    private static void releaseResourcesServer(ServerSocket serverSocket) {
+    /**
+     * Closes the resources.
+     * @param serverSocket
+     */
+    private static void releaseResourcesServer(ServerSocket serverSocket, BufferedReader bufferedReader, PrintWriter printWriter) {
         try {
             serverSocket.close();
         } catch (IOException ex) {
             Logger.getLogger(MainServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        try {
+            bufferedReader.close();
+            printWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
     }
 }

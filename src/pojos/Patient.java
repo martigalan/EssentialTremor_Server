@@ -41,6 +41,9 @@ public class Patient {
      * A list of the doctors that the patient has
      */
     private List<Doctor> doctors;
+    /**
+     * ID of the patient in the database
+     */
     private int id;
 
     public int getId() {
@@ -245,7 +248,7 @@ public class Patient {
      * @throws IOException in case connection fails
      */
     private DoctorsNote receiveDoctorsNote()throws IOException {
-        //TODO check this one
+        //check this one
         DoctorsNote doctorsNote = null;
         try (ServerSocket serverSocket = new ServerSocket(9009)) {  // Puerto 9009 para coincidir con el cliente
             System.out.println("Server started, waiting for client...");
@@ -270,8 +273,8 @@ public class Patient {
                 releaseReceivingResources(bufferedReader, socket, serverSocket);
 
                 doctorsNote = new DoctorsNote(doctorName, doctorSurname, notes);
-                //TODO meter esto en lista doctor
-                //TODO this is in the main
+                //meter esto en lista doctor
+                //this is in the main
                 //DoctorsNote doctorsNote = createDoctorsNote(medicalRecord);
                 //medicalRecord.getDoctorsNotes().add(doctorsNote);
                 return doctorsNote;
@@ -314,7 +317,7 @@ public class Patient {
      * Displays the DoctorsNote sent by the doctor
      */
     private void seeDoctorsNotes() {
-        //TODO here the patient chooses what record they want to see
+        //here the patient chooses what record they want to see
 
     }
 }

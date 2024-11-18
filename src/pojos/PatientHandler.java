@@ -18,23 +18,65 @@ import static pojos.Doctor.splitToStringList;
 
 public class PatientHandler implements Runnable{
 
+    /**
+     * Connexion socket
+     */
     private static Socket socket;
+    /**
+     * Input control
+     */
     private BufferedReader in;
+    /**
+     * Output control
+     */
     private PrintWriter out;
-
+    /**
+     * Connexion manager
+     */
     public static ConnectionManager connectionManager;
+    /**
+     * User manager
+     */
     public static JDBCUserManager userManager;
+    /**
+     * Doctor manager
+     */
     public static JDBCDoctorManager doctorManager;
+    /**
+     * DoctorsNote manager
+     */
     public static JDBCDoctorNotesManager doctorNotesManager;
+    /**
+     * MedicalRecord manager
+     */
     public static JDBCMedicalRecordManager medicalRecordManager;
+    /**
+     * Patient manager
+     */
     public static JDBCPatientManager patientManager;
+    /**
+     * State manager
+     */
     public static JDBCStateManager stateManager;
+    /**
+     * Treatment manager
+     */
     public static JDBCTreatmentManager treatmentManager;
 
+    /**
+     * Constructor
+     * @param clientSocket connexion socket
+     * @param dbConnection connexion manager
+     */
     public PatientHandler(Socket clientSocket, ConnectionManager dbConnection) {
         this.socket = clientSocket;
         this.connectionManager = dbConnection;
     }
+
+    /**
+     * Logic that is established when a Patient connects to the application.
+     * This establishes the methods the server employs depending on control words that the "client" application sends to the server.
+     */
     @Override
     public void run() {
         try {
@@ -81,6 +123,13 @@ public class PatientHandler implements Runnable{
         }
     }
 
+    /**
+     * Handles medical records.
+     * The function receives from the patient all the data and stores the medical record into the ddbb.
+     * It sends the patient a control word to tell if the process worked correctly.
+     * @throws IOException in case of Input/Output error.
+     * @throws SQLException in case of database error.
+     */
     private void handleMedicalRecord() throws IOException, SQLException {
         MedicalRecord medicalRecord = null;
         System.out.println("Client connected. Receiving data...");
@@ -116,6 +165,12 @@ public class PatientHandler implements Runnable{
         }
     }
 
+    /**
+     * The function lets the patient choose a medical record and then a doctors note associated to it.
+     * It sends the patient a control word to tell if the process worked correctly.
+     * @throws SQLException
+     * @throws IOException
+     */
     private void handleDoctorsNote() throws SQLException, IOException {
         DoctorsNote dn =  null;
 
@@ -127,24 +182,41 @@ public class PatientHandler implements Runnable{
         //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
 
+        out.println(medicalRecords.size());
         for (MedicalRecord record : medicalRecords) {
-            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"); //TODO esto nunca le llega, aunque sí lo manda
+            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+            //System.out.println(("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"));
+            out.flush();
         }
+
         //chosen medical record
-        Integer mr_id = Integer.parseInt(in.readLine()); //TODO aquí peta
+        Integer mr_id = Integer.parseInt(in.readLine());
         //doctors note associated to the medical record
         //todo possibly change to get all the dn associated to that mr
         DoctorsNote doctorsNote = null;
         doctorsNote = doctorNotesManager.getDoctorsNoteByID(mr_id);
-        out.println(doctorsNote.getDoctorName());
-        out.println(doctorsNote.getDoctorSurname());
-        out.println(doctorsNote.getNotes());
-        out.println(doctorsNote.getState());
-        out.println(doctorsNote.getTreatment());
-        out.println(doctorsNote.getDate());
-        return;
+        if (doctorsNote!=null) {
+            String approval = "FOUND";
+            out.println(approval);
+            out.println(doctorsNote.getDoctorName());
+            out.println(doctorsNote.getDoctorSurname());
+            out.println(doctorsNote.getNotes());
+            out.println(doctorsNote.getState());
+            out.println(doctorsNote.getTreatment());
+            out.println(doctorsNote.getDate());
+        }else {
+            String approval = "NOT_FOUND";
+            out.println(approval);
+        }
     }
 
+    /**
+     * Handles login.
+     * The server receives data (username and password) and checks in the bbdd if the user has permission to enter as a patient.
+     * Sends the patient control words to tell them if they were able or not to login.
+     * @throws IOException in case of Input/Output exception.
+     * @throws SQLException in case of database error.
+     */
     private void handleLogin() throws IOException, SQLException {
         String loginData = in.readLine();
         String[] data = loginData.split("\\|");
@@ -152,7 +224,7 @@ public class PatientHandler implements Runnable{
         String encryptedPassword = data[1];
 
         //checks login info
-        if (userManager.verifyUsername(usernamePatient) && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
+        if (userManager.verifyUsername(usernamePatient, "patient") && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
             out.println("LOGIN_SUCCESS");
             int user_id = userManager.getId(usernamePatient);
             Patient patient = patientManager.getPatientByUserId(user_id);
@@ -165,6 +237,12 @@ public class PatientHandler implements Runnable{
         }
     }
 
+    /**
+     * Handles registration.
+     * In this method, the server receives data (name, surname, username and password), to add the patient to the database and create a user for future login.
+     * The server sends the patient a control word to tell them if they were able to register or not.
+     * @throws IOException in case of Input/Output exception.
+     */
     private void handleRegister() throws IOException {
         String data = in.readLine();
         //add user information to database
@@ -179,7 +257,12 @@ public class PatientHandler implements Runnable{
             out.println("REGISTER_FAILED");
         }
     }
-    
+    /**
+     * Auxiliary function to find the username in the data received by the server.
+     * It divides the data and gets the username parameter.
+     * @param patientData string containing all the data.
+     * @return the username found in the data.
+     */
     public static String findUsername (String patientData){
         String[] data = patientData.split("\\|");
         if (data.length == 6) {
@@ -196,6 +279,12 @@ public class PatientHandler implements Runnable{
             return null;
         }
     }
+
+    /**
+     * Function to create the doctor and add to the User table.
+     * @param patientData String with the doctor data.
+     * @return a doctor created with the received data.
+     */
     public static Patient processRegisterInfo(String patientData) {
         //Client info comes as: "name|surname|genetic_background|username|password"
         String[] data = patientData.split("\\|");
@@ -222,6 +311,11 @@ public class PatientHandler implements Runnable{
         }
     }
 
+    /**
+     * Transforms a hexadecimal (String) to byte.
+     * @param hex String value
+     * @return byte value
+     */
     public static byte[] hexStringToByteArray(String hex) {
         int len = hex.length();
         byte[] data = new byte[len / 2];
@@ -232,6 +326,12 @@ public class PatientHandler implements Runnable{
         return data;
     }
 
+    /**
+     * Closes all the resources used.
+     * @param bufferedReader input control.
+     * @param printWriter output control
+     * @param socket connexion control.
+     */
     private static void releaseResourcesPatient(BufferedReader bufferedReader, PrintWriter printWriter, Socket socket) {
         try {
             bufferedReader.close();

@@ -4,8 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="until handleDoctorNotes it works!">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="added releaseResources in DoctorHandler">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/State.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Treatment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,7 +69,7 @@
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
     &quot;git-widget-placeholder&quot;: &quot;master&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/jfreechart-1.0.19.jar&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/blanc/Downloads/jackson-databind-2.18.1.jar&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
@@ -153,6 +165,7 @@
       <workItem from="1731502385548" duration="1144000" />
       <workItem from="1731597234244" duration="3480000" />
       <workItem from="1731601866263" duration="679000" />
+      <workItem from="1731858652087" duration="3584000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -260,15 +273,42 @@
       <option name="project" value="LOCAL" />
       <updated>1731506666075</updated>
     </task>
-    <task id="LOCAL-00015" summary="until handleDoctorNotes it works!">
-      <option name="closed" value="true" />
-      <created>1731616722142</created>
+    <task id="LOCAL-00015" summary="acc and emg to JSON">
+      <created>1731662981354</created>
       <option name="number" value="00015" />
       <option name="presentableId" value="LOCAL-00015" />
       <option name="project" value="LOCAL" />
-      <updated>1731616722142</updated>
+      <updated>1731662981354</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixed error, and perfectioned methods">
+      <created>1731664825171</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1731664825171</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fixed errors">
+      <created>1731667093175</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1731667093175</updated>
+    </task>
+    <task id="LOCAL-00018" summary="tables State and Treatment filled by default">
+      <created>1731669180981</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1731669180981</updated>
+    </task>
+    <task id="LOCAL-00019" summary="added releaseResources in DoctorHandler">
+      <created>1731670606274</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1731670606274</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -302,7 +342,11 @@
     <MESSAGE value="merge" />
     <MESSAGE value="started with handleDoctorsNote" />
     <MESSAGE value="finished handleDoctorsNote in DoctorHandler" />
-    <MESSAGE value="until handleDoctorNotes it works!" />
-    <option name="LAST_COMMIT_MESSAGE" value="until handleDoctorNotes it works!" />
+    <MESSAGE value="acc and emg to JSON" />
+    <MESSAGE value="fixed error, and perfectioned methods" />
+    <MESSAGE value="fixed errors" />
+    <MESSAGE value="tables State and Treatment filled by default" />
+    <MESSAGE value="added releaseResources in DoctorHandler" />
+    <option name="LAST_COMMIT_MESSAGE" value="added releaseResources in DoctorHandler" />
   </component>
 </project>

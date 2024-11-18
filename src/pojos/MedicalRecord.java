@@ -8,6 +8,8 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MedicalRecord {
 
@@ -57,10 +59,16 @@ public class MedicalRecord {
      */
     private List<Doctor> doctors;
     /**
-     * ID used for database
+     * ID of the patient its associated to
      */
     private int patientId;
+    /**
+     * ID of the doctor its associated to
+     */
     private int doctorId;
+    /**
+     * ID of the medical record in the database
+     */
     private int id;
     /**
      * Date of creation
@@ -275,6 +283,64 @@ public class MedicalRecord {
                 ", acc=" + acceleration +
                 ", emg=" + emg +
                 '}';
+    }
+
+    /**
+     * Converts `ACC` to a JSON String.
+     *
+     * @return JSON of `ACC`.
+     * @throws JsonProcessingException if there's an error during serialization.
+     */
+    public String getAccelerationAsJson() throws JsonProcessingException {
+        if (this.acceleration == null) {
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(this.acceleration);
+    }
+
+    /**
+     * Creates `ACC` from JSON.
+     *
+     * @param json JSON representation of`ACC`.
+     * @throws JsonProcessingException if there's an error during deserialization.
+     */
+    public void setAccelerationFromJson(String json) throws JsonProcessingException {
+        if (json == null || json.isEmpty()) {
+            this.acceleration = null;
+        } else {
+            ObjectMapper mapper = new ObjectMapper();
+            this.acceleration = mapper.readValue(json, ACC.class);
+        }
+    }
+
+    /**
+     * Converts `EMG` to a JSON String.
+     *
+     * @return JSON of `EMG`.
+     * @throws JsonProcessingException if there's an error during serialization.
+     */
+    public String getEmgAsJson() throws JsonProcessingException {
+        if (this.emg == null) {
+            return null;
+        }
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.writeValueAsString(this.emg);
+    }
+
+    /**
+     * Creates `EMG` from JSON.
+     *
+     * @param json JSON representation of`ACC`.
+     * @throws JsonProcessingException sif there's an error during deserialization.
+     */
+    public void setEmgFromJson(String json) throws JsonProcessingException {
+        if (json == null || json.isEmpty()) {
+            this.emg = null;
+        } else {
+            ObjectMapper mapper = new ObjectMapper();
+            this.emg = mapper.readValue(json, EMG.class);
+        }
     }
 
     /**
