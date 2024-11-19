@@ -285,63 +285,6 @@ public class MedicalRecord {
                 '}';
     }
 
-    /**
-     * Converts `ACC` to a JSON String.
-     *
-     * @return JSON of `ACC`.
-     * @throws JsonProcessingException if there's an error during serialization.
-     */
-    public String getAccelerationAsJson() throws JsonProcessingException {
-        if (this.acceleration == null) {
-            return null;
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(this.acceleration);
-    }
-
-    /**
-     * Creates `ACC` from JSON.
-     *
-     * @param json JSON representation of`ACC`.
-     * @throws JsonProcessingException if there's an error during deserialization.
-     */
-    public void setAccelerationFromJson(String json) throws JsonProcessingException {
-        if (json == null || json.isEmpty()) {
-            this.acceleration = null;
-        } else {
-            ObjectMapper mapper = new ObjectMapper();
-            this.acceleration = mapper.readValue(json, ACC.class);
-        }
-    }
-
-    /**
-     * Converts `EMG` to a JSON String.
-     *
-     * @return JSON of `EMG`.
-     * @throws JsonProcessingException if there's an error during serialization.
-     */
-    public String getEmgAsJson() throws JsonProcessingException {
-        if (this.emg == null) {
-            return null;
-        }
-        ObjectMapper mapper = new ObjectMapper();
-        return mapper.writeValueAsString(this.emg);
-    }
-
-    /**
-     * Creates `EMG` from JSON.
-     *
-     * @param json JSON representation of`ACC`.
-     * @throws JsonProcessingException sif there's an error during deserialization.
-     */
-    public void setEmgFromJson(String json) throws JsonProcessingException {
-        if (json == null || json.isEmpty()) {
-            this.emg = null;
-        } else {
-            ObjectMapper mapper = new ObjectMapper();
-            this.emg = mapper.readValue(json, EMG.class);
-        }
-    }
 
     /**
      * Function that calls another one to represent the acceleration data
