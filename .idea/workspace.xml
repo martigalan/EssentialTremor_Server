@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="added releaseResources in DoctorHandler">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Treatment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -165,7 +154,8 @@
       <workItem from="1731502385548" duration="1144000" />
       <workItem from="1731597234244" duration="3480000" />
       <workItem from="1731601866263" duration="679000" />
-      <workItem from="1731858652087" duration="3584000" />
+      <workItem from="1731858652087" duration="6272000" />
+      <workItem from="1731931424696" duration="2683000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -308,7 +298,14 @@
       <option name="project" value="LOCAL" />
       <updated>1731670606274</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="javadoc">
+      <created>1731862283498</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1731862283498</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -347,6 +344,7 @@
     <MESSAGE value="fixed errors" />
     <MESSAGE value="tables State and Treatment filled by default" />
     <MESSAGE value="added releaseResources in DoctorHandler" />
-    <option name="LAST_COMMIT_MESSAGE" value="added releaseResources in DoctorHandler" />
+    <MESSAGE value="javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="javadoc" />
   </component>
 </project>
