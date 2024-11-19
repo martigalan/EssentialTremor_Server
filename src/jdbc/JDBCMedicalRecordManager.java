@@ -1,6 +1,5 @@
 package jdbc;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import data.ACC;
 import data.EMG;
 import iFaces.MedicalRecordManager;
