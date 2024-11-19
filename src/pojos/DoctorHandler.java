@@ -307,14 +307,14 @@ public class DoctorHandler implements Runnable {
             String symptoms = joinWithCommas(medicalRecord.getSymptoms());
             out.println(symptoms);
             //timestamp
-            String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
+            /*String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
             out.println(time);
             //acc
             String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
             out.println(acc);
             //emg
             String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
-            out.println(emg);
+            out.println(emg);*/
             out.println(medicalRecord.getGenetic_background());//boolean
             //Receives approval
             String approval = in.readLine();

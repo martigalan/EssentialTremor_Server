@@ -4,20 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="added releaseResources in DoctorHandler">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCHasPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorsNote.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/MedicalRecord.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Patient.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Patient.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/State.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/State.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Treatment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -60,25 +51,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainServer.executor&quot;: &quot;Debug&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/blanc/Downloads/jackson-databind-2.18.1.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.Main.executor": "Run",
+    "Application.MainServer.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/jackson-databind-2.18.1.jar",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\marty\IdeaProjects\EssentialTremor_Server\lib" />
@@ -308,7 +300,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731670606274</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="merge">
+      <option name="closed" value="true" />
+      <created>1731958512217</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1731958512217</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,7 +339,6 @@
     <MESSAGE value="added Handlers" />
     <MESSAGE value="jdbc mr" />
     <MESSAGE value="doctorNote and others" />
-    <MESSAGE value="merge" />
     <MESSAGE value="started with handleDoctorsNote" />
     <MESSAGE value="finished handleDoctorsNote in DoctorHandler" />
     <MESSAGE value="acc and emg to JSON" />
@@ -347,6 +346,7 @@
     <MESSAGE value="fixed errors" />
     <MESSAGE value="tables State and Treatment filled by default" />
     <MESSAGE value="added releaseResources in DoctorHandler" />
-    <option name="LAST_COMMIT_MESSAGE" value="added releaseResources in DoctorHandler" />
+    <MESSAGE value="merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge" />
   </component>
 </project>
