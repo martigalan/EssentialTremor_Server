@@ -4,10 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="some changes">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -54,20 +52,19 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.Main.executor": "Run",
-    "Application.MainServer.executor": "Run",
+    "Application.MainServer.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "master",
+    "git-widget-placeholder": "Merging master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/jackson-databind-2.18.1.jar",
+    "last_opened_file_path": "C:/Users/blanc/Downloads/jackson-databind-2.18.1.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -157,7 +154,9 @@
       <workItem from="1731502385548" duration="1144000" />
       <workItem from="1731597234244" duration="3480000" />
       <workItem from="1731601866263" duration="679000" />
-      <workItem from="1731858652087" duration="3584000" />
+      <workItem from="1731858652087" duration="6272000" />
+      <workItem from="1731931424696" duration="2683000" />
+      <workItem from="1732022253561" duration="1136000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -300,15 +299,21 @@
       <option name="project" value="LOCAL" />
       <updated>1731670606274</updated>
     </task>
-    <task id="LOCAL-00020" summary="merge">
-      <option name="closed" value="true" />
-      <created>1731958512217</created>
+    <task id="LOCAL-00020" summary="javadoc">
+      <created>1731862283498</created>
       <option name="number" value="00020" />
       <option name="presentableId" value="LOCAL-00020" />
       <option name="project" value="LOCAL" />
-      <updated>1731958512217</updated>
+      <updated>1731862283498</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="javadoc">
+      <created>1732022285268</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1732022285268</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -339,6 +344,7 @@
     <MESSAGE value="added Handlers" />
     <MESSAGE value="jdbc mr" />
     <MESSAGE value="doctorNote and others" />
+    <MESSAGE value="merge" />
     <MESSAGE value="started with handleDoctorsNote" />
     <MESSAGE value="finished handleDoctorsNote in DoctorHandler" />
     <MESSAGE value="acc and emg to JSON" />
@@ -346,7 +352,8 @@
     <MESSAGE value="fixed errors" />
     <MESSAGE value="tables State and Treatment filled by default" />
     <MESSAGE value="added releaseResources in DoctorHandler" />
-    <MESSAGE value="merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge" />
+    <MESSAGE value="javadoc" />
+    <MESSAGE value="some changes" />
+    <option name="LAST_COMMIT_MESSAGE" value="some changes" />
   </component>
 </project>

@@ -283,48 +283,55 @@ public class DoctorHandler implements Runnable {
         //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
         Integer numberOfMR = medicalRecords.size();
-        out.println(numberOfMR);
-        for (MedicalRecord record : medicalRecords) {
-            out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
-            out.flush();
-        }
-        Integer mr_id = Integer.parseInt(in.readLine());
 
-        //once I have my medicalRecord, add it to my doctor, to associate it in ddbb
-        hasMedicalRecordManager.addMedicalRecordDoctor(doctor_id, mr_id);
-        //obtain this medicalRecord from ddbb to send it to the Doctor
-        medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
-        if (medicalRecord != null) {
-            out.println("SEND_MEDICALRECORD");
-            //send data
-            out.println(medicalRecord.getPatientName());
-            out.println(medicalRecord.getPatientSurname());
-            out.println(medicalRecord.getGenetic_background());
-            out.println(medicalRecord.getAge());
-            out.println(medicalRecord.getWeight());
-            out.println(medicalRecord.getHeight());
-            //symptoms
-            String symptoms = joinWithCommas(medicalRecord.getSymptoms());
-            out.println(symptoms);
-            //timestamp
-            /*String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
-            out.println(time);
-            //acc
-            String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
-            out.println(acc);
-            //emg
-            String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
-            out.println(emg);*/
-            out.println(medicalRecord.getGenetic_background());//boolean
-            //Receives approval
-            String approval = in.readLine();
-            if (approval.equals("MEDICALRECORD_SUCCESS")){
-                System.out.println("Medical Record sent correctly");
-            } else{
-                System.out.println("Couldn't send Medical Record. Please try again.");
+        if (numberOfMR == 0){
+            out.println("NOT_FOUND");
+            return;
+        } else if (numberOfMR>0) {
+            out.println("FOUND");
+            out.println(numberOfMR);
+            for (MedicalRecord record : medicalRecords) {
+                out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+                out.flush();
             }
-        } else {
-            out.println("No medical record found for this patient.");
+            Integer mr_id = Integer.parseInt(in.readLine());
+
+            //once I have my medicalRecord, add it to my doctor, to associate it in ddbb
+            hasMedicalRecordManager.addMedicalRecordDoctor(doctor_id, mr_id);
+            //obtain this medicalRecord from ddbb to send it to the Doctor
+            medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
+            if (medicalRecord != null) {
+                out.println("SEND_MEDICALRECORD");
+                //send data
+                out.println(medicalRecord.getPatientName());
+                out.println(medicalRecord.getPatientSurname());
+                out.println(medicalRecord.getGenetic_background());
+                out.println(medicalRecord.getAge());
+                out.println(medicalRecord.getWeight());
+                out.println(medicalRecord.getHeight());
+                //symptoms
+                String symptoms = joinWithCommas(medicalRecord.getSymptoms());
+                out.println(symptoms);
+                //timestamp
+                String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
+                out.println(time);
+                //acc
+                String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
+                out.println(acc);
+                //emg
+                String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
+                out.println(emg);
+                out.println(medicalRecord.getGenetic_background());//boolean
+                //Receives approval
+                String approval = in.readLine();
+                if (approval.equals("MEDICALRECORD_SUCCESS")) {
+                    System.out.println("Medical Record sent correctly");
+                } else {
+                    System.out.println("Couldn't send Medical Record. Please try again.");
+                }
+            } else {
+                out.println("No medical record found for this patient.");
+            }
         }
     }
 
