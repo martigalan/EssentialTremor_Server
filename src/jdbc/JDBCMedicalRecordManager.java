@@ -1,6 +1,8 @@
 package jdbc;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import data.ACC;
+import data.EMG;
 import iFaces.MedicalRecordManager;
 import pojos.DoctorsNote;
 import pojos.MedicalRecord;
@@ -12,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public class JDBCMedicalRecordManager implements MedicalRecordManager {
 
@@ -44,16 +47,31 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
             prep.setDouble(3, medicalRecord.getWeight());
             prep.setInt(4, medicalRecord.getHeight());
             prep.setString(5, medicalRecord.getSymptomsAsString());
-            prep.setString(6, medicalRecord.getAccelerationAsJson());
-            prep.setString(7, medicalRecord.getEmgAsJson());
+            prep.setString(6, combineLists(medicalRecord.getAcceleration().getTimestamp(), medicalRecord.getAcceleration().getSignalData())); // Acc
+            prep.setString(7, combineLists(medicalRecord.getEmg().getTimestamp(), medicalRecord.getEmg().getSignalData()));                  // EMG
             prep.setString(8, medicalRecord.getDateAsString());
             prep.executeUpdate();
             prep.close();
         } catch (SQLException ex) {
             Logger.getLogger(JDBCMedicalRecordManager.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Auxiliary function that combines the time and signalData into an String to insert into ddbb.
+     * @param time timeStamp in the signal
+     * @param signalData signal data
+     * @return String with combined time and signal
+     */
+    private String combineLists(List<Integer> time, List<Integer> signalData) {
+        String timeString = "[" + time.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(",")) + "]";
+        String signalDataString = "[" + signalData.stream()
+                .map(String::valueOf)
+                .collect(Collectors.joining(",")) + "]";
+
+        return "time:" + timeString + ";signalData:" + signalDataString;
     }
 
     /**
@@ -110,17 +128,15 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
                     String symptoms = (rs.getString("symptoms"));
                     record.setSymptoms(symptomsToList(symptoms));
                     // Deserialize ACC and EMG from JSON
-                    String accJson = rs.getString("acc");
-                    String emgJson = rs.getString("emg");
-                    record.setAccelerationFromJson(accJson);
-                    record.setEmgFromJson(emgJson);
+                    String accLists = rs.getString("acc");
+                    String emgLists = rs.getString("emg");
+                    record.setAcceleration(splitListsACC(accLists));
+                    record.setEmg(splitListsEMG(emgLists));
 
                     record.setDateAsString(rs.getString("date"));
                 } else {
                     System.out.println("No Medical Record found for ID: " + medicalRecord_id);
                 }
-            } catch (JsonProcessingException e) {
-                throw new RuntimeException(e);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving MedicalRecord by ID: " + e.getMessage());
@@ -130,7 +146,55 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
     }
 
     /**
-     * Auxiliar function to convert a String of symptoms separated by commas into a List of Strings.
+     * Auxiliary function that splits the TEXT form the ddbb into an ACC object.
+     * @param combinedString string with time+signal
+     * @return ACC object from ddbb
+     */
+    private ACC splitListsACC(String combinedString) {
+        String[] parts = combinedString.split(";"); // Divide por el delimitador ";"
+        String timePart = parts[0].replace("time:", "").replaceAll("\\[|\\]", "");
+        String signalDataPart = parts[1].replace("signalData:", "").replaceAll("\\[|\\]", "");
+
+        List<Integer> time = new ArrayList<>();
+        List<Integer> signalData = new ArrayList<>();
+
+        // Convierte cada parte a listas de Integer
+        for (String t : timePart.split(",")) {
+            if (!t.isEmpty()) time.add(Integer.parseInt(t));
+        }
+        for (String s : signalDataPart.split(",")) {
+            if (!s.isEmpty()) signalData.add(Integer.parseInt(s));
+        }
+
+        return new ACC(signalData, time);
+    }
+    /**
+     * Auxiliary function that splits the TEXT form the ddbb into an EMG object.
+     * @param combinedString string with time+signal
+     * @return EMG object from ddbb
+     */
+    private EMG splitListsEMG(String combinedString) {
+        String[] parts = combinedString.split(";"); // Divide por el delimitador ";"
+        String timePart = parts[0].replace("time:", "").replaceAll("\\[|\\]", "");
+        String signalDataPart = parts[1].replace("signalData:", "").replaceAll("\\[|\\]", "");
+
+        List<Integer> time = new ArrayList<>();
+        List<Integer> signalData = new ArrayList<>();
+
+        // Convierte cada parte a listas de Integer
+        for (String t : timePart.split(",")) {
+            if (!t.isEmpty()) time.add(Integer.parseInt(t));
+        }
+        for (String s : signalDataPart.split(",")) {
+            if (!s.isEmpty()) signalData.add(Integer.parseInt(s));
+        }
+
+        return new EMG(signalData, time);
+    }
+
+
+    /**
+     * Auxiliary function to convert a String of symptoms separated by commas into a List of Strings.
      * @param sintomasTexto String containing the symptoms separated by commas.
      * @return List of String with the symptoms.
      */

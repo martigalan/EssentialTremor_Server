@@ -100,8 +100,8 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    weight REAL NOT NULL," +
                     "    height INTEGER NOT NULL," +
                     "    symptoms TEXT," +
-                    "    acc VARCHAR(256)," +
-                    "    emg VARCHAR(256)," +
+                    "    acc TEXT," +
+                    "    emg TETX," +
                     "    date TEXT," +
                     "    FOREIGN KEY (patient_id) REFERENCES Patient(id) ON DELETE CASCADE" +
                     ");";
