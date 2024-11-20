@@ -4,9 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="javadoc">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="patient chooseMR">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -321,7 +321,23 @@
       <option name="project" value="LOCAL" />
       <updated>1732024448866</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="patient chooseMR">
+      <option name="closed" value="true" />
+      <created>1732027338293</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1732027338293</updated>
+    </task>
+    <task id="LOCAL-00024" summary="patient chooseMR">
+      <option name="closed" value="true" />
+      <created>1732027409974</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1732027409974</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -362,6 +378,7 @@
     <MESSAGE value="added releaseResources in DoctorHandler" />
     <MESSAGE value="some changes" />
     <MESSAGE value="javadoc" />
-    <option name="LAST_COMMIT_MESSAGE" value="javadoc" />
+    <MESSAGE value="patient chooseMR" />
+    <option name="LAST_COMMIT_MESSAGE" value="patient chooseMR" />
   </component>
 </project>
