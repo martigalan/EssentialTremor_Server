@@ -192,12 +192,22 @@ public class PatientHandler implements Runnable{
         //chosen medical record
         Integer mr_id = Integer.parseInt(in.readLine());
         //doctors note associated to the medical record
-        //todo possibly change to get all the dn associated to that mr
-        DoctorsNote doctorsNote = null;
-        doctorsNote = doctorNotesManager.getDoctorsNoteByID(mr_id);
-        if (doctorsNote!=null) {
+        List<DoctorsNote> doctorsNotes = null;
+        doctorsNotes = doctorNotesManager.getDoctorsNoteByMRID(mr_id);
+        if (doctorsNotes!=null) {
             String approval = "FOUND";
             out.println(approval);
+
+            out.println(doctorsNotes.size());
+            for (DoctorsNote note : doctorsNotes) {
+                out.write("ID: " + note.getId() + ", Date: " + note.getDate() + "\n");
+                //System.out.println(("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"));
+                out.flush();
+            }
+
+            Integer dn_id = Integer.parseInt(in.readLine());
+            DoctorsNote doctorsNote = doctorNotesManager.getDoctorsNoteByID(dn_id);
+
             out.println(doctorsNote.getDoctorName());
             out.println(doctorsNote.getDoctorSurname());
             out.println(doctorsNote.getNotes());

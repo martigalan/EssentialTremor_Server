@@ -2,12 +2,14 @@ package jdbc;
 
 import iFaces.DoctorNotesManager;
 import pojos.DoctorsNote;
+import pojos.MedicalRecord;
 import pojos.State;
 import pojos.Treatment;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,42 +53,64 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
     }
 
     /**
-     * Retrieves a {@link DoctorsNote} object with provides all the doctor's note information.
-     * Create a {@link DoctorsNote} object to insert the doctor's note information obtain from the database.
+     * Retrieves a {@link List<DoctorsNote>} object with provides all the doctor's note information.
+     * Create a {@link List<DoctorsNote>} object to insert the doctor's note information obtain from the database.
      *
      * @param medicalRecord_id id of medicalRecord, related to the doctor's note.
      * @throws SQLException if there is an error during the SQL operation.
      */
-    public DoctorsNote getDoctorsNoteByID (Integer medicalRecord_id) throws SQLException {
-        DoctorsNote dn = null;
+    public List<DoctorsNote> getDoctorsNoteByMRID (Integer medicalRecord_id) throws SQLException {
+        List<DoctorsNote> dns = null;
         try {
             String query = "SELECT * FROM DoctorNotes WHERE medical_record_id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
             prep.setInt(1, medicalRecord_id);
 
-            try (ResultSet rs = prep.executeQuery()) {
-                if (rs.next()) {
-                    dn = new DoctorsNote();
-                    dn.setNotes(rs.getString("description"));
-                    int stateId = rs.getInt("state");
-                    if (!rs.wasNull()) {
-                        State state = State.getById(stateId);
-                        dn.setState(state);
-                    }
-                    int treatmentId = rs.getInt("treatment");
-                    if (!rs.wasNull()) {
-                        Treatment treatment = Treatment.getById(treatmentId);
-                        dn.setTreatment(treatment);
-                    }
-                    dn.setDateAsString(rs.getString("date"));
-                } else {
-                    System.out.println("No doctors note found for medical record ID: " + medicalRecord_id);
-                }
+            ResultSet rs = prep.executeQuery();
+            while (rs.next()) {
+                DoctorsNote doctorsNote = new DoctorsNote();
+                doctorsNote.setId(rs.getInt("id"));
+                doctorsNote.setDateAsString(rs.getString("date"));
+                dns.add(doctorsNote);
             }
         } catch (SQLException e) {
             System.out.println("Error retrieving doctorsNote by ID: " + e.getMessage());
             throw e;
         }
-        return dn;
+        return dns;
+    }
+
+    /**
+     * Retrieves a DoctorsNote from the database with the ID.
+     * @param dn_id Id of the note we want to get
+     * @return DoctorsNote with the id
+     * @throws SQLException in case of database error
+     */
+    public DoctorsNote getDoctorsNoteByID (Integer dn_id) throws SQLException {
+        DoctorsNote dn = null;
+        try{
+            String query = "SELECT * FROM DoctorNotes WHERE id = ?";
+            PreparedStatement prep = cM.getConnection().prepareStatement(query);
+            prep.setInt(1, dn_id);
+
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
+                    dn = new DoctorsNote();
+                    dn.setId(rs.getInt("id"));
+                    dn.setNotes(rs.getString("description"));
+                    dn.setMedicalRecordId(rs.getInt("medical_record_id"));
+                    dn.setDoctorId(rs.getInt("doctor_id"));
+                    dn.setDateAsString(rs.getString("date"));
+                    dn.setState(State.valueOf(rs.getString("state")));
+                    dn.setTreatment(Treatment.valueOf(rs.getString("treatment")));
+                } else {
+                    System.out.println("No Doctor Notes found for ID: " + dn_id);
+                }
+            }
+            return dn;
+        } catch (SQLException e) {
+            System.out.println("Error retrieving MedicalRecord by ID: " + e.getMessage());
+            throw e;
+        }
     }
 }
