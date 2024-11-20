@@ -37,6 +37,10 @@ public class DoctorsNote {
      * Treatment the patient should undergo
      */
     private Treatment treatment;
+    /**
+     * ID for the database use
+     */
+    private int id;
 
     public DoctorsNote(){
     }
@@ -73,6 +77,14 @@ public class DoctorsNote {
         this.doctorName = doctorName;
         this.doctorSurname = doctorSurname;
         this.notes = notes;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public State getState() {
