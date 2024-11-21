@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -221,7 +222,6 @@ public class DoctorHandler implements Runnable {
             //hexadecimal (String) to byte[]
             byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
             User user = new User(username, passwordBytes, role);
-            //TODO si es necesario meter User
             userManager.addUser(user);
             Doctor doctor = new Doctor(name, surname);
             System.out.println("Doctor added successfully: " + doctor.getName() + " " + doctor.getSurname());
@@ -325,7 +325,7 @@ public class DoctorHandler implements Runnable {
                 out.println(emg);
                 out.println(medicalRecord.getGenetic_background());//boolean
                 //Receives approval
-                String approval = in.readLine(); //TODO LLEGA HASTA AQUÍ EL SERVER
+                String approval = in.readLine();
                 if (approval.equals("MEDICALRECORD_SUCCESS")) {
                     System.out.println("Medical Record sent correctly");
                 } else {
@@ -349,30 +349,29 @@ public class DoctorHandler implements Runnable {
         String dName = in.readLine();
         String dSurname = in.readLine();
         String notes = in.readLine();
-        State st = State.valueOf(in.readLine());
-        Treatment trt = Treatment.valueOf(in.readLine());
+        Integer st_id = Integer.parseInt(in.readLine());
+        State st = State.getById(st_id);
+        Integer trt_id = Integer.parseInt(in.readLine());
+        Treatment trt = Treatment.getById(trt_id);
         String dateTxt = in.readLine();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEE MMM dd HH:mm:ss zzz yyyy");
-           // Parse to ZonedDateTime first
-        ZonedDateTime zonedDateTime = ZonedDateTime.parse(dateTxt, formatter);
-           // Extract LocalDate from ZonedDateTime
-        LocalDate date = zonedDateTime.toLocalDate();
+        LocalDate date = Date.valueOf(dateTxt).toLocalDate();
         Integer mr_id = Integer.valueOf(in.readLine());
 
         DoctorsNote dn = new DoctorsNote(dName, dSurname, notes, st, trt, date);
         dn.setMedicalRecordId(mr_id);
 
-        //find doctor_id
-        String doctorName = in.readLine();
-        String doctorSurname = in.readLine();
-        Integer doctor_id = doctorManager.getIdByNameSurname(doctorName, doctorSurname);
+        Integer doctor_id = doctorManager.getIdByNameSurname(dName, dSurname);
         dn.setDoctorId(doctor_id);
 
+        //TODO
         if (dn != null) {
-            out.println("DOCTORNOTE_SUCCESS");
+            String approval = "DOCTORNOTE_SUCCESS";
+            out.println(approval);
+            out.flush();
             doctorNotesManager.addDoctorNote(dn);
         } else {
-            out.println("DOCTORNOTE_FAILED");
+            String approval = "DOCTORNOTE_FAILED";
+            out.println(approval);
         }
     }
 
