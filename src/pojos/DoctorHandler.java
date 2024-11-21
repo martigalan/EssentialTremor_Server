@@ -257,7 +257,7 @@ public class DoctorHandler implements Runnable {
      */
     private void handleMedicalRecord() throws IOException, SQLException {
         MedicalRecord medicalRecord = null;
-
+        Patient patient = null;
         //find doctor_id for later use
         String doctorName = in.readLine();
         String doctorSurname = in.readLine();
@@ -300,12 +300,14 @@ public class DoctorHandler implements Runnable {
             hasMedicalRecordManager.addMedicalRecordDoctor(doctor_id, mr_id);
             //obtain this medicalRecord from ddbb to send it to the Doctor
             medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
+            //obtain data of patient by id
+            patient = patientManager.getPatientByUserId(patient_id);
             if (medicalRecord != null) {
                 out.println("SEND_MEDICALRECORD");
                 //send data
-                out.println(medicalRecord.getPatientName());
-                out.println(medicalRecord.getPatientSurname());
-                out.println(medicalRecord.getGenetic_background());
+                out.println(patient.getName());
+                out.println(patient.getSurname());
+                out.println(patient.getGenetic_background());
                 out.println(medicalRecord.getAge());
                 out.println(medicalRecord.getWeight());
                 out.println(medicalRecord.getHeight());
@@ -323,7 +325,7 @@ public class DoctorHandler implements Runnable {
                 out.println(emg);
                 out.println(medicalRecord.getGenetic_background());//boolean
                 //Receives approval
-                String approval = in.readLine();
+                String approval = in.readLine(); //TODO LLEGA HASTA AQUÍ EL SERVER
                 if (approval.equals("MEDICALRECORD_SUCCESS")) {
                     System.out.println("Medical Record sent correctly");
                 } else {
