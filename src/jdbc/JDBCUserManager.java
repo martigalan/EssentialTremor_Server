@@ -3,12 +3,10 @@ package jdbc;
 import iFaces.UserManager;
 import pojos.User;
 
-import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -91,13 +89,6 @@ public class JDBCUserManager implements UserManager {
             if (rs.next()) {
                 return true;
             }
-            /*if (rs.next()) {
-                MessageDigest md = MessageDigest.getInstance("MD5");
-                md.update(passwordIntroduced.getBytes());
-                byte[] hashIntroduced = md.digest();
-                byte[] hashSaved = rs.getBytes("password");
-                return Arrays.equals(hashIntroduced, hashSaved);
-            }*/
         } catch (SQLException e) {
             e.printStackTrace();
         }

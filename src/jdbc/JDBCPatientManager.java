@@ -2,8 +2,6 @@ package jdbc;
 
 import iFaces.PatientManager;
 import pojos.Patient;
-import pojos.PatientHandler;
-
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
