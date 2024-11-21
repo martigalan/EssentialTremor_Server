@@ -2,7 +2,6 @@ package jdbc;
 
 import iFaces.DoctorNotesManager;
 import pojos.DoctorsNote;
-import pojos.MedicalRecord;
 import pojos.State;
 import pojos.Treatment;
 

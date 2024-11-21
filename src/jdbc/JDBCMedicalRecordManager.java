@@ -3,7 +3,6 @@ package jdbc;
 import data.ACC;
 import data.EMG;
 import iFaces.MedicalRecordManager;
-import pojos.DoctorsNote;
 import pojos.MedicalRecord;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

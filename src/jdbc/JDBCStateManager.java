@@ -1,6 +1,5 @@
 package jdbc;
 
-import pojos.State;
 import iFaces.StateManager;
 
 import java.sql.PreparedStatement;
