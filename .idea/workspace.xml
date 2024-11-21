@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +59,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/blanc/Downloads/jackson-databind-2.18.1.jar",
+    "last_opened_file_path": "C:/Users/blanc/Downloads/jcommon-1.0.12/jcommon-1.0.12/jcommon-1.0.12.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
