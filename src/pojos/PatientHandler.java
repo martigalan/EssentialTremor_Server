@@ -311,7 +311,6 @@ public class PatientHandler implements Runnable{
             //from hexadecimal (String) t byte[]
             byte[] passwordBytes = hexStringToByteArray(encryptedPassword);
             User user = new User(username, passwordBytes, role);
-            //TODO si es necesario meter User
             //add register info (username and password) to ddbb
             userManager.addUser(user);
             Patient patient = new Patient(name, surname, geneticBackground);
