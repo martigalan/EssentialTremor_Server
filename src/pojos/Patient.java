@@ -217,7 +217,6 @@ public class Patient {
      * @throws IOException in case the connection fails
      */
     public void sendMedicalRecord(MedicalRecord medicalRecord, Socket socket) throws IOException {
-        //TODO send info, CHECK
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream(), true);
         System.out.println("Connection established... sending text");
         printWriter.println(medicalRecord.getPatientName());
