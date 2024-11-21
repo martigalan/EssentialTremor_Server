@@ -9,6 +9,7 @@ import pojos.Treatment;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -60,9 +61,9 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
      * @throws SQLException if there is an error during the SQL operation.
      */
     public List<DoctorsNote> getDoctorsNoteByMRID (Integer medicalRecord_id) throws SQLException {
-        List<DoctorsNote> dns = null;
+        List<DoctorsNote> dns = new ArrayList<>();
         try {
-            String query = "SELECT * FROM DoctorNotes WHERE medical_record_id = ?";
+            String query = "SELECT id, date FROM DoctorNotes WHERE medical_record_id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
             prep.setInt(1, medicalRecord_id);
 
@@ -101,8 +102,10 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
                     dn.setMedicalRecordId(rs.getInt("medical_record_id"));
                     dn.setDoctorId(rs.getInt("doctor_id"));
                     dn.setDateAsString(rs.getString("date"));
-                    dn.setState(State.valueOf(rs.getString("state")));
-                    dn.setTreatment(Treatment.valueOf(rs.getString("treatment")));
+                    Integer st = (rs.getInt("state"));
+                    dn.setState(State.getById(st));
+                    Integer trt = (rs.getInt("treatment"));
+                    dn.setTreatment(Treatment.getById(trt));
                 } else {
                     System.out.println("No Doctor Notes found for ID: " + dn_id);
                 }

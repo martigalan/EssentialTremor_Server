@@ -208,11 +208,13 @@ public class PatientHandler implements Runnable{
             Integer dn_id = Integer.parseInt(in.readLine());
             DoctorsNote doctorsNote = doctorNotesManager.getDoctorsNoteByID(dn_id);
 
-            out.println(doctorsNote.getDoctorName());
-            out.println(doctorsNote.getDoctorSurname());
+            Doctor doctor = doctorManager.getDoctorById(doctorsNote.getDoctorId());
+
+            out.println(doctor.getName());
+            out.println(doctor.getSurname());
             out.println(doctorsNote.getNotes());
-            out.println(doctorsNote.getState());
-            out.println(doctorsNote.getTreatment());
+            out.println(doctorsNote.getState().getId());
+            out.println(doctorsNote.getTreatment().getId());
             out.println(doctorsNote.getDate());
         }else {
             String approval = "NOT_FOUND";
