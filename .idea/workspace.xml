@@ -6,8 +6,16 @@
   <component name="ChangeListManager">
     <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment=".">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/DoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/DoctorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/DoctorNotesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/DoctorNotesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/MedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/MedicalRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/PatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/PatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/UserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/UserManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -160,6 +168,8 @@
       <workItem from="1732022253561" duration="1136000" />
       <workItem from="1732205682577" duration="98000" />
       <workItem from="1732205827886" duration="48000" />
+      <workItem from="1732206418461" duration="193000" />
+      <workItem from="1732290218569" duration="939000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -347,7 +357,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732193192867</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary=".">
+      <created>1732206595263</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1732206595263</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

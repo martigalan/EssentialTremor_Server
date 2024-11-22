@@ -102,6 +102,7 @@ public class JDBCUserManager implements UserManager {
      * @return The {@link User} object containing the user's details, or {@code null} if no user is found.
      * @throws SQLException if there is an error during the SQL query execution.
      */
+    @Override
     public User getUser(int id) {
         try {
             String sql = "SELECT * FROM USER WHERE id = ?";
@@ -130,6 +131,7 @@ public class JDBCUserManager implements UserManager {
      * @return The ID of the user, or {@code 0} if the user is not found.
      * @throws SQLException if there is an error during the SQL query execution.
      */
+    @Override
     public int getId(String username) {
         String sql1 = "SELECT * FROM USER WHERE username = ?";
         int id = 0;

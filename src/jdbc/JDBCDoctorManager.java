@@ -53,6 +53,7 @@ public class JDBCDoctorManager implements DoctorManager {
      * @return A Doctor object populated with data from the database, or null if no doctor is found.
      * @throws SQLException If there is an error accessing the database.
      */
+    @Override
     public Doctor getDoctorByUserId(int userId) throws SQLException {
         Doctor doctor = new Doctor();
         try {
@@ -83,6 +84,7 @@ public class JDBCDoctorManager implements DoctorManager {
      * @return A Doctor object populated with data from the database, or null if no doctor is found.
      * @throws SQLException If there is an error accessing the database.
      */
+    @Override
     public Doctor getDoctorById(int userId) throws SQLException {
         Doctor doctor = new Doctor();
         try {
@@ -114,6 +116,7 @@ public class JDBCDoctorManager implements DoctorManager {
      * @return An id Ineteger, or null if no doctor is found.
      * @throws SQLException If there is an error accessing the database.
      */
+    @Override
     public Integer getIdByNameSurname(String name, String surname) throws SQLException {
         Integer id = null;
         try {

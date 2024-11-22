@@ -59,6 +59,7 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
      * @param medicalRecord_id id of medicalRecord, related to the doctor's note.
      * @throws SQLException if there is an error during the SQL operation.
      */
+    @Override
     public List<DoctorsNote> getDoctorsNoteByMRID (Integer medicalRecord_id) throws SQLException {
         List<DoctorsNote> dns = new ArrayList<>();
         try {
@@ -86,6 +87,7 @@ public class JDBCDoctorNotesManager implements DoctorNotesManager {
      * @return DoctorsNote with the id
      * @throws SQLException in case of database error
      */
+    @Override
     public DoctorsNote getDoctorsNoteByID (Integer dn_id) throws SQLException {
         DoctorsNote dn = null;
         try{
