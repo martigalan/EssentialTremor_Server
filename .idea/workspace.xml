@@ -4,15 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment=".">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="delete some functions not used of ddbb">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCDoctorNotesManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCMedicalRecordManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCSignalManager.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCStateManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCUserManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,7 +336,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732190802392</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="delete some functions not used of ddbb">
+      <option name="closed" value="true" />
+      <created>1732192752380</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1732192752380</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -385,6 +386,7 @@
     <MESSAGE value="javadoc" />
     <MESSAGE value="merge" />
     <MESSAGE value="." />
-    <option name="LAST_COMMIT_MESSAGE" value="." />
+    <MESSAGE value="delete some functions not used of ddbb" />
+    <option name="LAST_COMMIT_MESSAGE" value="delete some functions not used of ddbb" />
   </component>
 </project>
