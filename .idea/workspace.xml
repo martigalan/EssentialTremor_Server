@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="method to close server">
-      <change afterPath="$PROJECT_DIR$/src/tests/DoctorTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tests/PatientTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/tests/TestServer.java" afterDir="false" />
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/DoctorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/DoctorTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/TestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/TestServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -65,7 +64,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/blanc/Downloads/junit-4.12.jar",
+    "last_opened_file_path": "C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/junit-4.12.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -406,7 +405,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732294042187</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="merge">
+      <option name="closed" value="true" />
+      <created>1732459751691</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1732459751691</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -445,10 +452,10 @@
     <MESSAGE value="added releaseResources in DoctorHandler" />
     <MESSAGE value="some changes" />
     <MESSAGE value="javadoc" />
-    <MESSAGE value="merge" />
     <MESSAGE value="." />
     <MESSAGE value="complete interfaces" />
     <MESSAGE value="method to close server" />
-    <option name="LAST_COMMIT_MESSAGE" value="method to close server" />
+    <MESSAGE value="merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge" />
   </component>
 </project>

@@ -11,7 +11,7 @@ public class DoctorTest {
 
     @Test
     public void testDoctorConnection() throws InterruptedException {
-        CountDownLatch latch = new CountDownLatch(1);
+        CountDownLatch latch = new CountDownLatch(1); //importante porque trabajamos con hilos. Wait for thread to finish
 
         Thread doctorThread = new Thread(() -> {
             try (Socket socket = new Socket("localhost", 9003)) {
