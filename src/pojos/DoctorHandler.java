@@ -116,10 +116,10 @@ public class DoctorHandler implements Runnable {
                         handleMedicalRecord();
                         break;
                     case "DoctorsNote":
-                        //TODO see this
                         handleDoctorsNote();
                         break;
                     case "exit":
+                        System.out.println("CLOSING CONNECTION");
                         in.close();
                         out.close();
                         socket.close();
@@ -323,7 +323,6 @@ public class DoctorHandler implements Runnable {
                 //emg
                 String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
                 out.println(emg);
-                out.println(medicalRecord.getGenetic_background());//boolean
                 //Receives approval
                 String approval = in.readLine();
                 if (approval.equals("MEDICALRECORD_SUCCESS")) {
@@ -363,11 +362,9 @@ public class DoctorHandler implements Runnable {
         Integer doctor_id = doctorManager.getIdByNameSurname(dName, dSurname);
         dn.setDoctorId(doctor_id);
 
-        //TODO
         if (dn != null) {
             String approval = "DOCTORNOTE_SUCCESS";
             out.println(approval);
-            out.flush();
             doctorNotesManager.addDoctorNote(dn);
         } else {
             String approval = "DOCTORNOTE_FAILED";

@@ -79,6 +79,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
      * @param patient_id id of patient, related to the medical records that it has.
      * @throws SQLException if there is an error during the SQL operation.
      */
+    @Override
     public List<MedicalRecord> findByPatientId (int patient_id) {
         List<MedicalRecord> records = new ArrayList<>();
         try {
@@ -107,6 +108,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
      * @return A MedicalRecord object populated with data from the database, or null if no record is found.
      * @throws SQLException If there is an error accessing the database.
      */
+    @Override
     public MedicalRecord getMedicalRecordByID (Integer medicalRecord_id) throws SQLException {
         MedicalRecord record = null;
         try {
@@ -196,7 +198,7 @@ public class JDBCMedicalRecordManager implements MedicalRecordManager {
      * @param sintomasTexto String containing the symptoms separated by commas.
      * @return List of String with the symptoms.
      */
-    public static List<String> symptomsToList(String sintomasTexto) {
+    private List<String> symptomsToList(String sintomasTexto) {
         if (sintomasTexto == null || sintomasTexto.isEmpty()) {
             return List.of(); // null if empty
         }

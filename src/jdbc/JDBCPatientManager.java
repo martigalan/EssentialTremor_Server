@@ -54,6 +54,7 @@ public class JDBCPatientManager implements PatientManager {
      * @return The Patient object corresponding to the given user ID, or null if no patient is found.
      * @throws SQLException If there is an error executing the SQL query.
      */
+    @Override
     public Patient getPatientByUserId(int userId) throws SQLException {
         Patient patient = null;
         try {
@@ -84,6 +85,7 @@ public class JDBCPatientManager implements PatientManager {
      * @return The ID of the patient, or null if no patient is found.
      * @throws SQLException If there is an error executing the SQL query.
      */
+    @Override
     public Integer getIdByNameSurname (String name, String surname) throws SQLException {
         Integer patient_id = null;
         try {
@@ -106,6 +108,7 @@ public class JDBCPatientManager implements PatientManager {
      * @return The Patient list object or null if no patients are found.
      * @throws SQLException If there is an error executing the SQL query.
      */
+    @Override
     public List<Patient> getPatients() throws SQLException {
         List<Patient> pList = new ArrayList<>();
         Patient patient = null;

@@ -53,8 +53,9 @@ public class JDBCDoctorManager implements DoctorManager {
      * @return A Doctor object populated with data from the database, or null if no doctor is found.
      * @throws SQLException If there is an error accessing the database.
      */
+    @Override
     public Doctor getDoctorByUserId(int userId) throws SQLException {
-        Doctor doctor = null;
+        Doctor doctor = new Doctor();
         try {
             String query = "SELECT * FROM Doctor WHERE user_id = ?";
             PreparedStatement prep = cM.getConnection().prepareStatement(query);
@@ -62,7 +63,6 @@ public class JDBCDoctorManager implements DoctorManager {
 
             try (ResultSet rs = prep.executeQuery()) {
                 if (rs.next()) {
-                    doctor = new Doctor();
                     doctor.setUserId(rs.getInt("id"));
                     doctor.setName(rs.getString("name"));
                     doctor.setSurname(rs.getString("surname"));
@@ -77,6 +77,37 @@ public class JDBCDoctorManager implements DoctorManager {
         return doctor;
     }
     /**
+     * Retrieves a Doctor object from the database based on the user ID.
+     * The Doctor is fetched by matching the given user ID with the doctor's user ID in the database.
+     *
+     * @param userId The user ID of the doctor to retrieve.
+     * @return A Doctor object populated with data from the database, or null if no doctor is found.
+     * @throws SQLException If there is an error accessing the database.
+     */
+    @Override
+    public Doctor getDoctorById(int userId) throws SQLException {
+        Doctor doctor = new Doctor();
+        try {
+            String query = "SELECT * FROM Doctor WHERE id = ?";
+            PreparedStatement prep = cM.getConnection().prepareStatement(query);
+            prep.setInt(1, userId);
+
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
+                    doctor.setUserId(rs.getInt("id"));
+                    doctor.setName(rs.getString("name"));
+                    doctor.setSurname(rs.getString("surname"));
+                } else {
+                    System.out.println("No doctor found for user ID: " + userId);
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving doctor by ID: " + e.getMessage());
+            throw e;
+        }
+        return doctor;
+    }
+    /**
      * Retrieves an id from the database based on the name and surname.
      * The id is fetched by matching the given name and surname with the doctor's parameters in the database.
      *
@@ -85,6 +116,7 @@ public class JDBCDoctorManager implements DoctorManager {
      * @return An id Ineteger, or null if no doctor is found.
      * @throws SQLException If there is an error accessing the database.
      */
+    @Override
     public Integer getIdByNameSurname(String name, String surname) throws SQLException {
         Integer id = null;
         try {
