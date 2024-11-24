@@ -332,7 +332,7 @@ public class DoctorHandler implements Runnable {
                     System.out.println("Couldn't send Medical Record. Please try again.");
                 }
             } else {
-                out.println("No medical record found for this patient.");
+                out.println("ERROR");
             }
         }
     }
@@ -363,7 +363,6 @@ public class DoctorHandler implements Runnable {
         Integer doctor_id = doctorManager.getIdByNameSurname(dName, dSurname);
         dn.setDoctorId(doctor_id);
 
-        //TODO
         if (dn != null) {
             String approval = "DOCTORNOTE_SUCCESS";
             out.println(approval);
