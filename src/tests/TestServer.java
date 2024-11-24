@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class TestServer {
 
     private static ServerSocket serverSocket;
-    private static AtomicInteger activeConnections = new AtomicInteger(0);
+    private static AtomicInteger activeConnections = new AtomicInteger(0); //created to count how many clients are connected
     private static boolean connection = true;
 
     public static void startServer(int port) throws IOException {
@@ -16,7 +16,7 @@ public class TestServer {
         while (connection) {
             try {
                 Socket clientSocket = serverSocket.accept();
-                activeConnections.incrementAndGet();
+                activeConnections.incrementAndGet(); //increase the number os connections until each one has connected
                 System.out.println("Client connected: " + clientSocket.getInetAddress());
 
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -35,7 +35,7 @@ public class TestServer {
                 }
 
                 clientSocket.close();
-                activeConnections.decrementAndGet();
+                activeConnections.decrementAndGet(); //when a client disconnect, we decrease the number of clients connect
                 checkAndShutdown();
 
             } catch (IOException e) {
@@ -48,6 +48,12 @@ public class TestServer {
         }
     }
 
+    /**
+     * Checks if there are any active connections to the server and shuts it down if none are found.
+     * This method is called after a client disconnects. If the count of active connections is zero, it prints a message indicating it, stops main server and closes server socket.
+     *
+     * Throws @IOException while closing the server socket, it logs the error to the console.
+     */
     private static void checkAndShutdown() {
         if (activeConnections.get() == 0) {
             System.out.println("No active connections. Shutting down server...");

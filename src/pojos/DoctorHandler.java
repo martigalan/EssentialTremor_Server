@@ -323,7 +323,6 @@ public class DoctorHandler implements Runnable {
                 //emg
                 String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
                 out.println(emg);
-                //out.println(medicalRecord.getGenetic_background());//boolean
                 //Receives approval
                 String approval = in.readLine();
                 if (approval.equals("MEDICALRECORD_SUCCESS")) {
@@ -366,7 +365,6 @@ public class DoctorHandler implements Runnable {
         if (dn != null) {
             String approval = "DOCTORNOTE_SUCCESS";
             out.println(approval);
-
             doctorNotesManager.addDoctorNote(dn);
         } else {
             String approval = "DOCTORNOTE_FAILED";
