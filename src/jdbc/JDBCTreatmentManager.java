@@ -39,7 +39,8 @@ public class JDBCTreatmentManager implements TreatmentManager {
             String[] treatments = {
                     "INSERT INTO Treatment (id, name, description) SELECT 1, 'SURGERY', 'The patient needs surgery.' WHERE NOT EXISTS (SELECT 1 FROM Treatment WHERE name = 'SURGERY' LIMIT 1);",
                     "INSERT INTO Treatment (id, name, description) SELECT 2, 'PROPRANOLOL', 'The patient needs pharmacology treatment, specifically Propranolol.' WHERE NOT EXISTS (SELECT 1 FROM Treatment WHERE name = 'PROPRANOLOL' LIMIT 1);",
-                    "INSERT INTO Treatment (id, name, description) SELECT 3, 'PRIMIDONE', 'The patient needs pharmacology treatment, specifically Primidone.' WHERE NOT EXISTS (SELECT 1 FROM Treatment WHERE name = 'PRIMIDONE' LIMIT 1);"
+                    "INSERT INTO Treatment (id, name, description) SELECT 3, 'PRIMIDONE', 'The patient needs pharmacology treatment, specifically Primidone.' WHERE NOT EXISTS (SELECT 1 FROM Treatment WHERE name = 'PRIMIDONE' LIMIT 1);",
+                    "INSERT INTO Treatment (id, name, description) SELECT 4, 'NONE', 'The patient does not need any treatment.' WHERE NOT EXISTS (SELECT 1 FROM Treatment WHERE name = 'NONE' LIMIT 1);"
             };
 
             // Loop through each treatment and execute the respective insert

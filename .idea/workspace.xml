@@ -4,11 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="merge">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="correction changes">
+      <change afterPath="$PROJECT_DIR$/lib/junit-4.12.jar" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/EssenetialTremor_Server.iml" beforeDir="false" afterPath="$PROJECT_DIR$/EssenetialTremor_Server.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/DoctorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/DoctorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/TestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/TestServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCTreatmentManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/Treatment.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/Treatment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/tests/PatientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/PatientTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -64,7 +66,7 @@
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "master",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/marty/IdeaProjects/EssentialTremor_Server/lib/junit-4.12.jar",
+    "last_opened_file_path": "C:/Users/blanc/OneDrive/Escritorio/Telemedicine/EssentialTremor_Server/lib/junit-4.12.jar",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
@@ -80,6 +82,7 @@
       <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssenetialTremor_Server\src\pojos" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssentialTremor_Server\lib" />
       <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssentialTremor_Server\src" />
       <recent name="C:\Users\marty\IdeaProjects\EssentialTremor_Server\lib" />
     </key>
@@ -88,7 +91,7 @@
       <recent name="Data" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DoctorTest.testDoctorConnection">
+  <component name="RunManager">
     <configuration name="TestServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="tests.TestServer" />
       <module name="EssenetialTremor_Server" />
@@ -197,6 +200,8 @@
       <workItem from="1732205827886" duration="48000" />
       <workItem from="1732206418461" duration="193000" />
       <workItem from="1732290218569" duration="8665000" />
+      <workItem from="1732526809497" duration="9000" />
+      <workItem from="1732537046717" duration="473000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
