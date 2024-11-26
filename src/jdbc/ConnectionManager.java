@@ -124,9 +124,9 @@ public class ConnectionManager implements InterfaceConnectionManager {
                     "    state INTEGER," +
                     "    treatment INTEGER," +
                     "    FOREIGN KEY (medical_record_id) REFERENCES MedicalRecord(id)," +
-                    "    FOREIGN KEY (doctor_id) REFERENCES Doctor(id)" +
-                    "    FOREIGN KEY (state) REFERENCES State(id), " +
-                    "    FOREIGN KEY (treatment) REFERENCES Treatment(id), " +
+                    "    FOREIGN KEY (doctor_id) REFERENCES Doctor(id)," +
+                    "    FOREIGN KEY (state) REFERENCES State(id)," +
+                    "    FOREIGN KEY (treatment) REFERENCES Treatment(id)" +
                     ");";
             stmt.executeUpdate(table6);
             String table7 = "CREATE TABLE HasPatient (" +
