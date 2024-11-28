@@ -115,9 +115,13 @@ public class PatientHandler implements Runnable{
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            if (socket.isClosed()) {
+                System.out.println("Client socket closed successfully.");
+            } else {
+                System.err.println("Error in client connection: " + e.getMessage());
+            }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.err.println("Database error: " + e.getMessage());
         } finally {
             releaseResourcesPatient(in, out, socket);
         }

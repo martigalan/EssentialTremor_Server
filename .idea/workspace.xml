@@ -4,8 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment=".">
+    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="database">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -196,6 +199,8 @@
       <workItem from="1732526809497" duration="9000" />
       <workItem from="1732537046717" duration="473000" />
       <workItem from="1732708354219" duration="1434000" />
+      <workItem from="1732800774765" duration="160000" />
+      <workItem from="1732803545833" duration="2560000" />
     </task>
     <task id="LOCAL-00001" summary="additions">
       <created>1729845851868</created>
@@ -412,7 +417,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732459751691</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="database">
+      <created>1732800828616</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1732800828616</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -430,7 +442,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="new methods and library" />
     <MESSAGE value="sockets" />
     <MESSAGE value="sockets for DoctorsNote" />
     <MESSAGE value="main for db" />
@@ -455,6 +466,7 @@
     <MESSAGE value="complete interfaces" />
     <MESSAGE value="method to close server" />
     <MESSAGE value="merge" />
-    <option name="LAST_COMMIT_MESSAGE" value="merge" />
+    <MESSAGE value="database" />
+    <option name="LAST_COMMIT_MESSAGE" value="database" />
   </component>
 </project>

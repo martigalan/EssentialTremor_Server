@@ -103,6 +103,8 @@ public class MainServer {
             serverSocket = new ServerSocket(port);
             System.out.println("Server listening in port " + port);
 
+            new Thread(() -> listenForCommands()).start();
+
             while (connection) {
                 try {
                     clientSocket = serverSocket.accept();
@@ -120,7 +122,7 @@ public class MainServer {
                         new Thread(() -> {
                             patientHandler.run();
                             activeConnections.decrementAndGet(); // Decrements when thread finishes
-                            checkAndShutdown();
+                            //checkAndShutdown();
                         }).start();
                     } else if (role.equals("Doctor")) {
                         System.out.println("Doctor connected: " + clientSocket.getInetAddress());
@@ -129,7 +131,7 @@ public class MainServer {
                         new Thread(() -> {
                             doctorHandler.run();
                             activeConnections.decrementAndGet(); // Decrementa al finalizar el hilo
-                            checkAndShutdown();
+                            //checkAndShutdown();
                         }).start();
                     }
                 } catch (IOException e) {
@@ -164,6 +166,16 @@ public class MainServer {
         }
     }
 
+    private static void shutdownServer() {
+        connection = false;
+        try {
+            serverSocket.close();
+            System.out.println("Server has been closed.");
+        } catch (IOException e) {
+            System.err.println("Error when closing server: " + e.getMessage());
+        }
+    }
+
     /**
      * Closes the resources.
      *
@@ -180,6 +192,26 @@ public class MainServer {
             printWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private static void listenForCommands() {
+        while (connection) {
+            String command = sc.nextLine().trim();
+            if (command.equalsIgnoreCase("STOP")) {
+                System.out.println("STOP command received.");
+                if (activeConnections.get() > 0) {
+                    System.out.println("There are active connections. Do you still want to stop the server? (yes/no)");
+                    String response = sc.nextLine().trim();
+                    if (response.equalsIgnoreCase("yes")) {
+                        shutdownServer();
+                    } else {
+                        System.out.println("Server shutdown canceled.");
+                    }
+                } else {
+                    shutdownServer();
+                }
+            }
         }
     }
 }
