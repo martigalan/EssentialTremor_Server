@@ -21,15 +21,15 @@ public class PatientHandler implements Runnable{
     /**
      * Connexion socket
      */
-    private static Socket socket;
+    private Socket socket;
     /**
      * Input control
      */
-    private BufferedReader in;
+    private static BufferedReader in;
     /**
      * Output control
      */
-    private PrintWriter out;
+    private static PrintWriter out;
     /**
      * Connexion manager
      */
@@ -91,7 +91,13 @@ public class PatientHandler implements Runnable{
             treatmentManager = new JDBCTreatmentManager(connectionManager);
 
             String command;
-            while ((command = in.readLine()) != null) {
+            while (!Thread.currentThread().isInterrupted() && (command = in.readLine()) != null) {
+
+                if (socket.isClosed()) {
+                    System.out.println("Patient socket closed successfully.");
+                    break;  // Exit the loop if the socket is closed
+                }
+
                 switch (command) {
                     case "register":
                         handleRegister();
@@ -109,6 +115,7 @@ public class PatientHandler implements Runnable{
                         in.close();
                         out.close();
                         socket.close();
+                        System.out.println("Doctor socket closed.");
                         return;
                     default:
                         out.println("Comando no reconocido.");
@@ -116,7 +123,7 @@ public class PatientHandler implements Runnable{
             }
         } catch (IOException e) {
             if (socket.isClosed()) {
-                System.out.println("Client socket closed successfully.");
+                System.out.println("Patient socket closed successfully.");
             } else {
                 System.err.println("Error in client connection: " + e.getMessage());
             }
@@ -349,19 +356,11 @@ public class PatientHandler implements Runnable{
      */
     private static void releaseResourcesPatient(BufferedReader bufferedReader, PrintWriter printWriter, Socket socket) {
         try {
-            bufferedReader.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            printWriter.close();
-        } catch (Exception ex) {
-            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+            if (bufferedReader != null) bufferedReader.close();
+            if (printWriter != null) printWriter.close();
+            if (socket != null && !socket.isClosed()) socket.close();
+        } catch (IOException e) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, "Error closing resources", e);
         }
     }
 

@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoImportSettings">
-    <option name="autoReloadType" value="SELECTIVE" />
-  </component>
   <component name="ChangeListManager">
-    <list default="true" id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="database">
+    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iFaces/PatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/iFaces/PatientManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/JDBCPatientManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
@@ -15,458 +17,48 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Interface" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;martigalan&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/martigalan/EssentialTremor_Server.git&quot;,
-    &quot;accountId&quot;: &quot;2662babf-d373-4f34-88fb-131a7fd7428f&quot;
-  }
-}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 4
-}</component>
-  <component name="ProjectId" id="2nsWt0A5xhE3spfNjmedBv6X2mv" />
+  <component name="ProjectId" id="2pUIZsiZjOuMTNhBKPmLnaJGIxC" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;Application.MainServer.executor&quot;: &quot;Run&quot;,
-    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
-    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/blanc/OneDrive/Escritorio/Telemedicine/EssentialTremor_Server/lib/junit-4.12.jar&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/blanc/OneDrive/Escritorio/Telemedicine/EssentialTremor_Server",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\marty\IdeaProjects\EssentialTremor_Server\lib" />
-      <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssenetialTremor_Server\src\pojos" />
+      <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssentialTremor_Server" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssentialTremor_Server\lib" />
-      <recent name="C:\Users\blanc\OneDrive\Escritorio\Telemedicine\EssentialTremor_Server\src" />
-      <recent name="C:\Users\marty\IdeaProjects\EssentialTremor_Server\lib" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="pojos" />
-      <recent name="Data" />
-    </key>
-  </component>
-  <component name="RunManager" selected="Application.MainServer">
-    <configuration name="MainServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="mainServer.MainServer" />
-      <module name="EssenetialTremor_Server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="mainServer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="TestServer" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="tests.TestServer" />
-      <module name="EssenetialTremor_Server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DoctorTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="EssenetialTremor_Server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.DoctorTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="DoctorTest.testDoctorConnection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="EssenetialTremor_Server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.DoctorTest" />
-      <option name="METHOD_NAME" value="testDoctorConnection" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="PatientTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="EssenetialTremor_Server" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="tests.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="tests" />
-      <option name="MAIN_CLASS_NAME" value="tests.PatientTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.MainServer" />
-        <item itemvalue="JUnit.DoctorTest.testDoctorConnection" />
-        <item itemvalue="Application.TestServer" />
-        <item itemvalue="JUnit.PatientTest" />
-        <item itemvalue="JUnit.DoctorTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="cf5eb29e-ec59-48b6-ac09-bd3496151015" name="Changes" comment="" />
-      <created>1729762476214</created>
+      <changelist id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="" />
+      <created>1732814291588</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1729762476214</updated>
-      <workItem from="1730201367241" duration="1541000" />
-      <workItem from="1730205733912" duration="10000" />
-      <workItem from="1730289855712" duration="1143000" />
-      <workItem from="1730366572518" duration="5377000" />
-      <workItem from="1730457424794" duration="657000" />
-      <workItem from="1731322558864" duration="2657000" />
-      <workItem from="1731502385548" duration="1144000" />
-      <workItem from="1731597234244" duration="3480000" />
-      <workItem from="1731601866263" duration="679000" />
-      <workItem from="1731858652087" duration="6272000" />
-      <workItem from="1731931424696" duration="2683000" />
-      <workItem from="1732022253561" duration="1136000" />
-      <workItem from="1732205682577" duration="98000" />
-      <workItem from="1732205827886" duration="48000" />
-      <workItem from="1732206418461" duration="193000" />
-      <workItem from="1732290218569" duration="8665000" />
-      <workItem from="1732526809497" duration="9000" />
-      <workItem from="1732537046717" duration="473000" />
-      <workItem from="1732708354219" duration="1434000" />
-      <workItem from="1732800774765" duration="160000" />
-      <workItem from="1732803545833" duration="2560000" />
+      <updated>1732814291588</updated>
+      <workItem from="1732814292097" duration="35000" />
+      <workItem from="1732814345577" duration="20000" />
+      <workItem from="1732814367615" duration="5868000" />
     </task>
-    <task id="LOCAL-00001" summary="additions">
-      <created>1729845851868</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1729845851868</updated>
-    </task>
-    <task id="LOCAL-00002" summary="new methods and library">
-      <created>1730290895168</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1730290895168</updated>
-    </task>
-    <task id="LOCAL-00003" summary="sockets">
-      <created>1730377790405</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1730377790405</updated>
-    </task>
-    <task id="LOCAL-00004" summary="sockets for DoctorsNote">
-      <created>1730381616228</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1730381616228</updated>
-    </task>
-    <task id="LOCAL-00005" summary="main for db">
-      <option name="closed" value="true" />
-      <created>1730668414918</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1730668414918</updated>
-    </task>
-    <task id="LOCAL-00006" summary="main for db">
-      <option name="closed" value="true" />
-      <created>1730745680179</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1730745680179</updated>
-    </task>
-    <task id="LOCAL-00007" summary="register, login, changes db">
-      <option name="closed" value="true" />
-      <created>1730923601884</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1730923601884</updated>
-    </task>
-    <task id="LOCAL-00008" summary="changes">
-      <option name="closed" value="true" />
-      <created>1730983285594</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1730983285594</updated>
-    </task>
-    <task id="LOCAL-00009" summary="added Handlers">
-      <option name="closed" value="true" />
-      <created>1731281094604</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1731281094604</updated>
-    </task>
-    <task id="LOCAL-00010" summary="merge">
-      <option name="closed" value="true" />
-      <created>1731325390231</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1731325390231</updated>
-    </task>
-    <task id="LOCAL-00011" summary="doctorNote and others">
-      <option name="closed" value="true" />
-      <created>1731329282525</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1731329282525</updated>
-    </task>
-    <task id="LOCAL-00012" summary="merge">
-      <option name="closed" value="true" />
-      <created>1731420412629</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1731420412629</updated>
-    </task>
-    <task id="LOCAL-00013" summary="started with handleDoctorsNote">
-      <created>1731501303749</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1731501303749</updated>
-    </task>
-    <task id="LOCAL-00014" summary="finished handleDoctorsNote in DoctorHandler">
-      <created>1731506666075</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1731506666075</updated>
-    </task>
-    <task id="LOCAL-00015" summary="acc and emg to JSON">
-      <created>1731662981354</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1731662981354</updated>
-    </task>
-    <task id="LOCAL-00016" summary="fixed error, and perfectioned methods">
-      <created>1731664825171</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1731664825171</updated>
-    </task>
-    <task id="LOCAL-00017" summary="fixed errors">
-      <created>1731667093175</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1731667093175</updated>
-    </task>
-    <task id="LOCAL-00018" summary="tables State and Treatment filled by default">
-      <created>1731669180981</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1731669180981</updated>
-    </task>
-    <task id="LOCAL-00019" summary="added releaseResources in DoctorHandler">
-      <created>1731670606274</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1731670606274</updated>
-    </task>
-    <task id="LOCAL-00020" summary="javadoc">
-      <created>1731862283498</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1731862283498</updated>
-    </task>
-    <task id="LOCAL-00021" summary="javadoc">
-      <created>1732022285268</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1732022285268</updated>
-    </task>
-    <task id="LOCAL-00022" summary="javadoc">
-      <option name="closed" value="true" />
-      <created>1732024448866</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1732024448866</updated>
-    </task>
-    <task id="LOCAL-00023" summary="merge">
-      <option name="closed" value="true" />
-      <created>1732132498285</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1732132498285</updated>
-    </task>
-    <task id="LOCAL-00024" summary=".">
-      <option name="closed" value="true" />
-      <created>1732190802392</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1732190802392</updated>
-    </task>
-    <task id="LOCAL-00025" summary=".">
-      <created>1732193192867</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1732193192867</updated>
-    </task>
-    <task id="LOCAL-00026" summary=".">
-      <created>1732206595263</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1732206595263</updated>
-    </task>
-    <task id="LOCAL-00027" summary="complete interfaces">
-      <created>1732291470718</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1732291470718</updated>
-    </task>
-    <task id="LOCAL-00028" summary="method to close server">
-      <created>1732294042187</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1732294042187</updated>
-    </task>
-    <task id="LOCAL-00029" summary="merge">
-      <option name="closed" value="true" />
-      <created>1732459751691</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1732459751691</updated>
-    </task>
-    <task id="LOCAL-00030" summary="database">
-      <created>1732800828616</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1732800828616</updated>
-    </task>
-    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
-  </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="sockets" />
-    <MESSAGE value="sockets for DoctorsNote" />
-    <MESSAGE value="main for db" />
-    <MESSAGE value="sth" />
-    <MESSAGE value="register, login, changes db" />
-    <MESSAGE value="add register and login obtaining by client, id to enum" />
-    <MESSAGE value="changes" />
-    <MESSAGE value="i've to commit it" />
-    <MESSAGE value="added Handlers" />
-    <MESSAGE value="jdbc mr" />
-    <MESSAGE value="doctorNote and others" />
-    <MESSAGE value="started with handleDoctorsNote" />
-    <MESSAGE value="finished handleDoctorsNote in DoctorHandler" />
-    <MESSAGE value="acc and emg to JSON" />
-    <MESSAGE value="fixed error, and perfectioned methods" />
-    <MESSAGE value="fixed errors" />
-    <MESSAGE value="tables State and Treatment filled by default" />
-    <MESSAGE value="added releaseResources in DoctorHandler" />
-    <MESSAGE value="some changes" />
-    <MESSAGE value="javadoc" />
-    <MESSAGE value="." />
-    <MESSAGE value="complete interfaces" />
-    <MESSAGE value="method to close server" />
-    <MESSAGE value="merge" />
-    <MESSAGE value="database" />
-    <option name="LAST_COMMIT_MESSAGE" value="database" />
   </component>
 </project>

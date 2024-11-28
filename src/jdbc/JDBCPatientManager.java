@@ -76,6 +76,35 @@ public class JDBCPatientManager implements PatientManager {
         }
         return patient;
     }
+    /**
+     * Retrieves a Patient object from the database using the given user ID.
+     *
+     * @param id The user ID of the patient to retrieve.
+     * @return The Patient object corresponding to the given user ID, or null if no patient is found.
+     * @throws SQLException If there is an error executing the SQL query.
+     */
+    @Override
+    public Patient getPatientById(int id) throws SQLException {
+        Patient patient = null;
+        try {
+            String query = "SELECT * FROM Patient WHERE id = ?";
+            PreparedStatement prep = cM.getConnection().prepareStatement(query);
+            prep.setInt(1, id);
+            try (ResultSet rs = prep.executeQuery()) {
+                if (rs.next()) {
+                    patient = new Patient();
+                    patient.setId(rs.getInt("id"));
+                    patient.setName(rs.getString("name"));
+                    patient.setSurname(rs.getString("surname"));
+                    patient.setGenetic_background(rs.getBoolean("genetic_background"));
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println("Error retrieving patient by user ID: " + e.getMessage());
+            throw e;
+        }
+        return patient;
+    }
 
     /**
      * Retrieves the ID of a patient from the database using their name and surname.

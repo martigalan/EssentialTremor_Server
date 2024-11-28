@@ -6,6 +6,8 @@ import pojos.*;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
@@ -73,6 +75,7 @@ public class MainServer {
      * Control for connexions
      */
     private static boolean connection;
+    private static List<Thread> clientThreads = new ArrayList<>();
 
     /**
      * Main for the server.
@@ -118,21 +121,23 @@ public class MainServer {
                     if (role.equals("Patient")) {
                         System.out.println("Patient connected: " + clientSocket.getInetAddress());
                         PatientHandler patientHandler = new PatientHandler(clientSocket, connectionManager);
-                        //new Thread(patientHandler).start();
-                        new Thread(() -> {
+                        Thread patientThread = new Thread(() -> {
                             patientHandler.run();
-                            activeConnections.decrementAndGet(); // Decrements when thread finishes
+                            activeConnections.decrementAndGet();
                             //checkAndShutdown();
-                        }).start();
+                        });
+                        clientThreads.add(patientThread);
+                        patientThread.start();
                     } else if (role.equals("Doctor")) {
                         System.out.println("Doctor connected: " + clientSocket.getInetAddress());
                         DoctorHandler doctorHandler = new DoctorHandler(clientSocket, connectionManager);
-                        //new Thread(doctorHandler).start();
-                        new Thread(() -> {
+                        Thread doctorThread = new Thread(() -> {
                             doctorHandler.run();
-                            activeConnections.decrementAndGet(); // Decrementa al finalizar el hilo
+                            activeConnections.decrementAndGet();
                             //checkAndShutdown();
-                        }).start();
+                        });
+                        clientThreads.add(doctorThread);
+                        doctorThread.start();
                     }
                 } catch (IOException e) {
                     if (!connection) {
@@ -169,10 +174,16 @@ public class MainServer {
     private static void shutdownServer() {
         connection = false;
         try {
+            for (Thread thread : clientThreads) {
+                thread.interrupt();
+                System.out.println("Interrupted: "+thread);
+            }
+            clientSocket.close();
+            System.out.println("Client socket closed.");
             serverSocket.close();
-            System.out.println("Server has been closed.");
+            System.out.println("Server closed.");
         } catch (IOException e) {
-            System.err.println("Error when closing server: " + e.getMessage());
+            System.err.println("Error when closing the server:  " + e.getMessage());
         }
     }
 

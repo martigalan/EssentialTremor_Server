@@ -24,7 +24,7 @@ public class DoctorHandler implements Runnable {
     /**
      * Connexion socket
      */
-    private static Socket socket;
+    private Socket socket;
     /**
      * Input control
      */
@@ -104,7 +104,13 @@ public class DoctorHandler implements Runnable {
             hasPatientManager = new JDBCHasPatientManager(connectionManager);
             hasMedicalRecordManager = new JDBCHasMedicalRecordManager(connectionManager);
             String command;
-            while ((command = in.readLine()) != null) {
+            while (!Thread.currentThread().isInterrupted() && (command = in.readLine()) != null) {
+
+                if (socket.isClosed()) {
+                    System.out.println("Doctor socket closed successfully.");
+                    break;  // Exit the loop if the socket is closed
+                }
+
                 switch (command) {
                     case "register":
                         handleRegister();
@@ -119,10 +125,10 @@ public class DoctorHandler implements Runnable {
                         handleDoctorsNote();
                         break;
                     case "exit":
-                        System.out.println("CLOSING CONNECTION");
                         in.close();
                         out.close();
                         socket.close();
+                        System.out.println("Patient socket closed.");
                         return;
                     default:
                         out.println("Comando no reconocido.");
@@ -130,7 +136,7 @@ public class DoctorHandler implements Runnable {
             }
         } catch (IOException e) {
             if (socket.isClosed()) {
-                System.out.println("Client socket closed successfully.");
+                System.out.println("Patient socket closed successfully.");
             } else {
                 System.err.println("Error in client connection: " + e.getMessage());
             }
@@ -279,7 +285,7 @@ public class DoctorHandler implements Runnable {
         Integer patient_id = Integer.parseInt(in.readLine());
         //check if its already in the table
         Boolean check = hasPatientManager.isAlreadyCreated(doctor_id, patient_id);
-        if (check){
+        if (!check){
             hasPatientManager.addPatientDoctor(doctor_id, patient_id);
         }
 
@@ -305,7 +311,7 @@ public class DoctorHandler implements Runnable {
             //obtain this medicalRecord from ddbb to send it to the Doctor
             medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
             //obtain data of patient by id
-            patient = patientManager.getPatientByUserId(patient_id);
+            patient = patientManager.getPatientById(patient_id);
             if (medicalRecord != null) {
                 out.println("SEND_MEDICALRECORD");
                 //send data
@@ -384,19 +390,11 @@ public class DoctorHandler implements Runnable {
      */
     private static void releaseResourcesDoctor(BufferedReader bufferedReader, PrintWriter printWriter, Socket socket) {
         try {
-            bufferedReader.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            printWriter.close();
-        } catch (Exception ex) {
-            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        try {
-            socket.close();
-        } catch (IOException ex) {
-            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, null, ex);
+            if (bufferedReader != null) bufferedReader.close();
+            if (printWriter != null) printWriter.close();
+            if (socket != null && !socket.isClosed()) socket.close();
+        } catch (IOException e) {
+            Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, "Error closing resources", e);
         }
     }
 }
