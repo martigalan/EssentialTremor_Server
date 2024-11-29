@@ -27,15 +27,15 @@ public class TestServer {
                 if ("Patient".equals(role)) {
                     printWriter.println("Patient connected");
                     System.out.println("Patient connected: " + clientSocket.getInetAddress());
-                    // Simulate patient handling logic
                 } else if ("Doctor".equals(role)) {
                     printWriter.println("Doctor connected");
                     System.out.println("Doctor connected: " + clientSocket.getInetAddress());
-                    // Simulate doctor handling logic
                 }
 
                 clientSocket.close();
                 activeConnections.decrementAndGet(); //when a client disconnect, we decrease the number of clients connect
+                printWriter.close();
+                bufferedReader.close();
                 checkAndShutdown();
 
             } catch (IOException e) {
@@ -63,17 +63,6 @@ public class TestServer {
             } catch (IOException e) {
                 System.err.println("Error when closing server: " + e.getMessage());
             }
-        }
-    }
-
-    public static void stopServer() {
-        connection = false;
-        try {
-            if (serverSocket != null && !serverSocket.isClosed()) {
-                serverSocket.close();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 

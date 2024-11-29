@@ -27,17 +27,17 @@ public class ConnectionManager implements InterfaceConnectionManager {
             // Verify if the directory exists or if it can be created
             if (!dbDirectory.exists()) {
                 if (!dbDirectory.mkdirs()) {
-                    throw new IOException("No se pudo crear el directorio ./db");
+                    throw new IOException("Couldn'r create directoty ./db");
                 }
             }
 
             // Establish the connection to the database
             c = DriverManager.getConnection("jdbc:sqlite:./db/EssentialTremor.db");
             c.createStatement().execute("PRAGMA foreign_keys=ON");
-            System.out.println("Conexión a la base de datos abierta.");
+            System.out.println("Connexion to database established.");
             this.createTables();
         } catch (ClassNotFoundException e) {
-            System.out.println("Librerías no cargadas.");
+            System.out.println("Libraries not loaded.");
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionManager.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {

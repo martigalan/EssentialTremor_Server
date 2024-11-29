@@ -8,6 +8,7 @@ import mainServer.MainServer;
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.SocketException;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 import static pojos.Doctor.splitToIntegerList;
 import static pojos.Doctor.splitToStringList;
 
-public class PatientHandler implements Runnable{
+public class PatientHandler implements Runnable {
 
     /**
      * Connexion socket
@@ -65,6 +66,7 @@ public class PatientHandler implements Runnable{
 
     /**
      * Constructor
+     *
      * @param clientSocket connexion socket
      * @param dbConnection connexion manager
      */
@@ -82,6 +84,7 @@ public class PatientHandler implements Runnable{
         try {
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             out = new PrintWriter(socket.getOutputStream(), true);
+
             userManager = new JDBCUserManager(connectionManager);
             doctorManager = new JDBCDoctorManager(connectionManager);
             doctorNotesManager = new JDBCDoctorNotesManager(connectionManager);
@@ -91,54 +94,52 @@ public class PatientHandler implements Runnable{
             treatmentManager = new JDBCTreatmentManager(connectionManager);
 
             String command;
-            while (!Thread.currentThread().isInterrupted() && (command = in.readLine()) != null) {
 
-                if (socket.isClosed()) {
-                    System.out.println("Patient socket closed successfully.");
-                    break;  // Exit the loop if the socket is closed
-                }
-
-                switch (command) {
-                    case "register":
-                        handleRegister();
-                        break;
-                    case "login":
-                        handleLogin();
-                        break;
-                    case "MedicalRecord":
-                        handleMedicalRecord();
-                        break;
-                    case "DoctorsNote":
-                        handleDoctorsNote();
-                        break;
-                    case "exit":
-                        in.close();
-                        out.close();
-                        socket.close();
-                        System.out.println("Doctor socket closed.");
-                        return;
-                    default:
-                        out.println("Comando no reconocido.");
+            while (!Thread.currentThread().isInterrupted() && socket.isConnected()) {
+                if ((command = in.readLine()) != null) {
+                    switch (command) {
+                        case "register":
+                            handleRegister();
+                            break;
+                        case "login":
+                            handleLogin();
+                            break;
+                        case "MedicalRecord":
+                            handleMedicalRecord();
+                            break;
+                        case "DoctorsNote":
+                            handleDoctorsNote();
+                            break;
+                        case "exit":
+                            in.close();
+                            out.close();
+                            socket.close();
+                            System.out.println("Patient socket closed.");
+                            return;
+                        default:
+                            out.println("Unrecognized command.");
+                    }
                 }
             }
+        } catch (SocketException e) {
+            System.out.println("Patient Socket closed: " + e.getMessage());
         } catch (IOException e) {
-            if (socket.isClosed()) {
-                System.out.println("Patient socket closed successfully.");
-            } else {
-                System.err.println("Error in client connection: " + e.getMessage());
-            }
+            System.err.println("Error in client connection: " + e.getMessage());
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
         } finally {
             releaseResourcesPatient(in, out, socket);
+            System.out.println("Thread terminated for patient.");
         }
     }
+
 
     /**
      * Handles medical records.
      * The function receives from the patient all the data and stores the medical record into the ddbb.
      * It sends the patient a control word to tell if the process worked correctly.
-     * @throws IOException in case of Input/Output error.
+     *
+     * @throws IOException  in case of Input/Output error.
      * @throws SQLException in case of database error.
      */
     private void handleMedicalRecord() throws IOException, SQLException {
@@ -179,11 +180,12 @@ public class PatientHandler implements Runnable{
     /**
      * The function lets the patient choose a medical record and then a doctors note associated to it.
      * It sends the patient a control word to tell if the process worked correctly.
+     *
      * @throws SQLException
      * @throws IOException
      */
     private void handleDoctorsNote() throws SQLException, IOException {
-        DoctorsNote dn =  null;
+        DoctorsNote dn = null;
 
         String patientName = in.readLine();
         String patientSurname = in.readLine();
@@ -205,7 +207,7 @@ public class PatientHandler implements Runnable{
         //doctors note associated to the medical record
         List<DoctorsNote> doctorsNotes = null;
         doctorsNotes = doctorNotesManager.getDoctorsNoteByMRID(mr_id);
-        if (doctorsNotes!=null) {
+        if (doctorsNotes != null) {
             String approval = "FOUND";
             out.println(approval);
 
@@ -227,7 +229,7 @@ public class PatientHandler implements Runnable{
             out.println(doctorsNote.getState().getId());
             out.println(doctorsNote.getTreatment().getId());
             out.println(doctorsNote.getDate());
-        }else {
+        } else {
             String approval = "NOT_FOUND";
             out.println(approval);
         }
@@ -237,7 +239,8 @@ public class PatientHandler implements Runnable{
      * Handles login.
      * The server receives data (username and password) and checks in the bbdd if the user has permission to enter as a patient.
      * Sends the patient control words to tell them if they were able or not to login.
-     * @throws IOException in case of Input/Output exception.
+     *
+     * @throws IOException  in case of Input/Output exception.
      * @throws SQLException in case of database error.
      */
     private void handleLogin() throws IOException, SQLException {
@@ -264,6 +267,7 @@ public class PatientHandler implements Runnable{
      * Handles registration.
      * In this method, the server receives data (name, surname, username and password), to add the patient to the database and create a user for future login.
      * The server sends the patient a control word to tell them if they were able to register or not.
+     *
      * @throws IOException in case of Input/Output exception.
      */
     private void handleRegister() throws IOException {
@@ -280,13 +284,15 @@ public class PatientHandler implements Runnable{
             out.println("REGISTER_FAILED");
         }
     }
+
     /**
      * Auxiliary function to find the username in the data received by the server.
      * It divides the data and gets the username parameter.
+     *
      * @param patientData string containing all the data.
      * @return the username found in the data.
      */
-    public static String findUsername (String patientData){
+    public static String findUsername(String patientData) {
         String[] data = patientData.split("\\|");
         if (data.length == 6) {
             String name = data[0];
@@ -295,7 +301,7 @@ public class PatientHandler implements Runnable{
             String username = data[3];
             String encryptedPassword = data[4];
             String role = data[5];
-            
+
             return username;
         } else {
             System.out.println("Error: incorrect patient data format.");
@@ -305,6 +311,7 @@ public class PatientHandler implements Runnable{
 
     /**
      * Function to create the doctor and add to the User table.
+     *
      * @param patientData String with the doctor data.
      * @return a doctor created with the received data.
      */
@@ -335,6 +342,7 @@ public class PatientHandler implements Runnable{
 
     /**
      * Transforms a hexadecimal (String) to byte.
+     *
      * @param hex String value
      * @return byte value
      */
@@ -343,16 +351,17 @@ public class PatientHandler implements Runnable{
         byte[] data = new byte[len / 2];
         for (int i = 0; i < len; i += 2) {
             data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
-                    + Character.digit(hex.charAt(i+1), 16));
+                    + Character.digit(hex.charAt(i + 1), 16));
         }
         return data;
     }
 
     /**
      * Closes all the resources used.
+     *
      * @param bufferedReader input control.
-     * @param printWriter output control
-     * @param socket connexion control.
+     * @param printWriter    output control
+     * @param socket         connexion control.
      */
     private static void releaseResourcesPatient(BufferedReader bufferedReader, PrintWriter printWriter, Socket socket) {
         try {
@@ -363,5 +372,4 @@ public class PatientHandler implements Runnable{
             Logger.getLogger(PatientHandler.class.getName()).log(Level.SEVERE, "Error closing resources", e);
         }
     }
-
 }

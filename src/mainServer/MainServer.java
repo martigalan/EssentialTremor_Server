@@ -75,7 +75,11 @@ public class MainServer {
      * Control for connexions
      */
     private static boolean connection;
+    /**
+     * List of threads
+     */
     private static List<Thread> clientThreads = new ArrayList<>();
+
 
     /**
      * Main for the server.
@@ -106,13 +110,12 @@ public class MainServer {
             serverSocket = new ServerSocket(port);
             System.out.println("Server listening in port " + port);
 
-            new Thread(() -> listenForCommands()).start();
+            //new Thread(() -> listenForCommands()).start();
 
             while (connection) {
                 try {
                     clientSocket = serverSocket.accept();
                     activeConnections.incrementAndGet();
-                    //System.out.println("Client connected: " + clientSocket.getInetAddress());
                     bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     printWriter = new PrintWriter(clientSocket.getOutputStream());
                     System.out.println("Active conexions: " + activeConnections.get());
@@ -124,7 +127,7 @@ public class MainServer {
                         Thread patientThread = new Thread(() -> {
                             patientHandler.run();
                             activeConnections.decrementAndGet();
-                            //checkAndShutdown();
+                            checkAndShutdown();
                         });
                         clientThreads.add(patientThread);
                         patientThread.start();
@@ -134,7 +137,7 @@ public class MainServer {
                         Thread doctorThread = new Thread(() -> {
                             doctorHandler.run();
                             activeConnections.decrementAndGet();
-                            //checkAndShutdown();
+                            checkAndShutdown();
                         });
                         clientThreads.add(doctorThread);
                         doctorThread.start();
@@ -156,6 +159,29 @@ public class MainServer {
         }
     }
 
+
+    /*public static void shutdownServer() {
+        connection = false;
+        try {
+            System.out.println("Shutting down server...");
+            for (Thread thread : clientThreads) {
+                thread.interrupt();
+            }
+
+            for (Thread t : clientThreads){
+                if (t.isInterrupted()){
+                    System.out.println("Interrupted: "+ t.getName());
+                }
+            }
+            if (serverSocket != null && !serverSocket.isClosed()) {
+                serverSocket.close();
+                System.out.println("Server socket closed.");
+            }
+        } catch (IOException e) {
+            System.err.println("Error while shutting down the server: " + e.getMessage());
+        }
+    }*/
+
     /**
      * Checks if there's any active connexions
      */
@@ -168,22 +194,6 @@ public class MainServer {
             } catch (IOException e) {
                 System.err.println("Error when closing server: " + e.getMessage());
             }
-        }
-    }
-
-    private static void shutdownServer() {
-        connection = false;
-        try {
-            for (Thread thread : clientThreads) {
-                thread.interrupt();
-                System.out.println("Interrupted: "+thread);
-            }
-            clientSocket.close();
-            System.out.println("Client socket closed.");
-            serverSocket.close();
-            System.out.println("Server closed.");
-        } catch (IOException e) {
-            System.err.println("Error when closing the server:  " + e.getMessage());
         }
     }
 
@@ -206,7 +216,7 @@ public class MainServer {
         }
     }
 
-    private static void listenForCommands() {
+    /*private static void listenForCommands() {
         while (connection) {
             String command = sc.nextLine().trim();
             if (command.equalsIgnoreCase("STOP")) {
@@ -224,5 +234,5 @@ public class MainServer {
                 }
             }
         }
-    }
+    }*/
 }

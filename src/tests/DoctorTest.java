@@ -27,6 +27,8 @@ public class DoctorTest {
 
                 assertEquals("Doctor connected", response);
 
+                writer.close();
+                reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {

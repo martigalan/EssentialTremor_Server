@@ -31,6 +31,8 @@ public class PatientTest {
 
                 assertEquals("Patient connected", response);
 
+                writer.close();
+                reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             } finally {
