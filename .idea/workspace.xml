@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="fixed all cases of erroneous ID for patient">
+    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="fixed all cases of erroneous ID for doctor">
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -59,6 +58,8 @@
       <workItem from="1732882042535" duration="975000" />
       <workItem from="1732893085582" duration="12272000" />
       <workItem from="1732966234323" duration="5894000" />
+      <workItem from="1732981863662" duration="61000" />
+      <workItem from="1732983189060" duration="336000" />
     </task>
     <task id="LOCAL-00001" summary="everything works">
       <created>1732822997584</created>
@@ -81,7 +82,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732969361449</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="fixed all cases of erroneous ID for doctor">
+      <created>1732981902249</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1732981902249</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -91,6 +99,7 @@
     <MESSAGE value="everything works" />
     <MESSAGE value="Everything works" />
     <MESSAGE value="fixed all cases of erroneous ID for patient" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed all cases of erroneous ID for patient" />
+    <MESSAGE value="fixed all cases of erroneous ID for doctor" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixed all cases of erroneous ID for doctor" />
   </component>
 </project>
