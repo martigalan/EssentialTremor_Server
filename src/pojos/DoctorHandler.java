@@ -288,65 +288,91 @@ public class DoctorHandler implements Runnable {
         //receive the desired patient id and add to HasPatient table if its not already there
         Integer patient_id = Integer.parseInt(in.readLine());
         //check if its already in the table
-        Boolean check = hasPatientManager.isAlreadyCreated(doctor_id, patient_id);
-        if (!check) {
-            hasPatientManager.addPatientDoctor(doctor_id, patient_id);
-        }
-
-        //go to the medical records and choose those that have the patient_id
-        //they only have id and date to simplify the data download from ddbb
-        List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
-        Integer numberOfMR = medicalRecords.size();
-
-        if (numberOfMR == 0) {
-            out.println("NOT_FOUND");
-            return;
-        } else if (numberOfMR > 0) {
-            out.println("FOUND");
-            out.println(numberOfMR);
-            for (MedicalRecord record : medicalRecords) {
-                out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
-                out.flush();
+        Patient p = patientManager.getPatientById(patient_id);
+        if (p != null) {
+            String message = "NOT_NULL";
+            out.println(message);
+            Boolean check = hasPatientManager.isAlreadyCreated(doctor_id, patient_id);
+            if (!check) {
+                hasPatientManager.addPatientDoctor(doctor_id, patient_id);
             }
-            Integer mr_id = Integer.parseInt(in.readLine());
 
-            //once I have my medicalRecord, add it to my doctor, to associate it in ddbb
-            hasMedicalRecordManager.addMedicalRecordDoctor(doctor_id, mr_id);
-            //obtain this medicalRecord from ddbb to send it to the Doctor
-            medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
-            //obtain data of patient by id
-            patient = patientManager.getPatientById(patient_id);
-            if (medicalRecord != null) {
-                out.println("SEND_MEDICALRECORD");
-                //send data
-                out.println(patient.getName());
-                out.println(patient.getSurname());
-                out.println(patient.getGenetic_background());
-                out.println(medicalRecord.getAge());
-                out.println(medicalRecord.getWeight());
-                out.println(medicalRecord.getHeight());
-                //symptoms
-                String symptoms = joinWithCommas(medicalRecord.getSymptoms());
-                out.println(symptoms);
-                //timestamp
-                String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
-                out.println(time);
-                //acc
-                String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
-                out.println(acc);
-                //emg
-                String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
-                out.println(emg);
-                //Receives approval
-                String approval = in.readLine();
-                if (approval.equals("MEDICALRECORD_SUCCESS")) {
-                    System.out.println("Medical Record sent correctly");
-                } else {
-                    System.out.println("Couldn't send Medical Record. Please try again.");
+            //go to the medical records and choose those that have the patient_id
+            //they only have id and date to simplify the data download from ddbb
+            List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
+            Integer numberOfMR = medicalRecords.size();
+
+            if (numberOfMR == 0) {
+                out.println("NOT_FOUND");
+            } else if (numberOfMR > 0) {
+                out.println("FOUND");
+                out.println(numberOfMR);
+                for (MedicalRecord record : medicalRecords) {
+                    out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
+                    out.flush();
                 }
-            } else {
-                out.println("ERROR");
+                Integer mr_id = Integer.parseInt(in.readLine());
+
+                //check if it exists
+                MedicalRecord mr = medicalRecordManager.getMedicalRecordByID(mr_id);
+                if (mr == null){
+                    String mrNull = "NULL";
+                    out.println(mrNull);
+                } else {
+                    String mrNull = "NOT_NULL";
+                    out.println(mrNull);
+
+                    //check if the mr is form that patient
+                    if (mr.getPatientId() != patient_id){
+                        String mrCorrect = "NOT_CORRECT";
+                        out.println(mrCorrect);
+                    } else {
+                        String mrCorrect = "CORRECT";
+                        out.println(mrCorrect);
+
+                        //once I have my medicalRecord, add it to my doctor, to associate it in ddbb
+                        hasMedicalRecordManager.addMedicalRecordDoctor(doctor_id, mr_id);
+                        //obtain this medicalRecord from ddbb to send it to the Doctor
+                        medicalRecord = medicalRecordManager.getMedicalRecordByID(mr_id);
+                        //obtain data of patient by id
+                        patient = patientManager.getPatientById(patient_id);
+                        if (medicalRecord != null) {
+                            out.println("SEND_MEDICALRECORD");
+                            //send data
+                            out.println(patient.getName());
+                            out.println(patient.getSurname());
+                            out.println(patient.getGenetic_background());
+                            out.println(medicalRecord.getAge());
+                            out.println(medicalRecord.getWeight());
+                            out.println(medicalRecord.getHeight());
+                            //symptoms
+                            String symptoms = joinWithCommas(medicalRecord.getSymptoms());
+                            out.println(symptoms);
+                            //timestamp
+                            String time = joinIntegersWithCommas(medicalRecord.getAcceleration().getTimestamp());
+                            out.println(time);
+                            //acc
+                            String acc = joinIntegersWithCommas(medicalRecord.getAcceleration().getSignalData());
+                            out.println(acc);
+                            //emg
+                            String emg = joinIntegersWithCommas(medicalRecord.getEmg().getSignalData());
+                            out.println(emg);
+                            //Receives approval
+                            String approval = in.readLine();
+                            if (approval.equals("MEDICALRECORD_SUCCESS")) {
+                                System.out.println("Medical Record sent correctly");
+                            } else {
+                                System.out.println("Couldn't send Medical Record. Please try again.");
+                            }
+                        } else {
+                            out.println("ERROR");
+                        }
+                    }
+                }
             }
+        } else {
+            String message = "NULL";
+            out.println(message);
         }
     }
 
