@@ -4,16 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="everything works">
+    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="Everything works">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/jdbc/ConnectionManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/mainServer/MainServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/mainServer/MainServer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/DoctorHandler.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/DoctorTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/DoctorTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/PatientTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/PatientTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/tests/TestServer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/tests/TestServer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +56,8 @@
       <workItem from="1732814345577" duration="20000" />
       <workItem from="1732814367615" duration="5984000" />
       <workItem from="1732882042535" duration="975000" />
-      <workItem from="1732893085582" duration="11836000" />
+      <workItem from="1732893085582" duration="12272000" />
+      <workItem from="1732966234323" duration="3087000" />
     </task>
     <task id="LOCAL-00001" summary="everything works">
       <created>1732822997584</created>
@@ -72,7 +66,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732822997584</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Everything works">
+      <created>1732906331788</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1732906331788</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -80,6 +81,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="everything works" />
-    <option name="LAST_COMMIT_MESSAGE" value="everything works" />
+    <MESSAGE value="Everything works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Everything works" />
   </component>
 </project>

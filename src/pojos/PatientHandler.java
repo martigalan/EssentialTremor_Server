@@ -204,34 +204,75 @@ public class PatientHandler implements Runnable {
 
         //chosen medical record
         Integer mr_id = Integer.parseInt(in.readLine());
-        //doctors note associated to the medical record
-        List<DoctorsNote> doctorsNotes = null;
-        doctorsNotes = doctorNotesManager.getDoctorsNoteByMRID(mr_id);
-        if (doctorsNotes != null) {
-            String approval = "FOUND";
-            out.println(approval);
-
-            out.println(doctorsNotes.size());
-            for (DoctorsNote note : doctorsNotes) {
-                out.write("ID: " + note.getId() + ", Date: " + note.getDate() + "\n");
-                //System.out.println(("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"));
-                out.flush();
-            }
-
-            Integer dn_id = Integer.parseInt(in.readLine());
-            DoctorsNote doctorsNote = doctorNotesManager.getDoctorsNoteByID(dn_id);
-
-            Doctor doctor = doctorManager.getDoctorById(doctorsNote.getDoctorId());
-
-            out.println(doctor.getName());
-            out.println(doctor.getSurname());
-            out.println(doctorsNote.getNotes());
-            out.println(doctorsNote.getState().getId());
-            out.println(doctorsNote.getTreatment().getId());
-            out.println(doctorsNote.getDate());
+        //check if the mr is correct
+        String mrCorrect;
+        MedicalRecord mr = medicalRecordManager.getMedicalRecordByID(mr_id);
+        String mrNull;
+        if (mr == null){
+            mrNull = "NULL";
+            out.println(mrNull);
         } else {
-            String approval = "NOT_FOUND";
-            out.println(approval);
+            mrNull = "NOT_NULL";
+            out.println(mrNull);
+
+            String mrPName = patientManager.getPatientById(mr.getPatientId()).getName();
+            String mrPSurname = patientManager.getPatientById(mr.getPatientId()).getSurname();
+            if (!mrPName.equals(patientName) && !mrPSurname.equals(patientSurname)) {
+                mrCorrect = "NOT_CORRECT";
+                out.println(mrCorrect);
+                out.flush();
+            } else {
+                mrCorrect = "CORRECT";
+                out.println(mrCorrect);
+                //doctors note associated to the medical record
+                List<DoctorsNote> doctorsNotes = null;
+                doctorsNotes = doctorNotesManager.getDoctorsNoteByMRID(mr_id);
+                if (doctorsNotes != null) {
+                    String approval = "FOUND";
+                    out.println(approval);
+
+                    out.println(doctorsNotes.size());
+                    for (DoctorsNote note : doctorsNotes) {
+                        out.write("ID: " + note.getId() + ", Date: " + note.getDate() + "\n");
+                        //System.out.println(("ID: " + record.getId() + ", Date: " + record.getDate() + "\n"));
+                        out.flush();
+                    }
+
+                    Integer dn_id = Integer.parseInt(in.readLine());
+                    DoctorsNote doctorsNote = doctorNotesManager.getDoctorsNoteByID(dn_id);
+
+                    String dnNull;
+                    if (doctorsNote == null) {
+                        dnNull = "NULL";
+                        out.println(dnNull);
+                    } else {
+                        dnNull = "NOT_NULL";
+                        out.println(dnNull);
+                        Doctor doctor = doctorManager.getDoctorById(doctorsNote.getDoctorId());
+
+                        //check if dn if correct
+                        Integer dnMR = doctorsNote.getMedicalRecordId();
+                        String dnCorrect;
+                        if (dnMR != mr_id) {
+                            dnCorrect = "NOT_CORRECT";
+                            out.println(dnCorrect);
+                        } else {
+                            dnCorrect = "CORRECT";
+                            out.println(dnCorrect);
+
+                            out.println(doctor.getName());
+                            out.println(doctor.getSurname());
+                            out.println(doctorsNote.getNotes());
+                            out.println(doctorsNote.getState().getId());
+                            out.println(doctorsNote.getTreatment().getId());
+                            out.println(doctorsNote.getDate());
+                        }
+                    }
+                } else {
+                    String approval = "NOT_FOUND";
+                    out.println(approval);
+                }
+            }
         }
     }
 
