@@ -4,7 +4,89 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="encryption added" />
+    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="error fixed">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db/EssentialTremor.db" beforeDir="false" afterPath="$PROJECT_DIR$/db/EssentialTremor.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/allclasses-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/allclasses-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/allpackages-index.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/allpackages-index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/data/ACC.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/data/ACC.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/data/Data.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/data/Data.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/data/EMG.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/data/EMG.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/data/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/data/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/data/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/data/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/element-list" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/element-list" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/help-doc.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/help-doc.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/DoctorManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/DoctorManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/DoctorNotesManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/DoctorNotesManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/HasMedicalRecordManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/HasMedicalRecordManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/HasPatientManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/HasPatientManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/InterfaceConnectionManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/InterfaceConnectionManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/MedicalRecordManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/MedicalRecordManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/PatientManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/PatientManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/StateManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/StateManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/TreatmentManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/TreatmentManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/UserManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/UserManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/iFaces/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/iFaces/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-1.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-1.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-10.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-10.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-11.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-11.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-12.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-12.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-13.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-13.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-14.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-14.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-15.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-15.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-16.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-16.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-17.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-17.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-18.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-18.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-2.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-2.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-3.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-3.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-4.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-4.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-5.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-5.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-6.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-6.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-7.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-7.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-8.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-8.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index-files/index-9.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index-files/index-9.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/ConnectionManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/ConnectionManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCDoctorManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCDoctorManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCDoctorNotesManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCDoctorNotesManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCHasMedicalRecordManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCHasMedicalRecordManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCHasPatientManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCHasPatientManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCMedicalRecordManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCMedicalRecordManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCPatientManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCPatientManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCStateManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCStateManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCTreatmentManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCTreatmentManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/JDBCUserManager.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/JDBCUserManager.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/jdbc/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/jdbc/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/mainServer/MainServer.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/mainServer/MainServer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/mainServer/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/mainServer/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/mainServer/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/mainServer/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/member-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/member-search-index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/overview-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/overview-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/overview-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/overview-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/package-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/package-search-index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/Doctor.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/Doctor.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/DoctorHandler.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/DoctorHandler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/DoctorsNote.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/DoctorsNote.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/MedicalRecord.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/MedicalRecord.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/Patient.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/Patient.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/PatientHandler.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/PatientHandler.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/State.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/State.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/Treatment.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/Treatment.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/User.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/User.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/pojos/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/pojos/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/search.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/serialized-form.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/serialized-form.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/tests/DoctorTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tests/DoctorTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/tests/PatientTest.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tests/PatientTest.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/tests/TestServer.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tests/TestServer.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/tests/package-summary.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tests/package-summary.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/tests/package-tree.html" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/tests/package-tree.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/javadoc/type-search-index.js" beforeDir="false" afterPath="$PROJECT_DIR$/javadoc/type-search-index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pojos/PatientHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/pojos/PatientHandler.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -111,13 +193,12 @@
       <option name="project" value="LOCAL" />
       <updated>1732981902249</updated>
     </task>
-    <task id="LOCAL-00005" summary="encryption added">
-      <option name="closed" value="true" />
-      <created>1733175600621</created>
+    <task id="LOCAL-00005" summary="error fixed">
+      <created>1733217614250</created>
       <option name="number" value="00005" />
       <option name="presentableId" value="LOCAL-00005" />
       <option name="project" value="LOCAL" />
-      <updated>1733175600621</updated>
+      <updated>1733217614250</updated>
     </task>
     <option name="localTasksCounter" value="6" />
     <servers />
@@ -130,7 +211,18 @@
     <MESSAGE value="Everything works" />
     <MESSAGE value="fixed all cases of erroneous ID for patient" />
     <MESSAGE value="fixed all cases of erroneous ID for doctor" />
-    <MESSAGE value="encryption added" />
-    <option name="LAST_COMMIT_MESSAGE" value="encryption added" />
+    <MESSAGE value="error fixed" />
+    <option name="LAST_COMMIT_MESSAGE" value="error fixed" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/pojos/PatientHandler.java</url>
+          <line>163</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

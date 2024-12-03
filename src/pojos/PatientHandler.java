@@ -187,14 +187,14 @@ public class PatientHandler implements Runnable {
         List<String> listSymptoms = splitToStringList(decryptedSymptoms);
         // time, acc and emg
         String time = in.readLine();
-        String decryptedTime = Decryptor.decryptData(time, privateKey);
-        List<Integer> listTime = splitToIntegerList(decryptedTime);
+        //String decryptedTime = Decryptor.decryptData(time, privateKey);
+        List<Integer> listTime = splitToIntegerList(time);
         String acc = in.readLine();
-        String decryptedAcc = Decryptor.decryptData(acc, privateKey);
-        List<Integer> listAcc = splitToIntegerList(decryptedAcc);
+        //String decryptedAcc = Decryptor.decryptData(acc, privateKey);
+        List<Integer> listAcc = splitToIntegerList(acc);
         String emg = in.readLine();
-        String decryptedEmg = Decryptor.decryptData(emg, privateKey);
-        List<Integer> listEmg = splitToIntegerList(decryptedEmg);
+        //String decryptedEmg = Decryptor.decryptData(emg, privateKey);
+        List<Integer> listEmg = splitToIntegerList(emg);
         // genBack
         //boolean geneticBackground = Boolean.parseBoolean(in.readLine());
         String encryptedGB = in.readLine();
@@ -244,7 +244,7 @@ public class PatientHandler implements Runnable {
         //Integer mr_id = Integer.parseInt(in.readLine());
         String encryptedMR_ID = in.readLine();
         String decryptedMR_ID = Decryptor.decryptData(encryptedMR_ID, privateKey);
-        Integer mr_id = Integer.valueOf(decryptedMR_ID);
+        Integer mr_id = Integer.parseInt(decryptedMR_ID);
         //check if the mr is correct
         String mrCorrect;
         MedicalRecord mr = medicalRecordManager.getMedicalRecordByID(mr_id);
@@ -258,7 +258,7 @@ public class PatientHandler implements Runnable {
 
             String mrPName = patientManager.getPatientById(mr.getPatientId()).getName();
             String mrPSurname = patientManager.getPatientById(mr.getPatientId()).getSurname();
-            if (!mrPName.equals(patientName) && !mrPSurname.equals(patientSurname)) {
+            if (!mrPName.equals(decryptedPatientName) && !mrPSurname.equals(decryptedPatientSurname)) {
                 mrCorrect = "NOT_CORRECT";
                 out.println(mrCorrect);
                 out.flush();
