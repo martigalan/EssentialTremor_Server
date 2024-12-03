@@ -187,14 +187,14 @@ public class PatientHandler implements Runnable {
         List<String> listSymptoms = splitToStringList(decryptedSymptoms);
         // time, acc and emg
         String time = in.readLine();
-        String decryptedTime = Decryptor.decryptData(time, privateKey);
-        List<Integer> listTime = splitToIntegerList(decryptedTime);
+        //String decryptedTime = Decryptor.decryptData(time, privateKey);
+        List<Integer> listTime = splitToIntegerList(time);
         String acc = in.readLine();
-        String decryptedAcc = Decryptor.decryptData(acc, privateKey);
-        List<Integer> listAcc = splitToIntegerList(decryptedAcc);
+        //String decryptedAcc = Decryptor.decryptData(acc, privateKey);
+        List<Integer> listAcc = splitToIntegerList(acc);
         String emg = in.readLine();
-        String decryptedEmg = Decryptor.decryptData(emg, privateKey);
-        List<Integer> listEmg = splitToIntegerList(decryptedEmg);
+        //String decryptedEmg = Decryptor.decryptData(emg, privateKey);
+        List<Integer> listEmg = splitToIntegerList(emg);
         // genBack
         //boolean geneticBackground = Boolean.parseBoolean(in.readLine());
         String encryptedGB = in.readLine();
