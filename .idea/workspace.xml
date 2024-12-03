@@ -4,8 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="fixed all cases of erroneous ID for doctor">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="15047b16-7753-44be-b490-b1ac94fa338c" name="Changes" comment="javadoc">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +58,8 @@
       <workItem from="1732893085582" duration="12272000" />
       <workItem from="1732966234323" duration="5894000" />
       <workItem from="1732981863662" duration="61000" />
-      <workItem from="1732983189060" duration="336000" />
+      <workItem from="1732983189060" duration="564000" />
+      <workItem from="1733132085664" duration="37000" />
     </task>
     <task id="LOCAL-00001" summary="everything works">
       <created>1732822997584</created>
@@ -89,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1732981902249</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="javadoc">
+      <created>1732983744702</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1732983744702</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -100,6 +107,7 @@
     <MESSAGE value="Everything works" />
     <MESSAGE value="fixed all cases of erroneous ID for patient" />
     <MESSAGE value="fixed all cases of erroneous ID for doctor" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed all cases of erroneous ID for doctor" />
+    <MESSAGE value="javadoc" />
+    <option name="LAST_COMMIT_MESSAGE" value="javadoc" />
   </component>
 </project>
