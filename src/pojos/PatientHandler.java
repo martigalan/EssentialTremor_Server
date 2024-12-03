@@ -244,7 +244,7 @@ public class PatientHandler implements Runnable {
         //Integer mr_id = Integer.parseInt(in.readLine());
         String encryptedMR_ID = in.readLine();
         String decryptedMR_ID = Decryptor.decryptData(encryptedMR_ID, privateKey);
-        Integer mr_id = Integer.valueOf(decryptedMR_ID);
+        Integer mr_id = Integer.parseInt(decryptedMR_ID);
         //check if the mr is correct
         String mrCorrect;
         MedicalRecord mr = medicalRecordManager.getMedicalRecordByID(mr_id);
@@ -258,7 +258,7 @@ public class PatientHandler implements Runnable {
 
             String mrPName = patientManager.getPatientById(mr.getPatientId()).getName();
             String mrPSurname = patientManager.getPatientById(mr.getPatientId()).getSurname();
-            if (!mrPName.equals(patientName) && !mrPSurname.equals(patientSurname)) {
+            if (!mrPName.equals(decryptedPatientName) && !mrPSurname.equals(decryptedPatientSurname)) {
                 mrCorrect = "NOT_CORRECT";
                 out.println(mrCorrect);
                 out.flush();
