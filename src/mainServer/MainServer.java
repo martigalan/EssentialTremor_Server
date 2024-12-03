@@ -153,6 +153,8 @@ public class MainServer {
 
         } catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             releaseResourcesServer(serverSocket, bufferedReader, printWriter);
             sc.close();

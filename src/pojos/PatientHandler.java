@@ -4,11 +4,15 @@ import data.ACC;
 import data.EMG;
 import jdbc.*;
 import mainServer.MainServer;
+import security.Decryptor;
+import security.KeyGeneration;
 
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketException;
+import java.security.KeyPair;
+import java.security.PrivateKey;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
@@ -63,6 +67,10 @@ public class PatientHandler implements Runnable {
      * Treatment manager
      */
     public static JDBCTreatmentManager treatmentManager;
+    /**
+     * Private key used to decrypt
+     */
+    public static PrivateKey privateKey;
 
     /**
      * Constructor
@@ -94,6 +102,13 @@ public class PatientHandler implements Runnable {
             treatmentManager = new JDBCTreatmentManager(connectionManager);
 
             String command;
+
+            //Obtengo ambas claves
+            KeyPair keyPair = KeyGeneration.generateKeys();
+            //Envio la clave pública al cliente
+            out.println(KeyGeneration.getPublicKeyAsString(keyPair));
+            //Guardar la clave privada
+            privateKey = keyPair.getPrivate();
 
             while (!Thread.currentThread().isInterrupted() && socket.isConnected()) {
                 if ((command = in.readLine()) != null) {
@@ -127,6 +142,8 @@ public class PatientHandler implements Runnable {
             System.err.println("Error in client connection: " + e.getMessage());
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
             releaseResourcesPatient(in, out, socket);
             System.out.println("Thread terminated for patient.");
@@ -142,35 +159,54 @@ public class PatientHandler implements Runnable {
      * @throws IOException  in case of Input/Output error.
      * @throws SQLException in case of database error.
      */
-    private void handleMedicalRecord() throws IOException, SQLException {
+    private void handleMedicalRecord() throws Exception {
         MedicalRecord medicalRecord = null;
         System.out.println("Client connected. Receiving data...");
 
         // Read each line
         String patientName = in.readLine();
+        String decryptedPatientName = Decryptor.decryptData(patientName, privateKey);
         String patientSurname = in.readLine();
-        int age = Integer.parseInt(in.readLine());
-        double weight = Double.parseDouble(in.readLine());
-        int height = Integer.parseInt(in.readLine());
+        String decryptedPatientSurname = Decryptor.decryptData(patientSurname, privateKey);
+        //int age = Integer.parseInt(in.readLine());
+        String encryptedAge = in.readLine();
+        String decryptedAge = Decryptor.decryptData(encryptedAge, privateKey);
+        int age = Integer.valueOf(decryptedAge);
+        //double weight = Double.parseDouble(in.readLine());
+        String encryptedWeight = in.readLine();
+        String decryptedWeight = Decryptor.decryptData(encryptedWeight, privateKey);
+        double weight = Double.parseDouble(decryptedWeight);
+        //int height = Integer.parseInt(in.readLine());
+        String encryptedHeight = in.readLine();
+        String decryptedHeight = Decryptor.decryptData(encryptedHeight, privateKey);
+        int height = Integer.valueOf(decryptedHeight);
+
         // Symptoms
         String symptoms = in.readLine();
-        List<String> listSymptoms = splitToStringList(symptoms);
+        String decryptedSymptoms = Decryptor.decryptData(symptoms, privateKey);
+        List<String> listSymptoms = splitToStringList(decryptedSymptoms);
         // time, acc and emg
         String time = in.readLine();
-        List<Integer> listTime = splitToIntegerList(time);
+        String decryptedTime = Decryptor.decryptData(time, privateKey);
+        List<Integer> listTime = splitToIntegerList(decryptedTime);
         String acc = in.readLine();
-        List<Integer> listAcc = splitToIntegerList(acc);
+        String decryptedAcc = Decryptor.decryptData(acc, privateKey);
+        List<Integer> listAcc = splitToIntegerList(decryptedAcc);
         String emg = in.readLine();
-        List<Integer> listEmg = splitToIntegerList(emg);
+        String decryptedEmg = Decryptor.decryptData(emg, privateKey);
+        List<Integer> listEmg = splitToIntegerList(decryptedEmg);
         // genBack
-        boolean geneticBackground = Boolean.parseBoolean(in.readLine());
+        //boolean geneticBackground = Boolean.parseBoolean(in.readLine());
+        String encryptedGB = in.readLine();
+        String decryptedGB = Decryptor.decryptData(encryptedGB, privateKey);
+        boolean geneticBackground = Boolean.parseBoolean(decryptedGB);
 
         ACC acc1 = new ACC(listAcc, listTime);
         EMG emg1 = new EMG(listEmg, listTime);
-        medicalRecord = new MedicalRecord(patientName, patientSurname, age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
+        medicalRecord = new MedicalRecord(decryptedPatientName, decryptedPatientSurname, age, weight, height, listSymptoms, acc1, emg1, geneticBackground);
         if (medicalRecord != null) {
             out.println("MEDICALRECORD_SUCCESS");
-            Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
+            Integer patient_id = patientManager.getIdByNameSurname(decryptedPatientName, decryptedPatientSurname);
             medicalRecordManager.addMedicalRecord(patient_id, medicalRecord);
         } else {
             out.println("MEDICALRECORD_FAILED");
@@ -184,13 +220,15 @@ public class PatientHandler implements Runnable {
      * @throws SQLException
      * @throws IOException
      */
-    private void handleDoctorsNote() throws SQLException, IOException {
+    private void handleDoctorsNote() throws Exception {
         DoctorsNote dn = null;
 
         String patientName = in.readLine();
+        String decryptedPatientName = Decryptor.decryptData(patientName, privateKey);
         String patientSurname = in.readLine();
+        String decryptedPatientSurname = Decryptor.decryptData(patientSurname, privateKey);
 
-        Integer patient_id = patientManager.getIdByNameSurname(patientName, patientSurname);
+        Integer patient_id = patientManager.getIdByNameSurname(decryptedPatientName, decryptedPatientSurname);
         //obtain list of medical records associated to the patient
         //they only have id and date to simplify the data download from ddbb
         List<MedicalRecord> medicalRecords = medicalRecordManager.findByPatientId(patient_id);
@@ -203,7 +241,10 @@ public class PatientHandler implements Runnable {
         }
 
         //chosen medical record
-        Integer mr_id = Integer.parseInt(in.readLine());
+        //Integer mr_id = Integer.parseInt(in.readLine());
+        String encryptedMR_ID = in.readLine();
+        String decryptedMR_ID = Decryptor.decryptData(encryptedMR_ID, privateKey);
+        Integer mr_id = Integer.valueOf(decryptedMR_ID);
         //check if the mr is correct
         String mrCorrect;
         MedicalRecord mr = medicalRecordManager.getMedicalRecordByID(mr_id);
@@ -238,7 +279,10 @@ public class PatientHandler implements Runnable {
                         out.flush();
                     }
 
-                    Integer dn_id = Integer.parseInt(in.readLine());
+                    //Integer dn_id = Integer.parseInt(in.readLine());
+                    String encryptedDN_ID = in.readLine();
+                    String decryptedDN_ID = Decryptor.decryptData(encryptedDN_ID, privateKey);
+                    Integer dn_id = Integer.valueOf(decryptedDN_ID);
                     DoctorsNote doctorsNote = doctorNotesManager.getDoctorsNoteByID(dn_id);
 
                     String dnNull;
@@ -286,21 +330,25 @@ public class PatientHandler implements Runnable {
      */
     private void handleLogin() throws IOException, SQLException {
         String loginData = in.readLine();
-        String[] data = loginData.split("\\|");
-        String usernamePatient = data[0];
-        String encryptedPassword = data[1];
-
-        //checks login info
-        if (userManager.verifyUsername(usernamePatient, "patient") && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
-            out.println("LOGIN_SUCCESS");
-            int user_id = userManager.getId(usernamePatient);
-            Patient patient = patientManager.getPatientByUserId(user_id);
-            String patientInfo = patient.getName() + "|" + patient.getSurname() + "|" + patient.getGenetic_background();
-            out.println(patientInfo);
-            return;
-        } else {
-            out.println("LOGIN_FAILED");
-            return;
+        try {
+            String decryptedLoginData = Decryptor.decryptData(loginData, privateKey);
+            String[] data = decryptedLoginData.split("\\|");
+            String usernamePatient = data[0];
+            String encryptedPassword = data[1];
+            //checks login info
+            if (userManager.verifyUsername(usernamePatient, "patient") && userManager.verifyPassword(usernamePatient, encryptedPassword)) {
+                out.println("LOGIN_SUCCESS");
+                int user_id = userManager.getId(usernamePatient);
+                Patient patient = patientManager.getPatientByUserId(user_id);
+                String patientInfo = patient.getName() + "|" + patient.getSurname() + "|" + patient.getGenetic_background();
+                out.println(patientInfo);
+                return;
+            } else {
+                out.println("LOGIN_FAILED");
+                return;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -312,17 +360,22 @@ public class PatientHandler implements Runnable {
      * @throws IOException in case of Input/Output exception.
      */
     private void handleRegister() throws IOException {
-        String data = in.readLine();
-        //add user information to database
-        Patient patient = processRegisterInfo(data);
-        //get userId to add patient to database
-        String username = findUsername(data);
-        int userId = userManager.getId(username);
-        if (patient != null) {
-            patientManager.addPatient(patient, userId);
-            out.println("REGISTER_SUCCESS");
-        } else {
-            out.println("REGISTER_FAILED");
+        String registerData = in.readLine();
+        try {
+            String decryptedRegisterData = Decryptor.decryptData(registerData, privateKey);
+            //add user information to database
+            Patient patient = processRegisterInfo(decryptedRegisterData);
+            //get userId to add patient to database
+            String username = findUsername(decryptedRegisterData);
+            int userId = userManager.getId(username);
+            if (patient != null) {
+                patientManager.addPatient(patient, userId);
+                out.println("REGISTER_SUCCESS");
+            } else {
+                out.println("REGISTER_FAILED");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 

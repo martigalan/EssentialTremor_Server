@@ -1,6 +1,7 @@
 package pojos;
 
 import jdbc.*;
+import security.KeyGeneration;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,6 +9,8 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.SocketException;
+import java.security.KeyPair;
+import java.security.PrivateKey;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -19,6 +22,7 @@ import java.util.logging.Logger;
 
 import static pojos.Patient.joinIntegersWithCommas;
 import static pojos.Patient.joinWithCommas;
+import security.Decryptor;
 
 public class DoctorHandler implements Runnable {
 
@@ -75,6 +79,10 @@ public class DoctorHandler implements Runnable {
      * Patient-MedicalRecord manager
      */
     public static JDBCHasMedicalRecordManager hasMedicalRecordManager;
+    /**
+     * Private key used to decrypt
+     */
+    public static PrivateKey privateKey;
 
     /**
      * Constructor
@@ -106,6 +114,13 @@ public class DoctorHandler implements Runnable {
             hasPatientManager = new JDBCHasPatientManager(connectionManager);
             hasMedicalRecordManager = new JDBCHasMedicalRecordManager(connectionManager);
             String command;
+
+            //Obtengo ambas claves
+            KeyPair keyPair = KeyGeneration.generateKeys();
+            //Envio la clave pública al cliente
+            out.println(KeyGeneration.getPublicKeyAsString(keyPair));
+            //Guardar la clave privada
+            privateKey = keyPair.getPrivate();
 
             while (!Thread.currentThread().isInterrupted() && socket.isConnected()) {
                 if ((command = in.readLine()) != null) {
@@ -139,6 +154,8 @@ public class DoctorHandler implements Runnable {
             System.err.println("Error in client connection: " + e.getMessage());
         } catch (SQLException e) {
             System.err.println("Database error: " + e.getMessage());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         } finally {
             releaseResourcesDoctor(in, out, socket);
             System.out.println("Thread terminated for doctor.");
@@ -155,18 +172,24 @@ public class DoctorHandler implements Runnable {
      */
     private void handleLogin() throws IOException, SQLException {
         String loginData = in.readLine();
-        String[] data = loginData.split("\\|");
-        String usernameDoctor = data[0];
-        String encryptedPassword = data[1];
-        //checks login info
-        if (userManager.verifyUsername(usernameDoctor, "doctor") && userManager.verifyPassword(usernameDoctor, encryptedPassword)) {
-            out.println("LOGIN_SUCCESS");
-            int user_id = userManager.getId(usernameDoctor);
-            Doctor doctor = doctorManager.getDoctorByUserId(user_id);
-            String doctorInfo = doctor.getName() + "|" + doctor.getSurname();
-            out.println(doctorInfo);
-        } else {
-            out.println("LOGIN_FAILED");
+        try {
+            String decryptedLoginData = Decryptor.decryptData(loginData, privateKey);
+            //String[] data = loginData.split("\\|");
+            String[] data = decryptedLoginData.split("\\|");
+            String usernameDoctor = data[0];
+            String encryptedPassword = data[1];
+            //checks login info
+            if (userManager.verifyUsername(usernameDoctor, "doctor") && userManager.verifyPassword(usernameDoctor, encryptedPassword)) {
+                out.println("LOGIN_SUCCESS");
+                int user_id = userManager.getId(usernameDoctor);
+                Doctor doctor = doctorManager.getDoctorByUserId(user_id);
+                String doctorInfo = doctor.getName() + "|" + doctor.getSurname();
+                out.println(doctorInfo);
+            } else {
+                out.println("LOGIN_FAILED");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -178,17 +201,22 @@ public class DoctorHandler implements Runnable {
      * @throws IOException in case of Input/Output exception.
      */
     private void handleRegister() throws IOException {
-        String data = in.readLine();
-        //add user information to database
-        Doctor doctor = processRegisterInfo(data);
-        //get userId to add patient to database
-        String username = findUsername(data);
-        int userId = userManager.getId(username);
-        if (doctor != null) {
-            doctorManager.addDoctor(doctor, userId);
-            out.println("REGISTER_SUCCESS");
-        } else {
-            out.println("REGISTER_FAILED");
+        String registerData = in.readLine();
+        try {
+            String decryptedRegisterData = Decryptor.decryptData(registerData, privateKey);
+            //add user information to database
+            Doctor doctor = processRegisterInfo(decryptedRegisterData);
+            //get userId to add patient to database
+            String username = findUsername(decryptedRegisterData);
+            int userId = userManager.getId(username);
+            if (doctor != null) {
+                doctorManager.addDoctor(doctor, userId);
+                out.println("REGISTER_SUCCESS");
+            } else {
+                out.println("REGISTER_FAILED");
+            }
+        } catch (Exception e){
+            e.printStackTrace();
         }
     }
 
@@ -269,13 +297,15 @@ public class DoctorHandler implements Runnable {
      * @throws IOException  in case of Input/Ouput error.
      * @throws SQLException in case of database error.
      */
-    private void handleMedicalRecord() throws IOException, SQLException {
+    private void handleMedicalRecord() throws Exception {
         MedicalRecord medicalRecord = null;
         Patient patient = null;
         //find doctor_id for later use
         String doctorName = in.readLine();
+        String decryptedDoctorName = Decryptor.decryptData(doctorName, privateKey);
         String doctorSurname = in.readLine();
-        Integer doctor_id = doctorManager.getIdByNameSurname(doctorName, doctorSurname);
+        String decryptedDoctorSurname = Decryptor.decryptData(doctorSurname, privateKey);
+        Integer doctor_id = doctorManager.getIdByNameSurname(decryptedDoctorName, decryptedDoctorSurname);
 
         //get all the patient ids, names and surnames and send
         List<Patient> pList = patientManager.getPatients();
@@ -286,7 +316,10 @@ public class DoctorHandler implements Runnable {
             out.flush();
         }
         //receive the desired patient id and add to HasPatient table if its not already there
-        Integer patient_id = Integer.parseInt(in.readLine());
+        //Integer patient_id = Integer.parseInt(in.readLine());
+        String encryptedPid = in.readLine();
+        String decryptedPid = Decryptor.decryptData(encryptedPid, privateKey);
+        Integer patient_id = Integer.valueOf(decryptedPid);
         //check if its already in the table
         Patient p = patientManager.getPatientById(patient_id);
         if (p != null) {
@@ -311,7 +344,10 @@ public class DoctorHandler implements Runnable {
                     out.write("ID: " + record.getId() + ", Date: " + record.getDate() + "\n");
                     out.flush();
                 }
-                Integer mr_id = Integer.parseInt(in.readLine());
+                //Integer mr_id = Integer.parseInt(in.readLine());
+                String encryptedmrid = in.readLine();
+                String decryptedmrid = Decryptor.decryptData(encryptedmrid, privateKey);
+                Integer mr_id = Integer.valueOf(decryptedmrid);
 
                 //check if it exists
                 MedicalRecord mr = medicalRecordManager.getMedicalRecordByID(mr_id);
@@ -384,23 +420,40 @@ public class DoctorHandler implements Runnable {
      * @throws IOException  in case of Input/Output error.
      * @throws SQLException in case of database error.
      */
-    private void handleDoctorsNote() throws IOException, SQLException {
+    private void handleDoctorsNote() throws Exception {
         //receive doctors note
         String dName = in.readLine();
+        String decryptedDName = Decryptor.decryptData(dName, privateKey);
         String dSurname = in.readLine();
+        String decryptedDSurname = Decryptor.decryptData(dSurname, privateKey);
         String notes = in.readLine();
-        Integer st_id = Integer.parseInt(in.readLine());
-        State st = State.getById(st_id);
-        Integer trt_id = Integer.parseInt(in.readLine());
-        Treatment trt = Treatment.getById(trt_id);
+        String decryptedNotes = Decryptor.decryptData(notes, privateKey);
+        //Integer st_id = Integer.parseInt(in.readLine());
+        //State st = State.getById(st_id);
+        String encryptedState = in.readLine();
+        String decryptedState = Decryptor.decryptData(encryptedState, privateKey);
+        Integer stateId = Integer.valueOf(decryptedState);
+        State st = State.getById(stateId);
+        //Integer trt_id = Integer.parseInt(in.readLine());
+        //Treatment trt = Treatment.getById(trt_id);
+        String encryptedTreatment = in.readLine();
+        String decryptedTreatment = Decryptor.decryptData(encryptedTreatment, privateKey);
+        Integer treatmentId = Integer.valueOf(decryptedTreatment);
+        Treatment trt = Treatment.getById(treatmentId);
         String dateTxt = in.readLine();
-        LocalDate date = Date.valueOf(dateTxt).toLocalDate();
-        Integer mr_id = Integer.valueOf(in.readLine());
+        String decryptedDate = Decryptor.decryptData(dateTxt, privateKey);
+        //LocalDate date = Date.valueOf(dateTxt).toLocalDate();
+        LocalDate date = Date.valueOf(decryptedDate).toLocalDate();
+        //Integer mr_id = Integer.valueOf(in.readLine());
+        String encryptedmr_id = in.readLine();
+        String decryptedmrId = Decryptor.decryptData(encryptedmr_id, privateKey);
+        Integer decryptedMedRecordID = Integer.valueOf(decryptedmrId);
 
-        DoctorsNote dn = new DoctorsNote(dName, dSurname, notes, st, trt, date);
-        dn.setMedicalRecordId(mr_id);
+        //DoctorsNote dn = new DoctorsNote(dName, dSurname, notes, st, trt, date);
+        DoctorsNote dn = new DoctorsNote(decryptedDName, decryptedDSurname, decryptedNotes, st, trt, date);
+        dn.setMedicalRecordId(decryptedMedRecordID);
 
-        Integer doctor_id = doctorManager.getIdByNameSurname(dName, dSurname);
+        Integer doctor_id = doctorManager.getIdByNameSurname(decryptedDName, decryptedDSurname);
         dn.setDoctorId(doctor_id);
 
         if (dn != null) {
