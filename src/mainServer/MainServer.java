@@ -14,51 +14,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MainServer {
-
-    /**
-     * Connexion manager
-     */
-    public static ConnectionManager connectionManager;
-    /**
-     * User manager
-     */
-    public static JDBCUserManager userManager;
-    /**
-     * Doctor manager
-     */
-    public static JDBCDoctorManager doctorManager;
-    /**
-     * DoctorsNote manager
-     */
-    public static JDBCDoctorNotesManager doctorNotesManager;
-    /**
-     * MedicalRecord manager
-     */
-    public static JDBCMedicalRecordManager medicalRecordManager;
-    /**
-     * Patient manager
-     */
-    public static JDBCPatientManager patientManager;
-    /**
-     * State manager
-     */
-    public static JDBCStateManager stateManager;
-    /**
-     * Treatment manager
-     */
-    public static JDBCTreatmentManager treatmentManager;
-    /**
-     * Scanner for user input
-     */
-    private static Scanner sc = new Scanner(System.in);
     /**
      * Server socket waiting for connexions
      */
     private static ServerSocket serverSocket;
-    /**
-     * Client socket (either doctor or patient)
-     */
-    private static Socket clientSocket;
     /**
      * Output control
      */
@@ -93,6 +52,16 @@ public class MainServer {
         bufferedReader = null;
         connection = true;
         int port = 9000;
+        ConnectionManager connectionManager;
+        JDBCUserManager userManager;
+        JDBCDoctorManager doctorManager;
+        JDBCDoctorNotesManager doctorNotesManager;
+        JDBCMedicalRecordManager medicalRecordManager;
+        JDBCPatientManager patientManager;
+        JDBCStateManager stateManager;
+        JDBCTreatmentManager treatmentManager;
+
+        Scanner sc = new Scanner(System.in);
 
         try {
             connectionManager = new ConnectionManager();
@@ -114,7 +83,7 @@ public class MainServer {
 
             while (connection) {
                 try {
-                    clientSocket = serverSocket.accept();
+                    Socket clientSocket = serverSocket.accept();
                     activeConnections.incrementAndGet();
                     bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
                     printWriter = new PrintWriter(clientSocket.getOutputStream());
