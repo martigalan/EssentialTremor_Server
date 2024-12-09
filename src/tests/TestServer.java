@@ -3,11 +3,16 @@ import java.io.*;
 import java.net.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * Implementa un servidor básico que escucha conexiones de clientes en un puerto específico.
+ * Cada cliente puede identificarse como "Patient" o "Doctor" enviando un mensaje inicial al servidor.
+ * ¡OJO! Sólo puede testear la conexión DE 1 EN 1, ya que, al ver que no hay conexión (al pasar el test), el servidor se cierra
+ */
 public class TestServer {
 
     private static ServerSocket serverSocket;
     private static AtomicInteger activeConnections = new AtomicInteger(0); //created to count how many clients are connected
-    private static boolean connection = true;
+    private static boolean connection = true; //control if server continue accepting connections
 
     public static void startServer(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -15,7 +20,7 @@ public class TestServer {
 
         while (connection) {
             try {
-                Socket clientSocket = serverSocket.accept();
+                Socket clientSocket = serverSocket.accept(); //waiting for clients to connect
                 activeConnections.incrementAndGet(); //increase the number os connections until each one has connected
                 System.out.println("Client connected: " + clientSocket.getInetAddress());
 
@@ -36,7 +41,7 @@ public class TestServer {
                 activeConnections.decrementAndGet(); //when a client disconnect, we decrease the number of clients connect
                 printWriter.close();
                 bufferedReader.close();
-                checkAndShutdown();
+                checkAndShutdown(); //para verificar si hay conexiones activas; si no las hubiera, cierra el servidor
 
             } catch (IOException e) {
                 if (!connection) {
@@ -47,6 +52,35 @@ public class TestServer {
             }
         }
     }
+
+    /*
+    private static void handleClient(Socket clientSocket) throws IOException {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+             PrintWriter printWriter = new PrintWriter(clientSocket.getOutputStream(), true)) {
+
+            String role = bufferedReader.readLine(); // Expect either "Patient" or "Doctor"
+            String response = processRole(role);
+
+            printWriter.println(response);
+            logger.info(response + " " + clientSocket.getInetAddress());
+        } finally {
+            clientSocket.close();
+            activeConnections.decrementAndGet();
+            checkAndShutdown();
+        }
+    }
+
+    private static String processRole(String role) {
+        switch (role) {
+            case "Patient":
+                return "Patient connected";
+            case "Doctor":
+                return "Doctor connected";
+            default:
+                return "Error: Unknown role";
+        }
+    }
+     */
 
     /**
      * Checks if there are any active connections to the server and shuts it down if none are found.
